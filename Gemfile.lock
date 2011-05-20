@@ -184,6 +184,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt-ruby
   capistrano
   capybara
   cucumber (= 0.10.2)
