@@ -1,0 +1,16 @@
+A drop-type file management system.
+
+Many folders, which can be accessed by users and/or groups.
+
+Administrator to be created using console:
+	rails c
+	#=> User.create(:name=>'admin', ..... etc)
+Developed in rails 3, using existing gems.
+Users require manual approval before continuing. (probably be config option in future)
+
+Getting started:
+	bundle install
+	rake db:setup
+	rails s
+
+
