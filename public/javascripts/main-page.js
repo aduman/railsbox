@@ -11,6 +11,11 @@ $(document).ready(function(){
         this.checked = checked;
       } 
     });
-  })
+  });
+  
+  $('').click(function(e){
+    e.preventDefault();
+  });
+  
   
 });
