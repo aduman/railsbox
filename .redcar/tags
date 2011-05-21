@@ -1,4 +1,4 @@
-1305980678
+1305980955
 ActionView	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/lib/action_view/helpers/dynamic_form.rb	module ActionView
 AddAttachmentUploadedFileToAsset	/home/paul/work/websites/railsbox/db/migrate/20110520184058_add_attachment_uploaded_file_to_asset.rb	class AddAttachmentUploadedFileToAsset 
 AddFolderIdToAssets	/home/paul/work/websites/railsbox/db/migrate/20110521105130_add_folder_id_to_assets.rb	class AddFolderIdToAssets 
