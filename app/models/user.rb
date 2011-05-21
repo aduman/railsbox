@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   has_many :assets
+  has_many :folders
 
   attr_accessible :email, :password, :password_confirmation
   

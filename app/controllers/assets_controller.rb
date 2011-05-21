@@ -25,7 +25,11 @@ class AssetsController < ApplicationController
   def create
     @asset = Asset.new(params[:asset])
     if @asset.save
-      redirect_to @asset, :notice => "Successfully created asset."
+      if @asset.folder_id
+        redirect_to @asset.folder
+      else
+        redirect_to root_path
+      end  
     else
       render :action => 'new'
     end
@@ -38,7 +42,11 @@ class AssetsController < ApplicationController
   def update
     @asset = Asset.find(params[:id])
     if @asset.update_attributes(params[:asset])
-      redirect_to @asset, :notice  => "Successfully updated asset."
+      if @asset.folder_id
+        redirect_to @asset.folder
+      else
+        redirect_to root_path
+      end
     else
       render :action => 'edit'
     end
@@ -47,6 +55,7 @@ class AssetsController < ApplicationController
   def destroy
     @asset = Asset.find(params[:id])
     @asset.destroy
-    redirect_to assets_url, :notice => "Successfully destroyed asset."
+    redirect_to root_path
   end
+  
 end

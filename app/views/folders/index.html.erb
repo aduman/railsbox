@@ -48,10 +48,11 @@
   <div class="attr">Attr</div>
 </div>
 <div id="file-container">
-    <% if @current_folder %>
+    <% if @current_folder or @search_query %>
       <div class="mark-it"> &nbsp;</div>
-      <div class="name">    
-        <% if @current_folder.parent_id.nil? %>
+      <div class="name">
+              
+        <% if @search_query or @current_folder.parent_id.nil? %>
           <%= link_to '[..]', root_path %>
         <% else %>
           <%= link_to '[..]', browse_path(@current_folder.parent) %>
@@ -64,7 +65,11 @@
 <!-- folders -->
 <% for folder in @folders %>
     <div class="mark-it"> <%= check_box :folder, folder.id %></div>
-    <div class="name">    <%= link_to h(folder.name), browse_path(folder) %></div>
+      <% if @search_query %>
+          <div class="name">  <%= link_to h(folder.breadcrumbs), browse_path(folder) %></div>
+      <% else %>
+          <div class="name">  <%= link_to h(folder.name), browse_path(folder) %></div>
+      <% end %>
     <div class="ext">&nbsp;</div>
     <div class="size">    &lt;DIR&gt;                        </div>
     <div class="description"><%= h folder.description %>       </div>

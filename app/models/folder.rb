@@ -12,4 +12,13 @@ class Folder < ActiveRecord::Base
     '768'
   end  
   
+  def breadcrumbs
+    path = ''
+    ancestors.reverse.each do |folder| 
+      path +=  folder.name 
+      path += '/'
+    end 
+    path +=  name
+  end  
+  
 end

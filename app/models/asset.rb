@@ -11,9 +11,7 @@ class Asset < ActiveRecord::Base
 
   validates_attachment_presence :uploaded_file  
 
-   def description
-    'a'
-  end
+
   
   def permissions
     '768'

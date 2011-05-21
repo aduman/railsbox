@@ -5,7 +5,7 @@ class FoldersController < ApplicationController
   end
 
   def show
-    @folder = Folder.find(params[:id])
+    browse
   end
 
   def new
@@ -45,8 +45,13 @@ class FoldersController < ApplicationController
   end
 
   def browse  
-    #get the folders owned/created by the current_user  
-    @current_folder = Folder.find(params[:folder_id])    
+    #get the folders owned/created by the current_user
+    if params[:folder_id]
+      @current_folder = Folder.find(params[:folder_id])
+    else
+      #try just ID as might have just gone to the folder path
+      @current_folder = Folder.find(params[:id])
+    end  
   
     if @current_folder  
     
@@ -64,9 +69,16 @@ class FoldersController < ApplicationController
     end  
   end  
 
+  def search
+    @search_query = params[:search]
+    @folders = Folder.all
+    @assets = Asset.all
+    render :action => "index"  
+  end
+
   def destroy
     @folder = Folder.find(params[:id])
     @folder.destroy
-    redirect_to folders_url, :notice => "Successfully destroyed folder."
+    redirect_to root_path, :notice => "Successfully deleted."
   end
 end
