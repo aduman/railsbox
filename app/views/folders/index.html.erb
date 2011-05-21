@@ -1,6 +1,44 @@
-Folders
+<div id="top-menu">
+  <ul id="actions-menu">
+    <li>File</li>
+    <li>Edit</li>
+    <li>Tools</li>
+    <li>Help</li>
+  </ul>
+  <div id="user-bar">
+    <div id="user-bar-padder">
+      Logged in as <%= current_user.email %> | 
+        Space:
+        x.xx MB
+      </div>
+        <div id="user-quota-bar">
+          <div id="user-quota-used">
+            <!-- -->
+          </div> <!-- user-quota-used -->
+        </div><!-- user-quota-bar -->
+        x.xx MB
+    </div> <!-- user-bar-padder -->
+  </div> <!-- user-bar -->
+<div> <!-- top-menu -->
+
+<div class="clear"><!-- --></div>
+<div id="search-bar">
+    <%= form_tag '/search' do %>
+    <p>
+      <%= label :search, :query, 'Search:' %>
+      <%= text_field :search, :query %>
+      <%= check_box :search, :case %>
+      <%= label :search, :case, 'Match case' %>
+       <%= check_box :search, :notes %>
+      <%= label :search, :notes, 'Notes' %>
+    
+  <%= submit_tag 'Search' %></p>
+<% end %>
 
 <%= render :partial => "breadcrumbs" %> 
+</div>
+
+
 
 <!-- folders -->
 

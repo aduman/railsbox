@@ -1,0 +1,170 @@
+html{
+  overflow-y: scroll;
+  font-family: Verdana,Arial;
+}
+
+body{
+  background: url('/images/bg.png')
+}
+
+.clear{
+  clear: both;
+}
+
+
+/****  LOGON PAGE *********/
+#logon-box{
+  width: 600px;
+  margin: 0px auto;
+  margin-top: 100px;
+}
+
+.logon-box-padder{ 
+  padding: 10px;
+}
+
+#logon-tabs ul{
+  float: right;
+  list-style: none;
+  margin: 0 100px;
+}
+
+#logon-tabs ul li{
+  padding: 10px 20px;
+  background-color: #eeeeee;
+  border: 1px solid #cccccc;
+  border-bottom: none;
+  border-top-right-radius: .5em;
+  -moz-border-radius-topRight: .5em;
+  -webkit-border-radius-topRight: .5em;
+  border-top-left-radius: .5em;
+  -moz-border-radius-topLeft: .5em;
+  -webkit-border-radius-topleft: .5em;
+
+}
+
+#logon-tabs ul li a{
+  text-decoration: none;
+  color: #333333;
+}
+
+#logon-main{
+  background-color: #ffffff;
+  padding: 40px 0;
+  border: 1px solid #cccccc;
+  border-radius: .5em;
+  -moz-border-radius: .5em;
+  -webkit-border-radius: .5em;
+}
+
+#logon-main #logo_holder{
+
+  float: left;
+  height: 200px;
+}
+
+#logon-main #form-holder{
+  font-size: 8pt;
+  float: right;
+  margin-right: 30px;
+  padding-left: 30px;
+  border-left: 1px dotted #333;
+}
+
+
+#logon-main #form-holder label, .submit-spacer{
+  float: left;
+  width: 100px;
+}
+
+.button{
+  float: left;
+  margin-left: 100px;
+}
+
+
+
+#logon-main #actions-holder{
+  background: url('/images/logonStrip.png') -10px 0px repeat-x;
+  padding: 30px 30px;
+}
+
+
+/***** END LOGON PAGE *********/
+
+/***** SIGN UP PAGE ***********/
+#sign-up-form{
+  width: 600px;
+  margin: 0 auto;
+  background-color: #f3f3f3;
+}
+
+#sign-up-form #logo-holder{
+  background: url('/images/bg.png');
+}
+#sign-up-form #register-form-holder{
+  padding: 10px;
+}
+
+#sign-up-form label{
+  float: left;
+  width: 200px;
+}
+
+#sign-up-form .button{
+  margin-left: 200px;
+  margin-bottom: 20px;
+}
+/****** END SIGN UP PAGE ******/
+
+/****** MAIN PAGES ************/
+  
+  #top-menu{
+    
+    width: 100%;
+  }
+  #top-menu ul#actions-menu{
+    margin: 0;
+    padding: 0;
+  } 
+  #top-menu ul#actions-menu li{
+    float: left;
+    list-style: none;
+    padding: 10px;
+  }
+
+  #top-menu #user-bar{
+    float: right;
+    padding: 10px;
+  }
+  
+  #top-menu #user-bar #user-bar-padder{
+    float: left;
+  }
+
+  #top-menu #user-bar #user-quota-bar{
+    float: left;
+    background-color: #ffffff;
+    border: 1px solid #eeeeee;
+    width: 250px;
+    height: 15px;
+    margin: 2px 10px;
+  }
+  
+  #top-menu #user-bar #user-quota-bar{
+    float: left;
+  } 
+
+  #top-spacer{
+    height: 80px;
+  }
+
+  #search-bar{
+    background: url('/images/taskbar.png')  repeat-x;
+    padding: 20px 5px;
+  }
+  
+
+
+
+/****** END MAIN PAGES ********/

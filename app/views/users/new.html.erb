@@ -1,27 +1,36 @@
-<h1>Sign Up</h1>
-
-<%= form_for @user do |f| %>
-  <% if @user.errors.any? %>
-    <div class="error_messages">
-      <h2>Form is invalid</h2>
-      <ul>
-        <% for message in @user.errors.full_messages %>
-          <li><%= message %></li>
+<div id="sign-up-form">
+  <div id="logo-holder">
+   <%= render :partial=>'/shared/logo' %>
+  </div>
+  <div id="register-form-holder">
+   <%= form_for @user do |f| %>
+        <% if @user.errors.any? %>
+        <div class="error_messages">
+            <h2>Form is invalid</h2>
+            <ul>
+              <% for message in @user.errors.full_messages %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+        <p>
+          <%= f.label :email %>
+          <%= f.text_field :email %>
+        </p>
+        <p>
+          <%= f.label :password %>
+          <%= f.password_field :password %>
+        </p>
+        <p>
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation %>
+        </p>
+        <div class="button">
+          <%= f.submit %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-  <p>
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </p>
-  <p>
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
-  </p>
-  <p>
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation %>
-  </p>
-  <p class="button"><%= f.submit %></p>
-<% end %>
+    <div class="clear"><!-- --></div>
+</div>
+    <div class="clear"><!-- --></div>

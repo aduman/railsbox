@@ -1,13 +1,37 @@
-<h1>Log in</h1>
+<div id="logon-box">
+  <div class="logon-box-padder">
+    <div id="logon-tabs">
+      <ul>
+        <li><%= link_to "Sign up", sign_up_path %> 
+        </li>
+      </ul>
+    </div>
+    <div class="clear"><!-- --></div>
+    <div id="logon-main">
+      <div id="logo_holder">
+        <%= render :partial=>'/shared/logo' %>
+      </div>
+      <div id="form-holder">
+        <%= form_tag sessions_path do %>
+      <p>
+        <%= label_tag :email, 'Login:' %>
+        <%= text_field_tag :email, params[:email] %>
+      </p>
+        <p>
+          <%= label_tag :password, 'Client password:' %>
+          <%= password_field_tag :password %>
+        </p>
+        <div class="button">
+          <%= submit_tag "Log in" %>
+        </div>
+        <% end %>
+      </div>
+      <div class="clear"><!-- --></clear>
+      <div id = "actions-holder">
+        <%= link_to image_tag('/images/LoginFM.png'), '#show-logon', :id=>'logon-link'  %>
+        <%= link_to image_tag('/images/LoginHelp.png'), '/documents/help.pdf'  %>
+      </div>
+    </div>
+  </div>
 
-<%= form_tag sessions_path do %>
-  <p>
-    <%= label_tag :email %><br />
-    <%= text_field_tag :email, params[:email] %>
-  </p>
-  <p>
-    <%= label_tag :password %><br />
-    <%= password_field_tag :password %>
-  </p>
-  <p class="button"><%= submit_tag "Log in" %></p>
-<% end %>
+</div>

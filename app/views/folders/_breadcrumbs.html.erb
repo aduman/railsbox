@@ -1,11 +1,10 @@
 <div class="breadcrumbs">          
     <% if @current_folder %>  
-        <%= link_to "Home", root_url %>  
+        <%= link_to "/", root_url %>  
         <% @current_folder.ancestors.reverse.each do |folder| %>  
             » <%= link_to folder.name, browse_path(folder) %>  
         <% end %>  
          »  <%= @current_folder.name %>  
     <% else %>  
-        Home  
-    <% end %>  
+        /<% end %>*.*
 </div>
