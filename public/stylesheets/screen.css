@@ -7,6 +7,10 @@ body{
   background: url('/images/bg.png')
 }
 
+a{
+    text-decoration: none;
+}
+
 .clear{
   clear: both;
 }
@@ -165,6 +169,71 @@ body{
   }
   
 
+  #headers{
+    float: left;
+    width: 100%;
+    background: url('/images/filterBar.png');
+    font-weight: bold;
+    margin: 5px 0 10px 0;
+  }
+  
+
+  .mark-it{
+    float: left;
+    width: 5%;
+  }
+  .name{
+    float: left;
+    width: 30%;
+  }
+  .ext{
+    float: left;
+    width: 5%;
+  }
+  .size{
+    float: left;
+    width: 10%;
+  }
+  .description{
+    float: left;
+    width: 30%;
+  }
+  .date{
+    float: left;
+    width: 15%;
+  }
+  .attr{
+    float: left;
+    width: 5%;
+  }
 
 
+  #bottom-bar{
+    background: url('/images/taskbar.png')  repeat-x;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  #bottom-bar-padder{
+    margin: 0 auto;
+    width: 800px;  
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 100px;
+  }
+
+  #bottom-bar .icon-link{
+    width: 80px;
+    float: left;
+    color: #333333;
+    font-weight: bold;
+    font-size: 8pt;
+    text-align: center;
+  }
+
+
+
+  
 /****** END MAIN PAGES ********/

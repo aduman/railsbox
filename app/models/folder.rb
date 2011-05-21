@@ -4,4 +4,12 @@ class Folder < ActiveRecord::Base
   
   has_many :assets, :dependent => :destroy  
   
+  def description
+    'a'
+  end
+  
+  def permissions
+    '768'
+  end  
+  
 end

@@ -11,4 +11,17 @@ class Asset < ActiveRecord::Base
 
   validates_attachment_presence :uploaded_file  
 
+   def description
+    'a'
+  end
+  
+  def permissions
+    '768'
+  end 
+  
+  def file_extension
+   File.extname(uploaded_file_file_name).downcase
+  end
+
+
 end

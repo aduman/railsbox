@@ -1,10 +1,6 @@
 <div class="breadcrumbs">          
-    <% if @current_folder %>  
-        <%= link_to "/", root_url %>  
-        <% @current_folder.ancestors.reverse.each do |folder| %>  
-            » <%= link_to folder.name, browse_path(folder) %>  
-        <% end %>  
-         »  <%= @current_folder.name %>  
-    <% else %>  
-        /<% end %>*.*
+
+
+<% # unfortunately to stop gaps appearing we can't indent this how we'd like... %>
+<% if @current_folder %>/<% @current_folder.ancestors.reverse.each do |folder| %><%= link_to folder.name, browse_path(folder) %>/<% end %><%= link_to h(@current_folder.name), browse_path(@current_folder) %>/<% else %>  /<% end %>*.*
 </div>
