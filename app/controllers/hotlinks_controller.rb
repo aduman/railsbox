@@ -15,7 +15,7 @@ class HotlinksController < ApplicationController
   def create
     @hotlink = Hotlink.new(params[:hotlink])
     if @hotlink.save
-      redirect_to @hotlink, :notice => "Successfully created hotlink."
+      redirect_to root_url
     else
       render :action => 'new'
     end

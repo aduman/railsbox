@@ -16,4 +16,6 @@ Getting started:
 	rake db:setup
 	rails s
 
+CAVEAT: Some of the functionality is done due to current user expectations - even though its dirty.
+
 

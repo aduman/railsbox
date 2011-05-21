@@ -3,7 +3,13 @@
   <p>
     <%= f.label :name %><br />
     <%= f.text_field :name %>
-  </p>  
+  </p> 
+  
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p> 
+  
   <p>   <%= f.hidden_field :parent_id %>  </p>
   <p><%= f.submit %></p>
 <% end %>
