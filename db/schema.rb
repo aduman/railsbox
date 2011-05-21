@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110521105130) do
+ActiveRecord::Schema.define(:version => 20110521113728) do
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at"
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(:version => 20110521105130) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "hotlinks", :force => true do |t|
+    t.integer  "asset_id"
+    t.string   "password_hash"
+    t.string   "password_salt"
+    t.string   "link"
+    t.datetime "expiry_date"
+    t.string   "password"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

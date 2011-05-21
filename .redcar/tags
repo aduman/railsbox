@@ -1,4 +1,4 @@
-1305976679
+1305980678
 ActionView	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/lib/action_view/helpers/dynamic_form.rb	module ActionView
 AddAttachmentUploadedFileToAsset	/home/paul/work/websites/railsbox/db/migrate/20110520184058_add_attachment_uploaded_file_to_asset.rb	class AddAttachmentUploadedFileToAsset 
 AddFolderIdToAssets	/home/paul/work/websites/railsbox/db/migrate/20110521105130_add_folder_id_to_assets.rb	class AddFolderIdToAssets 
@@ -16,6 +16,7 @@ Column	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/test/dynami
 CreateAssets	/home/paul/work/websites/railsbox/db/migrate/20110520124631_create_assets.rb	class CreateAssets 
 CreateFolders	/home/paul/work/websites/railsbox/db/migrate/20110520194713_create_folders.rb	class CreateFolders 
 CreateGroups	/home/paul/work/websites/railsbox/db/migrate/20110520184327_create_groups.rb	class CreateGroups 
+CreateHotlinks	/home/paul/work/websites/railsbox/db/migrate/20110521113728_create_hotlinks.rb	class CreateHotlinks 
 CreateUsers	/home/paul/work/websites/railsbox/db/migrate/20110520184744_create_users.rb	class CreateUsers 
 DirtyPost	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/test/dynamic_form_test.rb	  class DirtyPost
 DynamicForm	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/lib/action_view/helpers/dynamic_form.rb	    module DynamicForm
@@ -30,6 +31,9 @@ FormBuilder	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/lib/ac
 FormBuilderMethods	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/lib/action_view/helpers/dynamic_form.rb	      module FormBuilderMethods
 Group	/home/paul/work/websites/railsbox/app/models/group.rb	class Group 
 Helpers	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/lib/action_view/helpers/dynamic_form.rb	  module Helpers
+Hotlink	/home/paul/work/websites/railsbox/app/models/hotlink.rb	class Hotlink 
+HotlinksController	/home/paul/work/websites/railsbox/app/controllers/hotlinks_controller.rb	class HotlinksController 
+HotlinksHelper	/home/paul/work/websites/railsbox/app/helpers/hotlinks_helper.rb	module HotlinksHelper
 InstanceTag	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/lib/action_view/helpers/dynamic_form.rb	    class InstanceTag
 InstanceTagMethods	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/lib/action_view/helpers/dynamic_form.rb	      module InstanceTagMethods
 Post	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/test/dynamic_form_test.rb	    class Post 
@@ -51,6 +55,7 @@ all	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function a
 all_input_tags	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/lib/action_view/helpers/dynamic_form.rb	      def all_input_tags(record, record_name, options)
 any	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function any(iterator, context)
 argumentNames	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function argumentNames()
+authenticate	/home/paul/work/websites/railsbox/app/models/hotlink.rb	  def self.authenticate(id, password)
 authenticate	/home/paul/work/websites/railsbox/app/models/user.rb	  def self.authenticate(email, password)
 bind	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function bind(context)
 bindAsEventListener	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function bindAsEventListener(context)
@@ -75,6 +80,7 @@ count	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/test/dynamic
 count	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/test/dynamic_form_test.rb	      def count
 create	/home/paul/work/websites/railsbox/app/controllers/assets_controller.rb	  def create
 create	/home/paul/work/websites/railsbox/app/controllers/folders_controller.rb	  def create
+create	/home/paul/work/websites/railsbox/app/controllers/hotlinks_controller.rb	  def create
 create	/home/paul/work/websites/railsbox/app/controllers/sessions_controller.rb	  def create
 create	/home/paul/work/websites/railsbox/app/controllers/users_controller.rb	  def create
 create	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function create()
@@ -84,6 +90,7 @@ cumulativeScrollOffset	/home/paul/work/websites/railsbox/public/javascripts/prot
 current_user	/home/paul/work/websites/railsbox/app/controllers/application_controller.rb	def current_user
 curry	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function curry()
 dasherize	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function dasherize()
+days	/home/paul/work/websites/railsbox/app/models/hotlink.rb	  attr_accessor :password, :days
 default_input_block	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/lib/action_view/helpers/dynamic_form.rb	      def default_input_block
 defer	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function defer()
 define	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function define(D)
@@ -101,6 +108,7 @@ down	/home/paul/work/websites/railsbox/db/migrate/20110520184327_create_groups.r
 down	/home/paul/work/websites/railsbox/db/migrate/20110520184744_create_users.rb	  def self.down
 down	/home/paul/work/websites/railsbox/db/migrate/20110520194713_create_folders.rb	  def self.down
 down	/home/paul/work/websites/railsbox/db/migrate/20110521105130_add_folder_id_to_assets.rb	  def self.down
+down	/home/paul/work/websites/railsbox/db/migrate/20110521113728_create_hotlinks.rb	  def self.down
 each	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function each(iterator)
 each	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function each(iterator, context)
 eachSlice	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function eachSlice(number, iterator, context)
@@ -111,6 +119,7 @@ empty	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function
 empty?	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/test/dynamic_form_test.rb	        def empty?() 
 empty?	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/test/dynamic_form_test.rb	        def empty?() 
 empty?	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/test/dynamic_form_test.rb	      def empty?
+encrypt_password	/home/paul/work/websites/railsbox/app/models/hotlink.rb	  def encrypt_password
 encrypt_password	/home/paul/work/websites/railsbox/app/models/user.rb	  def encrypt_password
 endsWith	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function endsWith(pattern)
 error_message_on	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/lib/action_view/helpers/dynamic_form.rb	        def error_message_on(method, *args)
@@ -208,6 +217,7 @@ methodize	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	func
 min	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function min(iterator, context)
 new	/home/paul/work/websites/railsbox/app/controllers/assets_controller.rb	  def new
 new	/home/paul/work/websites/railsbox/app/controllers/folders_controller.rb	  def new
+new	/home/paul/work/websites/railsbox/app/controllers/hotlinks_controller.rb	  def new
 new	/home/paul/work/websites/railsbox/app/controllers/sessions_controller.rb	  def new
 new	/home/paul/work/websites/railsbox/app/controllers/users_controller.rb	  def new
 observe	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function observe(element, eventName, handler)
@@ -215,6 +225,7 @@ on	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function on
 parseColor	/home/paul/work/websites/railsbox/public/javascripts/effects.js	function parseColor(color)
 parseJSON	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function parseJSON()
 partition	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function partition(iterator, context)
+password	/home/paul/work/websites/railsbox/app/models/hotlink.rb	  attr_accessor :password, :days
 password	/home/paul/work/websites/railsbox/app/models/user.rb	  attr_accessor :password
 persisted?	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/test/dynamic_form_test.rb	        def persisted?() 
 pluck	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function pluck(property)
@@ -242,6 +253,7 @@ setup_post	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/test/dy
 setup_user	/home/paul/work/websites/railsbox/vendor/plugins/dynamic_form/test/dynamic_form_test.rb	  def setup_user
 show	/home/paul/work/websites/railsbox/app/controllers/assets_controller.rb	  def show
 show	/home/paul/work/websites/railsbox/app/controllers/folders_controller.rb	  def show
+show	/home/paul/work/websites/railsbox/app/controllers/hotlinks_controller.rb	  def show
 size	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function size()
 size	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function size()
 sortBy	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function sortBy(iterator, context)
@@ -329,8 +341,10 @@ up	/home/paul/work/websites/railsbox/db/migrate/20110520184327_create_groups.rb	
 up	/home/paul/work/websites/railsbox/db/migrate/20110520184744_create_users.rb	  def self.up
 up	/home/paul/work/websites/railsbox/db/migrate/20110520194713_create_folders.rb	  def self.up
 up	/home/paul/work/websites/railsbox/db/migrate/20110521105130_add_folder_id_to_assets.rb	  def self.up
+up	/home/paul/work/websites/railsbox/db/migrate/20110521113728_create_hotlinks.rb	  def self.up
 update	/home/paul/work/websites/railsbox/app/controllers/assets_controller.rb	  def update
 update	/home/paul/work/websites/railsbox/app/controllers/folders_controller.rb	  def update
+update	/home/paul/work/websites/railsbox/app/controllers/hotlinks_controller.rb	  def update
 update	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function update(array, args)
 update	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function update(element, content)
 update	/home/paul/work/websites/railsbox/public/javascripts/prototype.js	function update(object)

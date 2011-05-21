@@ -6,7 +6,9 @@ class Asset < ActiveRecord::Base
   attr_accessible :user_id, :uploaded_file, :folder_id 
 
   has_attached_file :uploaded_file, :url => "/assets/get/:id", :path => "#{:Rails_root}/assets/:id/:basename.:extension"  
-  
+
+  has_many :hotlinks
+
   validates_attachment_presence :uploaded_file  
 
 end

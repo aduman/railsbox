@@ -1,20 +1,24 @@
 Railsbox::Application.routes.draw do
 
-  resources :folders
+
 
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
   
   root :to => "folders#index"
+  
   resources :users
   resources :sessions
   resources :assets
+  resources :hotlinks
+  resources :folders
 
   match "assets/get/:id" => "assets#get", :as => "download" 
   match "browse/:folder_id" => "folders#browse", :as => "browse"  
   match "browse/:folder_id/new_folder" => "folders#new", :as => "new_sub_folder"  
   match "browse/:folder_id/new_file" => "assets#new", :as => "new_sub_file"
+  match "hotlink/new/:asset_id" => "hotlinks#new", :as => "new_hotlink"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
