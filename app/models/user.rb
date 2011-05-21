@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  has_many :assets
+
   attr_accessible :email, :password, :password_confirmation
   
   attr_accessor :password

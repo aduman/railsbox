@@ -2,6 +2,9 @@ A drop-type file management system.
 
 Many folders, which can be accessed by users and/or groups.
 
+Authenticatin based on Ryan Bates Screencast http://railscasts.com/episodes/250-authentication-from-scratch
+Basics of system from http://www.prowl.in/sharebox.html
+
 Administrator to be created using console:
 	rails c
 	#=> User.create(:name=>'admin', ..... etc)

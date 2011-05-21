@@ -9,7 +9,18 @@ class AssetsController < ApplicationController
 
   def new
     @asset = Asset.new
+    if params[:folder_id] #if we want to upload a file inside another folder  
+      @current_folder = Folder.find(params[:folder_id])  
+      @asset.folder_id = @current_folder.id  
+    end 
   end
+  
+  def get  
+  asset = Asset.find_by_id(params[:id])  
+    if asset  
+         send_file asset.uploaded_file.path, :type => asset.uploaded_file_content_type  
+    end  
+  end 
 
   def create
     @asset = Asset.new(params[:asset])

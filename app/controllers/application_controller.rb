@@ -3,13 +3,14 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_user
   
-  before_filter :logged_in
+  before_filter :is_authorised
 
 
 private
 
-def logged_in
-  redirect_to root_path unless current_user
+def is_authorised
+  redirect_to log_in_path and return unless current_user
+  
 end  
 
 

@@ -8,6 +8,7 @@ gem 'devise', '1.3.4'
 gem 'haml-rails'
 gem 'paperclip'
 gem "bcrypt-ruby", :require => "bcrypt"
+gem 'acts_as_tree'
 
 group :development do
 	gem 'mongrel'	

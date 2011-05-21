@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110520184744) do
+ActiveRecord::Schema.define(:version => 20110521105130) do
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at"
@@ -19,7 +19,17 @@ ActiveRecord::Schema.define(:version => 20110520184744) do
     t.string   "uploaded_file_content_type"
     t.integer  "uploaded_file_file_size"
     t.datetime "uploaded_file_updated_at"
+    t.integer  "folder_id"
   end
+
+  create_table "folders", :force => true do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "folders", ["parent_id"], :name => "index_folders_on_parent_id"
 
   create_table "groups", :force => true do |t|
     t.string   "name"
