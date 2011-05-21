@@ -1,0 +1,26 @@
+Folders
+
+<%= render :partial => "breadcrumbs" %> 
+
+<!-- folders -->
+
+<h2>Sub folders </h2>
+<% for folder in @folders %>
+    <div class="file_name"><%= link_to folder.name, browse_path(folder) %></div>  
+<% end %>    
+
+<!-- files -->
+  <h2>Files</h2>
+  <% for asset in @assets %>
+    <div class="file_name"><%= link_to asset.uploaded_file_file_name, download_url(asset) %> </div>  
+  <% end %>
+
+<% if @current_folder%>
+<p>
+  <%= link_to "Upload", new_sub_file_path(@current_folder) %>  
+<%= link_to "New Folder", new_sub_folder_path(@current_folder) %>
+</p>
+<% else %>
+<p>  <%= link_to "Upload", new_asset_path %>
+<%= link_to "New Folder", new_folder_path %></p>
+<% end %>
