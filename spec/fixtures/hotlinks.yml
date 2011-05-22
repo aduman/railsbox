@@ -1,5 +1,4 @@
 one:
-  asset_id: 1
   password_hash: MyString
   password_salt: MyString
   link: MyString
@@ -7,7 +6,6 @@ one:
   password: MyString
 
 two:
-  asset_id: 1
   password_hash: MyString
   password_salt: MyString
   link: MyString

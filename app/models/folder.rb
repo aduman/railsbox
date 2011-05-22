@@ -4,6 +4,8 @@ class Folder < ActiveRecord::Base
   
   has_many :assets, :dependent => :destroy  
   
+  validates_presence_of :name
+  
   def description
     'a'
   end
