@@ -40,6 +40,7 @@ test:
   database: railsbox_test
   username: railsbox
   password: railsbox
+  host: localhost
 
 production:
   adapter: postgresql
