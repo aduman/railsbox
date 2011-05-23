@@ -8,6 +8,12 @@ class Hotlink < ActiveRecord::Base
   validates_presence_of :asset_id, :link
   belongs_to :asset
   
+  
+  def initialize(params = {})
+  	super(params)
+  	self.link = 'fsiubsd3'
+  end
+  
   def self.authenticate(id, password)
     link = find(id)
     if link && link.password_hash == BCrypt::Engine.hash_secret(password, link.password_salt)
