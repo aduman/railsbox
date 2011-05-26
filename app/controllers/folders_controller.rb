@@ -2,7 +2,7 @@ class FoldersController < ApplicationController
 
   
   def index
-    @folders = current_user.folders.where('folders.parent_id is null')
+    @folders = current_user.folders.where('folders.parent_id is null or folders.parent_id = 0')
     @assets  = Asset.where(:folder_id=>nil, :user_id=>current_user)
   end
 
