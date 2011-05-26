@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110521181407) do
+ActiveRecord::Schema.define(:version => 20110526141902) do
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at"
@@ -50,6 +50,18 @@ ActiveRecord::Schema.define(:version => 20110521181407) do
     t.string   "link"
     t.datetime "expiry_date"
     t.string   "password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "permissions", :force => true do |t|
+    t.integer  "assigned_by"
+    t.boolean  "read_perms",   :default => false
+    t.boolean  "write_perms",  :default => false
+    t.boolean  "delete_perms", :default => false
+    t.integer  "folder_id"
+    t.integer  "parent_id"
+    t.string   "parent_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

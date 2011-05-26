@@ -1,7 +1,30 @@
 one:
-  name: MyString
-  parent_id: 1
+  id: 1
+  name: folder1
+  parent_id: nil
 
 two:
-  name: MyString
+  id: 2
+  name: folder2
+  parent_id: nil
+  
+three:
+  id: 3
+  name: folder3
+  parent_id: 2
+  
+four:
+  id: 4
+  name: folder4
   parent_id: 1
+  
+five:
+  id: 5
+  name: folder5
+  parent_id: 1
+  
+six:
+  id: 6
+  name: folder6
+  parent_id: 5
+  

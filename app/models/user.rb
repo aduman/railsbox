@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   has_many :assets
   has_many :folders
 
+  has_many :permissions, :as=>:parent
+  
   attr_accessible :email, :password, :password_confirmation
   
   attr_accessor :password

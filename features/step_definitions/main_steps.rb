@@ -33,9 +33,15 @@ Given /^I visit (.*)$/ do |link|
 end
 
 Given /^the following folders exist:$/ do |table|
-  table.hashes.each{|f| Folder.new(f).save}
+  Folder.destroy_all
+  table.hashes.each{|f|
+    folder = Folder.new(f)
+    folder.save
+    ActiveRecord::Base.connection.execute('UPDATE folders SET id = '+f['id'].to_s+' WHERE id = '+folder.id.to_s)
+  }
 end  
 
 Given /^the following permissions exist:$/ do |table|
+  Permission.destroy_all
   table.hashes.each{|f| Permission.new(f).save}
 end  

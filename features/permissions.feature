@@ -7,13 +7,13 @@ Feature: permissions functionality
   Background: Logged on
 		Given I am logged on        
     And the following folders exist:
-     | id | parent_id | name             |
-     | 1  |  nil      | folder1          |   
-     | 2  |  nil      | folder2          |   
-     | 3  |  2        | folder3          |   
-     | 4  |  1        | folder4          |   
-     | 5  |  1        | folder5          |   
-     | 6  |  5        | folder6          |   
+     | parent_id | name             | id    |
+     |  nil      | folder1          | 1     |
+     |  nil      | folder2          | 2     |
+     |  2        | folder3          | 3     |  
+     |  1        | folder4          | 4     |
+     |  1        | folder5          | 5     |
+     |  5        | folder6          | 6     |    
         
   Scenario: No permissions exist User should see nothing.
     When I visit folders
@@ -22,8 +22,10 @@ Feature: permissions functionality
     And I should not see "folder6"
     
   Scenario: Try to cheat the system
-    When I goto folder_url for "folder1"
+    When I visit browse/1
     Then I should not see "folder4" 
     And I should see "permission denied"
+    
+   
     
     
