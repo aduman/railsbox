@@ -27,5 +27,10 @@ Feature: permissions functionality
     And I should see "Folder not found"
     
    
-    
-    
+  Scenario: See correct folders
+    And I have the following user permissions:
+    | folder_id  | read_perms | write_perms | assigned_by |
+    | 1          | true       | true        | 1           |
+    When I visit folders
+    Then I should see "folder1"
+    And I should not see "folder2"

@@ -41,7 +41,14 @@ Given /^the following folders exist:$/ do |table|
   }
 end  
 
-Given /^the following permissions exist:$/ do |table|
+ 
+Given /^I have the following user permissions:$/ do |table|
   Permission.destroy_all
-  table.hashes.each{|f| Permission.new(f).save}
+  u = User.find_by_email('test@test.com')
+  table.hashes.each{|f| 
+    p = Permission.new(f)
+    p.parent_id = u
+    p.parent_type = 'User'
+    p.save
+  }
 end  
