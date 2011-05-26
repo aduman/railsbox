@@ -26,7 +26,7 @@ describe Permission do
     valid_permission.save
     new_perm = valid_permission
     new_perm.read_perms = true
-    new_perm.parent_type = 'folder'
+    new_perm.parent_type = 'Group'
     new_perm.should be_valid
   end
   

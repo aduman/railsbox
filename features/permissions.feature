@@ -24,7 +24,7 @@ Feature: permissions functionality
   Scenario: Try to cheat the system
     When I visit browse/1
     Then I should not see "folder4" 
-    And I should see "permission denied"
+    And I should see "Folder not found"
     
    
     

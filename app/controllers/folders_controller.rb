@@ -1,7 +1,9 @@
 class FoldersController < ApplicationController
+
+  
   def index
-    @folders = Folder.all #todo restrict to user
-    @assets  = Asset.where(:folder_id=>nil) #todo restrict to user
+    @folders = current_user.folders
+    @assets  = Asset.where(:folder_id=>nil, :user_id=>current_user) #todo restrict to user
   end
 
   def show
@@ -12,7 +14,7 @@ class FoldersController < ApplicationController
     @folder = Folder.new
     
     if params[:folder_id] #subfolder
-     @current_folder = Folder.find(params[:folder_id])  
+     @current_folder = current_user.folders.find(params[:folder_id])  
      @folder.parent_id = @current_folder.id  
     end
   
@@ -45,13 +47,12 @@ class FoldersController < ApplicationController
   end
 
   def browse  
-    #get the folders owned/created by the current_user
+    #Use find_by_id instead of find as find_by_id returns nil, rather than throwing exception
     if params[:folder_id]
-      @current_folder = Folder.find(params[:folder_id])
+      @current_folder = current_user.folders.find_by_id(params[:folder_id])
     else
-      #try just ID as might have just gone to the folder path
-      @current_folder = Folder.find(params[:id])
-    end  
+      @current_folder = current_user.folders.find_by_id(params[:id])
+    end
   
     if @current_folder  
     
@@ -71,7 +72,7 @@ class FoldersController < ApplicationController
 
   def search
     @search_query = params[:search]
-    @folders = Folder.all
+    @folders = current_user.folders
     @assets = Asset.all
     render :action => "index"  
   end
@@ -81,4 +82,6 @@ class FoldersController < ApplicationController
     @folder.destroy
     redirect_to root_path, :notice => "Successfully deleted."
   end
+  
+  
 end

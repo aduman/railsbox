@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
 
-  has_many :assets
-  has_many :folders
-
   has_many :permissions, :as=>:parent
+  has_many :folders, :through=>:permissions, :conditions=>['read_perms = ? or read_perms = ? or read_perms = ?', true, true, true]
   
   attr_accessible :email, :password, :password_confirmation
+  
+  
   
   attr_accessor :password
   before_save :encrypt_password
@@ -32,3 +32,4 @@ class User < ActiveRecord::Base
   end
 
 end
+
