@@ -1,14 +1,12 @@
 class AssetsController < ApplicationController
-  def index
-    @assets = Asset.all
-  end
-
+  
   def show
     @asset = Asset.find(params[:id])
   end
 
   def new
     @asset = Asset.new
+    @asset.user_id = @current_user
     if params[:folder_id] #if we want to upload a file inside another folder  
       @current_folder = Folder.find(params[:folder_id])  
       @asset.folder_id = @current_folder.id  
@@ -24,6 +22,7 @@ class AssetsController < ApplicationController
 
   def create
     @asset = Asset.new(params[:asset])
+    @asset.user_id = @current_user
     if @asset.save
       if @asset.folder_id
         redirect_to @asset.folder

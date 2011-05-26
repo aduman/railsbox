@@ -2,8 +2,8 @@ class FoldersController < ApplicationController
 
   
   def index
-    @folders = current_user.folders
-    @assets  = Asset.where(:folder_id=>nil, :user_id=>current_user) #todo restrict to user
+    @folders = current_user.folders.where('folders.parent_id is null')
+    @assets  = Asset.where(:folder_id=>nil, :user_id=>current_user)
   end
 
   def show
@@ -57,10 +57,7 @@ class FoldersController < ApplicationController
     if @current_folder  
     
       #getting the folders which are inside this @current_folder  
-      @folders = @current_folder.children  
-  
-      #We need to fix this to show files under a specific folder if we are viewing that folder  
-      #@assets = current_user.assets.order("uploaded_file_file_name desc")  
+      @folders = current_user.folders.where('folders.parent_id=?',@current_folder)
       @assets = @current_folder.assets.order("uploaded_file_file_name desc")  
     
       render :action => "index"  

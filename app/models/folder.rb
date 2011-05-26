@@ -11,7 +11,8 @@ class Folder < ActiveRecord::Base
   def description
     'a'
   end
-  
+
+
   def permissions
     '768'
   end  
