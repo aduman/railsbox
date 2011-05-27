@@ -41,6 +41,22 @@ Given /^the following folders exist:$/ do |table|
   }
 end  
 
+Given /^the following files exist:$/ do |table|
+  Asset.destroy_all 
+  table.hashes.each{|a| 
+    asset = Asset.new(a)
+    if (a['owner'] && a['owner'] == 'me')
+      asset.user_id = User.find_by_email('test@test.com')
+    else
+      asset.user_id = User.find_by_email('test@test.com')
+    end
+    asset.folder_id = nil if a['folder_id'] == 'nil'
+    asset.uploaded_file = File.new(Rails.root + 'features/test_files/'+a['file'])
+    puts asset.save
+  }
+  puts Asset.first.inspect
+end
+
  
 Given /^I have the following user permissions:$/ do |table|
   Permission.destroy_all
