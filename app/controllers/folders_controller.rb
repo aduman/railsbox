@@ -1,8 +1,9 @@
 class FoldersController < ApplicationController
 
+  before_filter :find_folder
   
   def index
-    @folders = current_user.folders.where('folders.parent_id is null or folders.parent_id = 0')
+    @folders = current_user.is_admin ?  Folder.where('folders.parent_id is null or folders.parent_id = 0') : current_user.folders.where('folders.parent_id is null or folders.parent_id = 0')
     @assets  = Asset.where(:folder_id=>nil, :user_id=>current_user)
   end
 
@@ -14,7 +15,6 @@ class FoldersController < ApplicationController
     @folder = Folder.new
     
     if params[:folder_id] #subfolder
-     @current_folder = current_user.folders.find(params[:folder_id])  
      @folder.parent_id = @current_folder.id  
     end
   
@@ -48,18 +48,15 @@ class FoldersController < ApplicationController
 
   def browse  
     #Use find_by_id instead of find as find_by_id returns nil, rather than throwing exception
-    if params[:folder_id]
-      @current_folder = current_user.folders.find_by_id(params[:folder_id])
-    else
-      @current_folder = current_user.folders.find_by_id(params[:id])
-    end
-  
     if @current_folder  
-    
-      #getting the folders which are inside this @current_folder  
-      @folders = current_user.folders.where('folders.parent_id=?',@current_folder)
-      @assets = @current_folder.assets.order("uploaded_file_file_name desc")  
-    
+      @folders = current_user.is_admin ? Folder.where('folders.parent_id=?',@current_folder) : current_user.folders.where('folders.parent_id=?',@current_folder)
+      if current_user.is_admin or !current_user.permissions.where('read_perms = ? and folder_id = ?', true, @current_folder).empty?
+        @assets = @current_folder.assets.order("uploaded_file_file_name desc")  
+      else
+        #read only can still see own files.
+        @assets = @current_user.assets.order("uploaded_file_file_name desc").find_all_by_folder_id(@current_folder)
+      end
+      
       render :action => "index"  
     else  
       flash[:error] = "Folder not found"  
@@ -78,6 +75,16 @@ class FoldersController < ApplicationController
     @folder = Folder.find(params[:id])
     @folder.destroy
     redirect_to root_path, :notice => "Successfully deleted."
+  end
+  
+  def find_folder
+    if params[:folder_id]
+      @current_folder = current_user.is_admin ? Folder.find_by_id(params[:folder_id]) : current_user.folders.find_by_id(params[:folder_id])
+    elsif params[:id]
+      @current_folder = current_user.is_admin ? Folder.find_by_id(params[:id]) : current_user.folders.find_by_id(params[:id])
+    else
+      #none to be found
+    end
   end
   
   

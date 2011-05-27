@@ -22,6 +22,13 @@ Given /^I have one\s+user "([^\"]*)" with password "([^\"]*)"$/ do |email, passw
            :password => password,
            :password_confirmation => password).save!
 end
+
+Given /^I am an admin user$/ do
+  u = User.find_by_email('test@test.com')
+  u.is_admin = true 
+  u.save
+end 
+
 When /^I goto folder_url for "([^\"]*)"$/ do |folder|  
   f = Folder.find_by_name(folder)
   link = "/browse/"+f.id.to_s  

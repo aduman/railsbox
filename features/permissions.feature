@@ -76,9 +76,29 @@ Feature: read permissions functionality
     And I have the following user permissions:
     | folder_id  | read_perms | write_perms | assigned_by |
     | 1          | false      | true        | 1           |
+    | 4          | false      | true        | 1           |
     When I visit browse/1
     Then I should see "test4.txt"
-    And I should see not "test3.txt"
+    And I should not see "test3.txt"
     And I should not see "test2.txt"
     And I should see "folder4"
+ 
+  Scenario: Admin sees everything
+    Given I am an admin user
+    And I have the following user permissions:
+    | folder_id  | read_perms | write_perms | assigned_by |
+    When I visit folders
+    Then I should see "folder1"
+    And I should see "folder2"
+    And I should see "test2.txt"
+    And I should not see "test1.txt"
     
+  Scenario: Admin Has read/write access to submit folders
+    Given I am an admin user
+    And I have the following user permissions:
+    | folder_id  | read_perms | write_perms | assigned_by |
+    When I visit browse/1
+    Then I should see "folder4"
+    And I should see "folder5"
+    And I should see "test3.txt"
+    And I should see "test4.txt"

@@ -36,6 +36,10 @@ describe User do
   it "should set active to false" do
     valid_user.active.should be_false
   end
+  
+  its "should set is_admin to false" do
+    valid_user.is_admin.should be_false
+  end
 
 end
 

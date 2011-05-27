@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
 
   has_many :permissions, :as=>:parent
-  has_many :folders, :through=>:permissions, :conditions=>['read_perms = ? or read_perms = ? or read_perms = ?', true, true, true]
-  
+  has_many :folders, :through=>:permissions, :conditions=>['read_perms = ? or write_perms = ?', true, true]
+  has_many :assets
   attr_accessible :email, :password, :password_confirmation
   
   
@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
   validates_presence_of :password, :on => :create
   validates_presence_of :email
   validates_uniqueness_of :email
+  
+  
+    
   
   def self.authenticate(email, password)
     user = find_by_email(email)

@@ -13,9 +13,7 @@ class Folder < ActiveRecord::Base
   end
 
 
-  def permissions
-    '768'
-  end  
+
   
   
     
