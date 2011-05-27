@@ -46,15 +46,14 @@ Given /^the following files exist:$/ do |table|
   table.hashes.each{|a| 
     asset = Asset.new(a)
     if (a['owner'] && a['owner'] == 'me')
-      asset.user_id = User.find_by_email('test@test.com')
+      asset.user_id = User.find_by_email('test@test.com').id #me
     else
-      asset.user_id = User.find_by_email('test@test.com')
+      asset.user_id = User.find_by_email('test@test.com').id + 1 #someone else
     end
     asset.folder_id = nil if a['folder_id'] == 'nil'
     asset.uploaded_file = File.new(Rails.root + 'features/test_files/'+a['file'])
-    puts asset.save
+    asset.save
   }
-  puts Asset.first.inspect
 end
 
  

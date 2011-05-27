@@ -63,3 +63,22 @@ Feature: read permissions functionality
     And I should not see "test1.txt"
     And I should not see "test4.txt"
     
+  Scenario:  Sub folder permissions work for files
+    And I have the following user permissions:
+    | folder_id  | read_perms | write_perms | assigned_by |
+    | 1          | true       | true        | 1           |
+    When I visit browse/1
+    Then I should see "test4.txt"
+    And I should see "test3.txt"
+    And I should not see "test2.txt"
+    
+  Scenario: Write only permissions work as expected
+    And I have the following user permissions:
+    | folder_id  | read_perms | write_perms | assigned_by |
+    | 1          | false      | true        | 1           |
+    When I visit browse/1
+    Then I should see "test4.txt"
+    And I should see not "test3.txt"
+    And I should not see "test2.txt"
+    And I should see "folder4"
+    
