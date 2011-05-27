@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :permissions, :as=>:parent
   has_many :folders, :through=>:permissions, :conditions=>['read_perms = ? or write_perms = ?', true, true]
   has_many :assets
+  has_many :user_groups
   has_many :groups, :through=>:user_groups
   attr_accessible :email, :password, :password_confirmation
   
@@ -16,7 +17,13 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   validates_uniqueness_of :email
   
-  
+  def accessible_folders
+    if is_admin
+      return Folder.where('true') #TODO: find better way of this Folder.all doesn't return AR object.
+    else
+      return folders#+ groups.each{|g| g.folders}
+    end
+  end  
     
   
   def self.authenticate(email, password)
