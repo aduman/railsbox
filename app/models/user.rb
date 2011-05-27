@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :permissions, :as=>:parent
   has_many :folders, :through=>:permissions, :conditions=>['read_perms = ? or write_perms = ?', true, true]
   has_many :assets
+  has_many :groups, :through=>:user_groups
   attr_accessible :email, :password, :password_confirmation
   
   

@@ -6,6 +6,7 @@ Feature: read permissions functionality
         
   Background: Logged on
 		Given I am logged on        
+    And I am not an admin user
     And the following folders exist:
      | parent_id | name             | id    |
      |  nil      | folder1          | 1     |
@@ -102,3 +103,14 @@ Feature: read permissions functionality
     And I should see "folder5"
     And I should see "test3.txt"
     And I should see "test4.txt"
+    
+  Scenario: Group permissions are ok
+    Given I have the following user permissions:
+    | folder_id  | read_perms | write_perms | assigned_by |
+    And I have the following group permissions:
+    | folder_id  | read_perms | write_perms | assigned_by |
+    | 1          | true       | true        | 1           |
+    And I visit folders
+    Then I should see "folder1"
+    And I should not see "folder2"
+    

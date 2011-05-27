@@ -29,6 +29,12 @@ Given /^I am an admin user$/ do
   u.save
 end 
 
+Given /^I am not an admin user$/ do
+  u = User.find_by_email('test@test.com')
+  u.is_admin = false
+  u.save
+end
+
 When /^I goto folder_url for "([^\"]*)"$/ do |folder|  
   f = Folder.find_by_name(folder)
   link = "/browse/"+f.id.to_s  
@@ -65,12 +71,26 @@ end
 
  
 Given /^I have the following user permissions:$/ do |table|
-  Permission.destroy_all
+  Permission.destroy_all(:parent_type=>'User')
   u = User.find_by_email('test@test.com')
   table.hashes.each{|f| 
     p = Permission.new(f)
     p.parent_id = u.id
     p.parent_type = 'User'
     p.save
+  }
+end
+
+Given /^I have the following group permissions:$/ do |table|
+  Permission.destroy_all(:parent_type=>'Group')
+  u = User.find_by_email('test@test.com')
+  table.hashes.each{|f|
+    g = Group.new()
+    g.save(:validate=>false) 
+    p = Permission.new(f)
+    p.parent_id = g.id
+    p.parent_type = 'Group'
+    p.save
+    UserGroup.new(:user_id=>u.id, :group_id=>g.id).save
   }
 end  
