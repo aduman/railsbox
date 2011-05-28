@@ -4,10 +4,13 @@ class User < ActiveRecord::Base
   has_many :folders, :through=>:permissions, :conditions=>['read_perms = ? or write_perms = ?', true, true]
   has_many :assets
   has_many :user_groups
-  has_many :groups, :through=>:user_groups
+  has_many :groups, :through=>:user_groups 
   attr_accessible :email, :password, :password_confirmation
   
   
+  def group_folders
+    
+  end
   
   attr_accessor :password
   before_save :encrypt_password
@@ -19,9 +22,15 @@ class User < ActiveRecord::Base
   
   def accessible_folders
     if is_admin
-      return Folder.where('true') #TODO: find better way of this Folder.all doesn't return AR object.
+      return Folder.scoped 
     else
-      return folders#+ groups.each{|g| g.folders}
+      #this needs to be improved...
+      g_folders = folders
+      groups.scoped.each{|g|
+        g_folders += g.folders
+      }
+      ids = g_folders.inject([]){|a,b| a+=[b.id]}
+      Folder.where('id in (?)', ids)
     end
   end  
     
