@@ -26,6 +26,12 @@ describe User do
     user.should_not be_valid
   end
 
+  it "folders should be maniupulatable" do
+    user = valid_user
+    user.accessible_folders.class.should == ActiveRecord::Relation
+    user.is_admin = true
+    user.accessible_folders.class.should == ActiveRecord::Relation
+  end
 
   it "should fail confirmation password" do
     user = valid_user

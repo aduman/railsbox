@@ -113,4 +113,19 @@ Feature: read permissions functionality
     And I visit folders
     Then I should see "folder1"
     And I should not see "folder2"
-    
+  
+  Scenario: Group permissions on subfolders are ok
+    Given I have the following user permissions:
+    | folder_id  | read_perms | write_perms | assigned_by |
+    And I have the following group permissions:
+    | folder_id  | read_perms | write_perms | assigned_by |
+    | 1          | true       | true        | 1           |
+    | 2          | true       | true        | 1           |
+    | 4          | true       | true        | 1           |
+    | 5          | true       | true        | 1           |
+    When I visit browse/1
+    Then I should see "folder4"
+    And I should see "folder5"
+    And I should not see "folder6"
+    And I should not see "folder2"
+  
