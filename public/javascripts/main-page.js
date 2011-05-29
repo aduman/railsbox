@@ -14,11 +14,11 @@ $(document).ready(function(){
   });
   
   
-  $('#bottom-bar a').overlay({
+  /*$('#bottom-bar a').overlay({
     onBeforeLoad: function(){
     $('#overlay').html('')
     }
-  })
+    })*/
   //download
   $('#download-link').click(function(e){
     e.preventDefault();

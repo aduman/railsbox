@@ -1,0 +1,26 @@
+%h1
+  = @group.name 
+%p
+  = link_to "Rename this group", edit_group_path(@group)
+  |
+  = link_to "Delete", @group, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "Back to admin", admin_panel_path
+
+
+%h2 Folders
+%ul
+  - for folder in @group.folders
+    %li 
+      =link_to folder.name, folder
+
+%h2 Users
+%ul
+- for user in @group.users
+  %li 
+    =link_to user.name, user
+
+
+
+  
+

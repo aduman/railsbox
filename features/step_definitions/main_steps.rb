@@ -18,9 +18,12 @@ end
 
 
 Given /^I have one\s+user "([^\"]*)" with password "([^\"]*)"$/ do |email, password|
-  User.new(:email => email,
+  a = User.new(:email => email,
            :password => password,
-           :password_confirmation => password).save!
+           :password_confirmation => password)
+  a.active = true
+  a.save!
+  
 end
 
 Given /^I am an admin user$/ do

@@ -3,15 +3,33 @@
 <head>
   <title>Railsbox</title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag 'jquery-1.4.2.min', 'jquery.tools.min', 'application', 'home-page', 'main-page' %>
+  <%= javascript_include_tag 'jquery-1.6.1.min', 'application', 'home-page', 'main-page' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
   <div id="content-holder">
+    <% if current_user %>
+      <div id="top-menu">
+        <ul id="actions-menu">
+          <li><%= link_to 'Home', root_url %></li>
+          <% if current_user.is_admin %>
+          <li><%= link_to 'Admin', admin_panel_url %></li>
+          <% end %>
+          <li><%= link_to 'My details', my_details_url %></li>
+          <li><%= link_to 'Logout', log_out_url %></li>
+        </ul>
+        <div id="user-bar">
+          <div id="user-bar-padder">
+            Logged in as <%= current_user.email %>  
+          </div>
+        </div> <!-- user-bar -->
+      <div> <!-- top-menu -->
+      <% end %>  
+        <div class="clear"><!-- --></div>       
      <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
      <% end %>
-    <%= yield %>
+  <%= yield %>
   </div>
   
 </body>

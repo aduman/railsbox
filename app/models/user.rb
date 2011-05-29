@@ -8,9 +8,14 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation
   
   
-  def group_folders
-    
-  end
+  
+  def name
+    if first_name and last_name
+      first_name.capitalize + ' ' + last_name.capitalize 
+    else
+      email
+    end  
+  end  
   
   attr_accessor :password
   before_save :encrypt_password

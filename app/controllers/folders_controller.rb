@@ -66,8 +66,8 @@ class FoldersController < ApplicationController
 
   def search
     @search_query = params[:search]
-    @folders = current_user.folders
-    @assets = Asset.all
+    @folders = current_user.accessible_folders
+    @assets = current_user.assets
     render :action => "index"  
   end
 

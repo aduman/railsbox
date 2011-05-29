@@ -1,27 +1,4 @@
-<div id="top-menu">
-  <ul id="actions-menu">
-    <li>File</li>
-    <li>Edit</li>
-    <li>Tools</li>
-    <li>Help</li>
-  </ul>
-  <div id="user-bar">
-    <div id="user-bar-padder">
-      Logged in as <%= current_user.email %> | 
-        Space:
-        x.xx MB
-      </div>
-        <div id="user-quota-bar">
-          <div id="user-quota-used">
-            <!-- -->
-          </div> <!-- user-quota-used -->
-        </div><!-- user-quota-bar -->
-        x.xx MB
-    </div> <!-- user-bar-padder -->
-  </div> <!-- user-bar -->
-<div> <!-- top-menu -->
 
-<div class="clear"><!-- --></div>
 <div id="search-bar">
     <%= form_tag '/search' do %>
     <p>
@@ -45,7 +22,6 @@
   <div class="size">Size</div>
   <div class="description">Description</div>
   <div class="date">Date</div>
-  <div class="attr">Attr</div>
 </div>
 <div id="file-container">
     <% if @current_folder or @search_query %>
@@ -75,7 +51,6 @@
       <div class="size">    &lt;DIR&gt;                        </div>
       <div class="description"><%= h folder.description %>       </div>
       <div class="date">    <%= h folder.created_at.strftime("%d/%m/%Y %H:%M:%S") %>           </div>
-      <div class="attr">    111                </div>
       <div class="clear"><!-- --></div> 
     </div>
 <% end %>    
@@ -86,9 +61,8 @@
       <div class="name">    <%= link_to h(asset.uploaded_file_file_name), download_url(asset) %></div>
       <div class="ext">     <%= h asset.file_extension%></div>
       <div class="size">    <%= number_to_human_size(asset.uploaded_file_file_size, :precision => 3)  %></div>
-      <div class="description"><%= h asset.description %>       </div>
+      <div class="description"><%= h asset.description %>&nbsp;       </div>
       <div class="date">    <%= h asset.created_at.strftime("%d/%m/%Y %H:%M:%S") %>           </div>
-      <div class="attr">    <%= h asset.permissions %>                 </div>
       <div class="clear"><!-- --> </div> 
     </div>
 <% end %>

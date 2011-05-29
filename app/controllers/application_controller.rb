@@ -10,7 +10,7 @@ private
 
 def is_authorised
   redirect_to log_in_path and return unless current_user
-  
+  redirect_to log_in_path and return unless current_user.active
 end  
 
 

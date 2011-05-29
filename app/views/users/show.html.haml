@@ -1,0 +1,41 @@
+%h1 
+  = @user.name  
+
+%h2 Details
+
+%p 
+  Company:
+  = @user.company
+%p
+  Email:
+  = @user.email
+
+%h2 Permissions
+= form_for @user do |f|
+  %p 
+    Access site:
+    = f.check_box :active
+  %p 
+    Admin:
+    = f.check_box :is_admin
+  %p 
+    Can hotlink
+    = f.check_box :can_hotlink
+  %p
+    = f.submit 'Save changes' 
+
+%h2 Groups
+- if @user.groups.empty?
+  %p
+    %em User belongs to no groups
+-else
+  %ul
+    - for group in @user.groups 
+      %li
+        = link_to group.name, group
+      
+%h2 Folders      
+%ul
+  - for folder in @user.accessible_folders
+    %li 
+      =link_to folder.breadcrumbs, folder

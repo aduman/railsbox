@@ -15,7 +15,9 @@ Railsbox::Application.routes.draw do
   resources :assets
   resources :hotlinks
   resources :folders
+  resources :groups
 
+  match "my_details" => "users#me", :as=>"my_details"
   match "assets/get/:id" => "assets#get", :as => "download" 
   match "search" => "folders#search", :as=> "search"
   match "browse/:folder_id" => "folders#browse", :as => "browse"  
