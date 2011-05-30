@@ -22,7 +22,7 @@ class AssetsController < ApplicationController
 
   def create
     @asset = Asset.new(params[:asset])
-    @asset.user_id = @current_user
+    @asset.user_id = @current_user.id
     if @asset.save
       if @asset.folder_id
         redirect_to @asset.folder

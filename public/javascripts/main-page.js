@@ -14,11 +14,7 @@ $(document).ready(function(){
   });
   
   
-  /*$('#bottom-bar a').overlay({
-    onBeforeLoad: function(){
-    $('#overlay').html('')
-    }
-    })*/
+  
   //download
   $('#download-link').click(function(e){
     e.preventDefault();
@@ -29,17 +25,13 @@ $(document).ready(function(){
       alert('Please select a file via checkbox');
     }
   });
-  
-  $('#new-folder-link').click(function(e){
-      e.preventDefault(true);
-        $('#overlay').load($(this).attr('href'));
-  });
 
+  //hotlink  
   $('#hotlink-link').click(function(e){
       e.preventDefault(true);
       var id = getSelectedId('file', true);
       if (id!=0){
-        $('#overlay').load('hotlink/new/'+id+' #content-holder');
+        document.location = 'hotlink/new/'+id;
       }else{
         alert('Please select a file via checkbox');
       }

@@ -59,7 +59,7 @@
     <div class="row-container">
       <div class="mark-it"> <%= check_box :file, asset.id, :class=>'fileTick' %></div>
       <div class="name">    <%= link_to h(asset.uploaded_file_file_name), download_url(asset) %></div>
-      <div class="ext">     <%= h asset.file_extension%></div>
+      <div class="ext">    &nbsp; <%= h asset.file_extension%></div>
       <div class="size">    <%= number_to_human_size(asset.uploaded_file_file_size, :precision => 3)  %></div>
       <div class="description"><%= h asset.description %>&nbsp;       </div>
       <div class="date">    <%= h asset.created_at.strftime("%d/%m/%Y %H:%M:%S") %>           </div>
@@ -76,40 +76,38 @@
               <span class='icon-link'> <%= image_tag('/images/icons/download.png') %><br/> Download </span>
           <% end %>
     <% if @current_folder%>
-          <%= link_to new_sub_file_path(@current_folder), :id=>'upload-link', :rel=>'#overlay' do %>
+          <%= link_to new_sub_file_path(@current_folder), :id=>'upload-link' do %>
               <span class='icon-link'> <%= image_tag('/images/icons/upload.png') %><br/> Upload </span>
           <% end %>
 
-          <%= link_to new_sub_folder_path(@current_folder), :id=>'new-folder-link', :rel=>'#overlay' do %>
+          <%= link_to new_sub_folder_path(@current_folder), :id=>'new-folder-link' do %>
               <span class='icon-link'> <%= image_tag('/images/icons/newFolder.png') %><br/> New folder </span>
           <% end %>
     <% else %>
-          <%= link_to new_asset_path, :id=>'upload-link', :rel=>'#overlay' do %>
+          <%= link_to new_asset_path, :id=>'upload-link' do %>
               <span class='icon-link'> <%= image_tag('/images/icons/upload.png') %><br/> Upload </span>
           <% end %>
 
-          <%= link_to new_folder_path, :id=>'new-folder-link', :rel=>'#overlay' do %>
+          <%= link_to new_folder_path, :id=>'new-folder-link' do %>
               <span class='icon-link'> <%= image_tag('/images/icons/newFolder.png') %><br/> New Folder </span>
           <% end %>
     <% end %>
-
-          <%= link_to '#', :id=>'hotlink-link', :rel=>'#overlay' do %>
+      
+      <% if current_user.can_hotlink %>
+          <%= link_to '#', :id=>'hotlink-link' do %>
               <span class='icon-link'> <%= image_tag('/images/icons/hotlink.png') %><br/> Hotlink </span>
           <% end %>
-
-          <%= link_to '#', :id=>'copy-link', :rel=>'#overlay' do %>
-              <span class='icon-link'> <%= image_tag('/images/icons/copy.png') %><br/> Copy </span>
-          <% end %>
-
-          <%= link_to '#', :id=>'rename-link', :rel=>'#overlay' do %>
-              <span class='icon-link'> <%= image_tag('/images/icons/rename.png') %><br/> Rename </span>
-          <% end %>
-
-          <%= link_to '#', :id=>'move-link', :rel=>'#overlay' do %>
+      <% end %>
+          <%= link_to '#', :id=>'move-link' do %>
               <span class='icon-link'> <%= image_tag('/images/icons/move.png') %><br/> Move </span>
           <% end %>
 
-          <%= link_to '#', :id=>'delete-link', :rel=>'#overlay' do %>
+          <%= link_to '#', :id=>'rename-link' do %>
+              <span class='icon-link'> <%= image_tag('/images/icons/rename.png') %><br/> Rename </span>
+          <% end %>
+
+
+        <%= link_to @asset, :confirm => 'Are you sure?', :method => :delete, :id=>'delete-link' do %>
               <span class='icon-link'> <%= image_tag('/images/icons/delete.png') %><br/> Delete </span>
           <% end %>
 
