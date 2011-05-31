@@ -57,6 +57,15 @@ Given /^the following folders exist:$/ do |table|
   }
 end  
 
+
+Given /^the following users exist:$/ do |table|
+  table.hashes.each{|u|
+    user = User.new(u)
+    user.save(:validate=>false)
+  }
+  
+end  
+
 Given /^the following files exist:$/ do |table|
   Asset.destroy_all 
   table.hashes.each{|a| 
@@ -97,3 +106,21 @@ Given /^I have the following group permissions:$/ do |table|
     UserGroup.new(:user_id=>u.id, :group_id=>g.id).save
   }
 end  
+
+Then /^"(.*)" should be checked$/ do |label|
+    field_checked = find_field(label)['checked']
+    if field_checked.respond_to? :should
+      field_checked.should be_true
+    else
+      assert field_checked
+    end
+end
+
+Then /^"(.*)" should not be checked$/ do |label|
+    field_checked = find_field(label)['checked']
+    if field_checked.respond_to? :should
+      field_checked.should_not be_true
+    else
+      assert !field_checked
+    end
+end

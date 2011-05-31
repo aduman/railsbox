@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :assets
   has_many :user_groups
   has_many :groups, :through=>:user_groups 
-  attr_accessible :email, :password, :password_confirmation
+  attr_accessible :email, :password, :password_confirmation, :first_name, :last_name, :company
   
   
   
