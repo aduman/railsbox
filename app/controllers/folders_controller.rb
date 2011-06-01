@@ -22,8 +22,10 @@ class FoldersController < ApplicationController
 
   def create
     @folder = Folder.new(params[:folder])
+    @folder.user_id = current_user
     if @folder.save
-      if @folder.parent 
+      p = Permission.new(:folder_id=>@folder.id, :parent=>current_user, :assigned_by=>current_user, :read_perms=>true, :write_perms=>true, :delete_perms=>true)
+      p.save
         redirect_to browse_path(@folder.parent)  
       else  
         redirect_to root_url

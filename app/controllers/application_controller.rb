@@ -24,4 +24,9 @@ def check_admin
   redirect_to root_path and return unless current_user.is_admin
 end  
 
+def check_hotlink
+  is_authorised
+  redirect_to root_path and return unless current_user.can_hotlink
+end
+
 end

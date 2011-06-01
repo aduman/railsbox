@@ -3,6 +3,11 @@ require 'cgi'
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "selectors"))
 
+
+Given /^I debug$/ do
+  puts 'nothing to debug at this time'
+end
+
 Given /^(?:that )?I am not logged on$/ do
   visit('/log_out')
 end
@@ -123,4 +128,8 @@ Then /^"(.*)" should not be checked$/ do |label|
     else
       assert !field_checked
     end
+end
+
+When /^(?:|I )enter "([^"]*)" in "([^"]*)"$/ do |value, field|
+  fill_in(field, :with => value)
 end

@@ -1,6 +1,7 @@
 class HotlinksController < ApplicationController
   
   skip_before_filter :is_authorised, :only=>[:show,:update] #can view hotlink without login
+  before_filter :check_hotlink, :except=>[:show, :update]
 
   def show
     @hotlink = Hotlink.find(params[:id])
