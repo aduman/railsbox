@@ -7,6 +7,12 @@ Feature: Main functionality
   Background:
     Given I am logged on        
     And I am not an admin user
+    And the following users exist:
+    | first_name | last_name | is_admin | can_hotlink | active | company | email               | password | password_confirmation |
+    | Jim        | Wilson    | false    | false       | true   | bank    | test1@railsbox.com  | pass1    | pass1                 |
+    | Harry      | Shaw      | false    | true        | true   | printer | test2@railsbox.com  | pass2    | pass2                 |
+    | Robert     | Kent      | false    | false       | true   | supplier| test3@railsbox.com  | pass3    | pass3                 |
+    
     And the following folders exist:
      | parent_id | name             | id    |
      |  nil      | folder1          | 1     |
@@ -33,11 +39,28 @@ Feature: Main functionality
     | 6          | true       | true        | 1           |
     When I visit folders
     
-    Scenario: Creating folders
-    When I follow "New Folder"
-    And I enter "folder7" in "folder_name"
-    And I enter "foobar rules" in "folder_description"
-    And I press "Create Folder"
-    And I should see "folder1"
-    Then I should see "folder7"
+    Scenario: Viewing own created folder
+      When I follow "New Folder"
+      And I enter "folder7" in "folder_name"
+      And I enter "foobar rules" in "folder_description"
+      And I press "Create Folder"
+      And I should see "folder1"
+      Then I should see "folder7"
     
+    Scenario: Modify existing folder permissions
+      When I check "folder[1]"
+      And I follow "details-link"
+      #because capybara doesn't have JS enabled need to manually go to this page...
+      #need to think of degrading way of doing these links...
+      And I visit folders/details/1
+      And I follow "add permissions"
+      And I select "Robert Kent" from "permission_parent"
+      And I check "permission_write_perms"
+      And I check "permission_read_perms"
+      And I press "save"
+      And I logout
+      And I login with "test3@railsbox.com" and "pass3"
+      Then I should see "folder 1"
+
+    Scenario: Downloading a file
+        

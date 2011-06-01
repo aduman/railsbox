@@ -1,0 +1,10 @@
+<p>
+  <strong>Name:</strong>
+  <%= @current_folder .name %>
+</p>
+<p>
+  <strong>Parent:</strong>
+  <%= @current_folder .parent_id %>
+</p>
+
+<%= link_to 'add permissions', new_folder_permission_path(@current_folder) %>

@@ -106,8 +106,11 @@
               <span class='icon-link'> <%= image_tag('/images/icons/rename.png') %><br/> Rename </span>
           <% end %>
 
+          <%= link_to '#', :id=>'details-link' do %>
+              <span class='icon-link'> <%= image_tag('/images/icons/copy.png') %><br/> Details </span>
+          <% end %>
 
-        <%= link_to @asset, :confirm => 'Are you sure?', :method => :delete, :id=>'delete-link' do %>
+          <%= link_to @asset, :confirm => 'Are you sure?', :method => :delete, :id=>'delete-link' do %>
               <span class='icon-link'> <%= image_tag('/images/icons/delete.png') %><br/> Delete </span>
           <% end %>
 

@@ -5,19 +5,23 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "sel
 
 
 Given /^I debug$/ do
-  puts 'nothing to debug at this time'
+  Then %{I should see "whatever"}
 end
 
 Given /^(?:that )?I am not logged on$/ do
   visit('/log_out')
 end
 
+Given /^I login with "([^\"]*)" and "([^\"]*)"$/ do |username, password|
+  Given %{I visit log_in}
+	And %{I fill in "email" with "#{username}"}
+	And %{I fill in "password" with "#{password}"}
+	And %{I press "Log in"}
+end
+
 Given /^(?:that )?I am logged (?:on|in)$/ do
 	Given %{I have one user "test@test.com" with password "goodpass"}
-	And %{I visit log_in}
-	And %{I fill in "email" with "test@test.com"}
-	And %{I fill in "password" with "goodpass"}
-	And %{I press "Log in"}
+	And %{I login with "test@test.com" and "goodpass"}
 end
 
 

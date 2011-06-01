@@ -14,6 +14,22 @@ $(document).ready(function(){
   });
   
   
+  //details
+  $('#details-link').click(function(e){
+    e.preventDefault();
+    var id = getSelectedId('folder', true);
+    if (id!=0){
+      document.location = 'folders/details/'+id;
+    }else{
+      //try file
+      id = getSelectedId('file', true);
+      if (id!=0){
+        document.location = 'assets/'+id;
+      }else{
+        alert('Please select a file or folder via checkbox');
+      }
+    }
+  });
   
   //download
   $('#download-link').click(function(e){
