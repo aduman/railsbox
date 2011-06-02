@@ -25,7 +25,7 @@ class FoldersController < ApplicationController
 
   def create
     @folder = Folder.new(params[:folder])
-    @folder.user_id = current_user
+    @folder.user_id = current_user.id
     if @folder.save
       p = Permission.new(:folder_id=>@folder.id, :parent=>current_user, :assigned_by=>current_user, :read_perms=>true, :write_perms=>true, :delete_perms=>true)
       p.save

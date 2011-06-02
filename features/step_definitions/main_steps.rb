@@ -5,10 +5,14 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "sel
 
 
 Given /^I debug$/ do
-  Then %{I should see "whatever"}
+  puts "whatever"
 end
 
 Given /^(?:that )?I am not logged on$/ do
+  visit('/log_out')
+end
+
+Given /^I logout$/ do
   visit('/log_out')
 end
 
@@ -70,6 +74,9 @@ end
 Given /^the following users exist:$/ do |table|
   table.hashes.each{|u|
     user = User.new(u)
+    user.active = u['active']
+    user.can_hotlink = u['can_hotlink']
+    user.is_admin = u['is_admin']
     user.save(:validate=>false)
   }
   

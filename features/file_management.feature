@@ -60,7 +60,8 @@ Feature: Main functionality
       And I press "save"
       And I logout
       And I login with "test3@railsbox.com" and "pass3"
-      Then I should see "folder 1"
+      And I visit folders
+      Then I should see "folder1"
 
     Scenario: Downloading a file
         
