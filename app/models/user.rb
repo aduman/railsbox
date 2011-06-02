@@ -38,7 +38,14 @@ class User < ActiveRecord::Base
       Folder.where('id in (?)', ids)
     end
   end  
-    
+  
+  def owned_folders
+    if is_admin
+      return Folder.scoped 
+    else
+      Folder.where(:user_id=>id)
+    end
+  end
   
   def self.authenticate(email, password)
     user = find_by_email(email)

@@ -5,7 +5,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "sel
 
 
 Given /^I debug$/ do
-  puts "whatever"
+  
 end
 
 Given /^(?:that )?I am not logged on$/ do
@@ -125,22 +125,20 @@ end
 
 Then /^"(.*)" should be checked$/ do |label|
     field_checked = find_field(label)['checked']
-    if field_checked.respond_to? :should
-      field_checked.should be_true
-    else
-      assert field_checked
-    end
+    field_checked.should be_true
+    
 end
 
 Then /^"(.*)" should not be checked$/ do |label|
     field_checked = find_field(label)['checked']
-    if field_checked.respond_to? :should
-      field_checked.should_not be_true
-    else
-      assert !field_checked
-    end
+    field_checked.should_not be_true
+      
 end
 
 When /^(?:|I )enter "([^"]*)" in "([^"]*)"$/ do |value, field|
   fill_in(field, :with => value)
+end
+
+Then /^I should download "(.*)"$/ do |filename|   
+  page.response_headers['Content-Disposition'].should == "attachment; filename=\"#{filename}\""
 end

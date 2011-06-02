@@ -21,7 +21,7 @@ class PermissionsController < ApplicationController
     @permission.read_perms = params[:permission][:read_perms]
     @permission.delete_perms = params[:permission][:delete_perms]
     @permission.assigned_by = current_user.id
-    @permission.folder_id = params[:folder_id]
+    @permission.folder = current_user.owned_folders.find(params[:folder_id])
     if @permission.save
       redirect_to folder_details_url(@permission.folder), :notice => "Successfully created permission."
     else

@@ -49,6 +49,7 @@ Feature: Main functionality
     
     Scenario: Modify existing folder permissions
       When I check "folder[1]"
+      And I am an admin user
       And I follow "details-link"
       #because capybara doesn't have JS enabled need to manually go to this page...
       #need to think of degrading way of doing these links...
@@ -62,6 +63,7 @@ Feature: Main functionality
       And I login with "test3@railsbox.com" and "pass3"
       And I visit folders
       Then I should see "folder1"
-
-    Scenario: Downloading a file
         
+  Scenario: Download a file
+      When I follow "test2.txt"    
+      Then I should download "test2.txt"
