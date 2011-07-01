@@ -1,0 +1,10 @@
+<h2>Rename <%= @folder.name %></h2>
+<%= form_for @folder do |f| %>  
+  <div class="field">
+    <%= f.label :name, "New Name" %>
+    <%= f.text_field :name %>  
+  </div>
+  <div class="field">
+    <%= f.submit "Save" %>
+  </div>
+<% end %>  

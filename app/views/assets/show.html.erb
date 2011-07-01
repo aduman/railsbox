@@ -1,10 +1,25 @@
-Asset
+<h2><%= @asset.uploaded_file_file_name %></h2>
 
+<p>Created by: <%= @asset.user.first_name %> <%= @asset.user.last_name %> </p>
 
+<% if @asset.folder %>
+  <strong>Permissions:</strong>
+  <%= render (:partial => "folderPermissions", :object => @asset.folder) %>
+<% end %>
 
-<p>
+<%= form_for @asset do |f| %>
+  <div class="field">
+    <strong><%= f.label :notes %></strong>
+    <%= f.text_area :notes, :rows => 4 %>
+  </div>
+  <div class="field">
+    <%= f.submit 'Save' %>
+  </div>
+
+<p class="field">
   <%= link_to "Hotlink", new_hotlink_path(@asset) %> | 
   <%= link_to "Edit", edit_asset_path(@asset) %> |
-  <%= link_to "Destroy", @asset, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", assets_path %>
+  <%= link_to "Destroy", @asset, :confirm => 'Are you sure?', :method => :delete %>
 </p>
+<% end %>
+

@@ -1,6 +1,7 @@
 class Folder < ActiveRecord::Base
   acts_as_tree :order=>'name'  
   attr_accessible :name, :parent_id
+  belongs_to :user  
   
   has_many :permissions
   has_many :users, :through=>:permissions
@@ -11,12 +12,6 @@ class Folder < ActiveRecord::Base
   def description
     'a'
   end
-
-
-
-  
-  
-    
   
   def breadcrumbs
     path = ''
@@ -26,5 +21,9 @@ class Folder < ActiveRecord::Base
     end 
     path +=  name
   end  
+  
+  def hasPermissions
+    
+  end
   
 end

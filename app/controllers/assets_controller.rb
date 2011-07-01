@@ -1,5 +1,4 @@
 class AssetsController < ApplicationController
-  
   def show
     @asset = Asset.find(params[:id])
   end
@@ -55,6 +54,14 @@ class AssetsController < ApplicationController
     @asset = Asset.find(params[:id])
     @asset.destroy
     redirect_to root_path
+  end
+  
+  def move
+    @asset = Asset.find(params[:asset_id])
+  end
+  
+  def rename
+    @asset = Asset.find(params[:asset_id])
   end
   
 end

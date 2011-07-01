@@ -23,7 +23,7 @@ class PermissionsController < ApplicationController
     @permission.assigned_by = current_user.id
     @permission.folder = current_user.owned_folders.find(params[:folder_id])
     if @permission.save
-      redirect_to folder_details_url(@permission.folder), :notice => "Successfully created permission."
+      redirect_to folder_details_path(@permission.folder), :notice => "Successfully created permission"
     else
       @users = User.all
       @groups = Group.all

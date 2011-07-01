@@ -1,0 +1,5 @@
+<ul>
+  <% @folders.each do |folder| %>
+    <li id='allFolders_<%= folder.id %>'><%= link_to folder.name, folder_folderChildren_path(folder) %></li>
+  <% end %>
+</ul>
