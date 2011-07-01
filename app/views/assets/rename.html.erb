@@ -1,0 +1,10 @@
+<h2>Rename <%= @asset.uploaded_file_file_name %></h2>
+<%= form_for @asset do |f| %>  
+  <div class="field">
+    <%= f.label :uploaded_file_file_name, "New Name" %>
+    <%= f.text_field :uploaded_file_file_name %>  
+  </div>
+  <div class="field">
+    <%= f.submit "Save" %>
+  </div>
+<% end %>  

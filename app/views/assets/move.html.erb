@@ -1,0 +1,10 @@
+<%= render "move" %>
+
+  <%= form_for @asset do |f| %>
+    <div class="field">
+      <%= f.hidden_field :folder_id %>
+    </div>
+    <div class="field">
+      <%= f.submit 'Move' %>
+    </div>
+  <% end %>
