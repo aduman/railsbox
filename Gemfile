@@ -17,17 +17,18 @@ group :development do
 end
 
 group :development, :test do
-	#gem 'cucumber', '0.10.2'
-	#gem 'cucumber-rails'
-	#gem 'capybara'
-	#gem 'rspec', '2.5.0'
-	#gem 'rspec-rails'
-	#gem 'webrat'
-	#gem 'faker'
-	#gem 'selenium-client'
-	#gem 'jasmine'
-	#gem 'database_cleaner'
-	#gem 'nifty-generators'
+	gem 'gherkin', '2.3.5'
+	gem 'cucumber', '0.10.2'
+	gem 'cucumber-rails'
+	gem 'capybara'
+	gem 'rspec', '2.5.0'
+	gem 'rspec-rails'
+	gem 'webrat'
+	gem 'faker'
+	gem 'selenium-client'
+	gem 'jasmine'
+	gem 'database_cleaner'
+	gem 'nifty-generators'
 end
 
 group :staging do

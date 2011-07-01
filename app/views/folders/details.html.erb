@@ -1,4 +1,4 @@
-<h2><%= @current_folder .name %> Details</h2>
+<h2><%= @current_folder.name %> Details</h2>
 <% if @current_folder.parent %>
   <p>
     <strong>Parent:</strong>  
@@ -6,10 +6,12 @@
   </p>
 <% end %>
 <p>
-  <strong>Created By:</strong>
-  <%= link_to @current_folder.user.name, @current_folder.user %>
+	<% if @current_folder.user %>
+  		<strong>Created By:</strong>
+  		<%= link_to @current_folder.user.name, @current_folder.user %>
+  	<% end %>
 </p>
 
 <strong>Permissions:</strong>
 
-<%= render (:partial => "assets/folderPermissions", :object => @current_folder) %>
+<%= render(:partial => "assets/folderPermissions", :object => @current_folder) %>
