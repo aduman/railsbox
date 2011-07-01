@@ -2,6 +2,10 @@ Railsbox::Application.routes.draw do
 
 
 
+  get "user_groups/new"
+
+  get "user_groups/delete"
+
   get "admin/panel"
 
   get "log_out" => "sessions#destroy", :as => "log_out"
@@ -12,9 +16,12 @@ Railsbox::Application.routes.draw do
   
   resources :users
   resources :sessions
-  resources :assets
+  resources :assets do
+    get :move, :rename
+  end
   resources :hotlinks
   resources :folders do
+    get :folderChildren, :move, :rename
     resources :permissions
   end
     

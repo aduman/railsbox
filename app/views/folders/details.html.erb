@@ -1,10 +1,15 @@
+<h2><%= @current_folder .name %> Details</h2>
+<% if @current_folder.parent %>
+  <p>
+    <strong>Parent:</strong>  
+    <%= link_to @current_folder.parent.name, folder_details_path(@current_folder.parent) %>
+  </p>
+<% end %>
 <p>
-  <strong>Name:</strong>
-  <%= @current_folder .name %>
-</p>
-<p>
-  <strong>Parent:</strong>
-  <%= @current_folder .parent_id %>
+  <strong>Created By:</strong>
+  <%= link_to @current_folder.user.name, @current_folder.user %>
 </p>
 
-<%= link_to 'add permissions', new_folder_permission_path(@current_folder) %>
+<strong>Permissions:</strong>
+
+<%= render (:partial => "assets/folderPermissions", :object => @current_folder) %>

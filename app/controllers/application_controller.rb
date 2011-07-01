@@ -5,7 +5,8 @@ class ApplicationController < ActionController::Base
   
   before_filter :is_authorised
 
-
+  layout proc{ |c| c.request.xhr? ? false : "application" }
+  
 private
 
 def is_authorised

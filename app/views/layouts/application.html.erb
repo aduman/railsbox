@@ -3,7 +3,10 @@
 <head>
   <title>Railsbox</title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag 'jquery-1.6.1.min', 'application', 'home-page', 'main-page' %>
+
+  <%= javascript_include_tag :defaults %>
+  
+  <%= yield :page_specific_head %>
   <%= csrf_meta_tag %>
 </head>
 <body>
@@ -29,7 +32,9 @@
      <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
      <% end %>
-  <%= yield %>
+    <div id="content">
+      <%= yield %>
+    </div>
   </div>
   
 </body>

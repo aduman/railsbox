@@ -12,6 +12,7 @@ class FoldersController < ApplicationController
   end
 
   def details
+
   end
 
   def new
@@ -70,6 +71,15 @@ class FoldersController < ApplicationController
       redirect_to root_url  
     end  
   end  
+  
+  def folderChildren
+    if params[:folder_id] == '0'
+      @parentFolder = nil
+    else
+      @parentFolder = Folder.find(params[:folder_id])
+    end
+    @folders = current_user.accessible_folders.where(:parent_id => @parentFolder)
+  end
 
   def search
     @search_query = params[:search]
@@ -92,6 +102,14 @@ class FoldersController < ApplicationController
     else
       #none to be found
     end
+  end
+  
+  def move
+    @folder = Folder.find(params[:folder_id])
+  end
+  
+  def rename
+    @folder = Folder.find(params[:folder_id])
   end
   
   

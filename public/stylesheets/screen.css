@@ -1,20 +1,58 @@
+* { padding: 0; margin: 0; }
+
 html{
-  overflow-y: scroll;
-  font-family: Verdana,Arial;
+overflow-y: scroll;
+font-family: Verdana,Arial;
 }
 
 body{
-  background: url('/images/bg.png')
+background: url('/images/bg.png');
+font-size: 13px;
+}
+
+h1,h2,h3,h4,p{
+margin-bottom:6px;
 }
 
 a{
-    text-decoration: none;
-    color: #333333;
+text-decoration: none;
+color: #333333;
 }
 
 .clear{
-  clear: both;
+clear: both;
 }
+
+form .field{
+float:left;
+clear:both;
+margin-bottom:6px;
+}
+
+form .field label,form .field input,form .field textarea{
+float:left;
+clear:left;
+}
+
+ul{
+margin-left:25px;
+}
+
+/****  Colorbox *********/
+
+#cboxLoadedContent{
+  margin:0;
+}
+
+#cboxClose{
+top:0;
+}
+
+#cboxLoadedContent h2{
+margin-right:30px;
+}
+
+/****  End Colorbox *********/
 
 
 /****  LOGON PAGE *********/
@@ -125,8 +163,9 @@ a{
 /****** MAIN PAGES ************/
   
   #top-menu{
-    
+    font-weight:bold;
     width: 100%;
+	font-size:11px;
   }
   #top-menu ul#actions-menu{
     margin: 0;
@@ -135,12 +174,16 @@ a{
   #top-menu ul#actions-menu li{
     float: left;
     list-style: none;
-    padding: 10px;
+    padding: 5px 10px;
+  }
+  
+  #top-menu ul#actions-menu li a:hover{
+	text-decoration:underline;
   }
 
   #top-menu #user-bar{
     float: right;
-    padding: 10px;
+    padding: 5px 10px;
   }
   
   #top-menu #user-bar #user-bar-padder{
@@ -166,7 +209,10 @@ a{
 
   #search-bar{
     background: url('/images/taskbar.png')  repeat-x;
-    padding: 20px 5px;
+    padding: 10px 0 2px 0;
+	float:left;
+	width:100%;
+	margin-bottom:5px;
   }
   
 
@@ -175,38 +221,64 @@ a{
     width: 100%;
     background: url('/images/filterBar.png');
     font-weight: bold;
-    margin: 5px 0 10px 0;
+    margin-top: 10px;
   }
   
-
-  .mark-it{
-    float: left;
-    width: 5%;
+  #file-container{
+	clear:both;
   }
-  .name{
-    float: left;
-    width: 30%;
-  }
-  .ext{
-    float: left;
-    width: 5%;
-  }
-  .size{
-    float: left;
-    width: 10%;
-  }
-  .description{
-    float: left;
-    width: 30%;
-  }
-  .date{
-    float: left;
-    width: 15%;
-  }
-  .attr{
-    float: left;
-    width: 5%;
-  }
+  
+  
+	.mark-it{
+	float: left;
+	width:2%;
+	margin-left:5px;
+	}
+	.row-container{
+		padding: 2px 0;
+	}
+	.row-container:hover{
+		background: transparent url('/images/highlight.png') repeat-x top left;
+	}
+	
+	.name{
+	float: left;
+	width: 30%;
+	}
+	.row-container .name a{
+		background: transparent url('/images/file.gif') no-repeat left center;
+		padding-left:20px;
+	}
+	.row-container .name a:hover{
+		text-decoration:underline;
+	}
+	.row-container.upFolder .name a{
+		background-image: url('/images/up.gif');
+	}
+	.row-container.folder .name a{
+		background-image: url('/images/folder.gif');
+	}	
+	
+	.ext{
+	float: left;
+	width: 5%;
+	}
+	.size{
+	float: left;
+	width: 10%;
+	}
+	.description{
+	float: left;
+	width: 30%;
+	}
+	.date{
+	float: left;
+	width: 15%;
+	}
+	.attr{
+	float: left;
+	width: 5%;
+	}
 
 
   #bottom-bar{
@@ -219,9 +291,8 @@ a{
 
   #bottom-bar-padder{
     margin: 0 auto;
-    width: 800px;  
-    padding-top: 20px;
-    padding-bottom: 20px;
+    width: 720px;  
+    padding-top: 10px;
     margin-bottom: 100px;
   }
 
@@ -232,9 +303,66 @@ a{
     font-weight: bold;
     font-size: 8pt;
     text-align: center;
+    padding: 5px 0;
+    -moz-border-radius: 10px;
+  }
+  
+  #bottom-bar .icon-link:hover{
+    background-color:#5E5E5E;
+    color:silver;
   }
   
 /****** END MAIN PAGES ********/
+
+/*************** Move Folder *****************/
+#folderMove{
+width:400px;
+height:350px;
+overflow:auto;
+padding:5px 5px 5px 0;
+border:1px solid silver;
+}
+
+#moveDialogLoading{
+float:right;
+height:32px;
+width:32px;
+display:block;
+background: transparent url('/images/colorbox/loading.gif') no-repeat top left;
+display:none;
+}
+
+#folderMove ul{
+margin-left: 20px;
+list-style:none;
+}
+
+#folderMove #folderRoot{
+margin-left:5px;
+}
+
+#folderMove li{
+margin:1px 0;
+}
+
+#folderMove li a{
+background: transparent url('/images/folderOpen.png') no-repeat center left;
+padding:2px 5px 2px 16px;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-o-user-select: none;
+user-select: none;
+}
+
+#folderMove li a.opened{
+background-image:url('/images/folderClose.png');
+}
+#folderMove li a.selected{
+background-color:#B2B2B2;
+}
+
+/**************End of Move Folder **************/
 
 
 /****** OVERLAY **********/
