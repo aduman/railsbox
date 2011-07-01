@@ -15,7 +15,7 @@ group :development do
 	gem 'ruby-debug'
 	gem 'template', '1.0.0', :require =>'simple-navigation'
 end
-
+group :development, :test do
 	gem 'gherkin', '2.3.5'
 	gem 'cucumber', '0.10.2'
 	gem 'cucumber-rails'

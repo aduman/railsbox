@@ -68,11 +68,7 @@ GEM
     fastthread (1.0.7)
     ffi (1.0.9)
     gem_plugin (0.2.3)
-<<<<<<< HEAD
     gherkin (2.3.5)
-=======
-    gherkin (2.4.1)
->>>>>>> aaab430894042e8d26da401eb5a10ae848868ce1
       json (>= 1.4.6)
     haml (3.1.2)
     haml-rails (0.3.4)
@@ -103,11 +99,7 @@ GEM
       fastthread (>= 1.0.1)
       gem_plugin (>= 0.2.3)
     nifty-generators (0.4.6)
-<<<<<<< HEAD
     nokogiri (1.4.6)
-=======
-    nokogiri (1.5.0)
->>>>>>> aaab430894042e8d26da401eb5a10ae848868ce1
     orm_adapter (0.0.5)
     paperclip (2.3.11)
       activerecord (>= 2.3.0)
