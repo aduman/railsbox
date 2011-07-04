@@ -1,4 +1,47 @@
 $(document).ready(function(){
+	function getSelected(single, type){
+		if (type===undefined){
+			var value = $('#file-container > .row-container > .mark-it > .tick:checked');
+			if(value.size() < 1){
+				alert('Please select an item');
+				return false;
+			}
+		}
+		else{
+			var value = $('#file-container > .row-container > .mark-it > .'+type+'Tick:checked');
+			if(value.size() < 1){
+				alert('Please select a ' + type);
+				return false;
+			}
+		}
+		if(single && value.size() > 1){
+			//More than 1 item selected if single is true
+			alert('Please select only 1 item');
+			return false;
+		}
+		else{
+			var result = new Object();
+		
+			//Get Folders
+			if(type===undefined || type == "folder"){
+				var folders = [];
+				value.filter("[id^='folder_']").each(function(index, element){
+					folders.push(element.id.split('_').pop());
+				});
+				result.folders = folders;
+			}
+			
+			//Get Files
+			if(type===undefined || type == "file"){
+				var files = [];
+				value.filter("[id^='file_']").each(function(index, element){
+					files.push(element.id.split('_').pop());
+				});
+				result.files = files;
+			}
+			return result;
+		}
+	}
 	
   $('#mark_it').click(function(){
     //select all box..
@@ -9,42 +52,57 @@ $(document).ready(function(){
       } 
     });
   });
-
-	function getSelectedId(type, single){
-	  var value = $('#file-container > .row-container > .mark-it > .'+type+'Tick:checked');
-	  if (single){
-		if (value.size() != 1){
-		  return 0;
-		}else{
-		  var val = value[0].id.split('_').pop();
-		  return val;
-		}
-	  }else{
-		var arry = []
-		$(value).each(function(a){
-			arry.push($(this)[0].id.split('_').pop());
-		});
-		return arry;
-	  }  
-	}
 	
 
-	//Move
-	function moveFolderSelect(element){
-		$('#selectedFolder').html($(element).html());
-		$('#asset_folder_id, #folder_parent_id').val($(element).parent().attr('id').split('_').pop());
-		$('li a.selected','#folderMove').removeClass('selected');
-		$(element).addClass('selected');
-	}
-
+	/******************** MOVE ****************/
+	
+	$('#move-link').click(function(e){
+		e.preventDefault();
+		
+		var selected = getSelected(false);
+		if(selected){
+			if(selected.folders.length > 0 && selected.files.length > 0){
+				alert('Please select either folders or files');
+				return false;
+			}
+			else if(selected.folders.length > 0){
+				$.colorbox({
+				  href: '/folders/'+selected.folders.join(',')+'/move',
+				  onComplete: function(){
+					makeFolderStructure('#folderMove', '#allFolders_'+selected.folders.join(',#allFolders_'));
+					$('#move','#cboxLoadedContent').click(function(){
+						moveItems();
+					});
+				  }
+				});
+			}
+			else if(selected.files.length > 0){
+				$.colorbox({
+				  href: '/assets/'+selected.files.join(',')+'/move',
+				  onComplete: function(){
+						makeFolderStructure('#folderMove', false);
+					$('#move','#cboxLoadedContent').click(function(){
+						moveItems();
+					});
+				  }
+				});
+			}
+		}
+	});
+	
+	//Get child elements of a folder
 	function makeFolderStructure(parent, exclude){
 		if(exclude==false){
 			var children = $('li a',parent);
 		}
 		else{
-			//If moving a folder exclude the current folder from being selected
+			//If moving a folder exclude the current folder(s) from being selected
 			var children = $('li:not("'+exclude+'") a',parent);
-			$(exclude).hide();
+			$(exclude)
+				.addClass('disabled')
+				.click(function(){
+					return false;
+				});
 		}
 		$(children).toggle(
 			//Open
@@ -79,103 +137,90 @@ $(document).ready(function(){
 			}
 		);
 	}
-
-	$('#move-link').click(function(e){
-		e.preventDefault();
-		var id = getSelectedId('folder', true);
-		if (id!=0){
-			$.colorbox({
-			  href: '/folders/'+id+'/move',
-			  onComplete: function(){
-				makeFolderStructure('#folderMove', '#allFolders_'+id);
-			  }
+	
+	//When a destination folder is selected
+	function moveFolderSelect(element){
+		$('#selectedFolder').html($(element).html());
+		$('.moveTarget','#moveForms').val($(element).parent().attr('id').split('_').pop());
+		$('li a.selected','#folderMove').removeClass('selected');
+		$(element).addClass('selected');
+	}
+	
+	//Execute move
+	function moveItems(){
+		var forms = $('form','#moveForms');
+		var completed = 0;
+		$(forms).each(function(index,element){
+			$.ajax({
+				type: 'POST',
+				url: $(element).attr('action'),
+				data: $(element).serialize(),
+				complete: function(){
+					completed++;
+					if (forms.length==completed){
+						window.location.reload();
+					}
+				}
 			});
-		}
-		else{
-		  //try file
-		  id = getSelectedId('file',true);
-		  if (id!=0){
-			$.colorbox({
-			  href: '/assets/'+id+'/move',
-			  onComplete: function(){
-				makeFolderStructure('#folderMove', false);
-			  }
-			});
-		  }
-		  else{
-			alert('Please select a file or folder via checkbox');
-		  }
-		}
-	});
+		});
+	}
+	
+	/**************END OF MOVE*****************/
 
   $('#upload-link, #new-folder-link').colorbox();
   
   
-  //download
-  $('#download-link').click(function(e){
-    e.preventDefault();
-    var id = getSelectedId('file', true);
-    if (id!=0){
-      document.location = 'assets/get/'+id;
-    }else{
-      alert('Please select a file via checkbox');
-    }
-  });
+	//download
+	$('#download-link').click(function(e){
+		var selected = getSelected(true,'file');
+		if (selected.files > 0){
+			document.location = 'assets/get/'+selected.files[0];
+		}
+		return false;
+	});
   
-  //rename
-  $('#rename-link').click(function(e){
-	e.preventDefault();
-    var id = getSelectedId('folder', true);
-    if (id!=0){
-        $.colorbox({
-          href: '/folders/'+id+'/rename'
-        });
-    }else{
-      //try file
-      id = getSelectedId('file', true);
-      if (id!=0){
-        $.colorbox({
-          href: '/assets/'+id+'/rename'
-        });
-      }else{
-        alert('Please select a file or folder via checkbox');
-      }
-    }
-  });
+	//rename
+	$('#rename-link').click(function(e){
+		var selected = getSelected(true);
+		if (selected.folders > 0){
+			$.colorbox({
+			  href: '/folders/'+selected.folders[0]+'/rename'
+			});
+		}
+		else if (selected.files > 0){
+			$.colorbox({
+			  href: '/assets/'+selected.files[0]+'/rename'
+			});
+		}
+		return false;
+	});
   
   //details
-  $('#details-link').click(function(e){
-    e.preventDefault();
-    var id = getSelectedId('folder', true);
-    if (id!=0){
-        $.colorbox({
-          href: '/folders/details/'+id
-        });
-    }else{
-      //try file
-      id = getSelectedId('file', true);
-      if (id!=0){
-        $.colorbox({
-          href: '/assets/'+id
-        });
-      }else{
-        alert('Please select a file or folder via checkbox');
-      }
-    }
-  });
+	$('#details-link').click(function(e){
+		var selected = getSelected(true);
+		if (selected.folders > 0){
+			$.colorbox({
+			  href: '/folders/details/' + selected.folders[0]
+			});
+		}
+		else if (selected.files > 0){
+			$.colorbox({
+			  href: '/assets/'+selected.files[0]
+			});
+		}
+		return false;
+	});
   
   //hotlink  
-  $('#hotlink-link').click(function(e){
-      e.preventDefault(true);
-      var id = getSelectedId('file', true);
-      if (id!=0){
-        $.colorbox({
-          href: '/hotlink/new/'+id
-		});
-      }else{
-        alert('Please select a file via checkbox');
-      }
-  });
+	$('#hotlink-link').click(function(e){
+		e.preventDefault(true);
+		var selected = getSelected(true,'file');
+		if (selected){
+			$.colorbox({
+				href: '/hotlink/new/'+selected.files[0]
+			});
+		}
+	});
   
 	$('#delete-link').click(function(){
 		if(confirm('Are you sure?')){
@@ -183,7 +228,7 @@ $(document).ready(function(){
 				$.ajax({
 					type: 'DELETE',
 					url: $(element).attr('action'),
-					data: 'authenticity_token=' + $('input[name="authenticity_token"]:first',element).val() +'&utf8=' + $('input[name="utf8"]:first',element).val(),
+					data: $(element).serialize(),
 					success: function(){
 						$(element).closest('.row-container').slideUp();
 					}
@@ -192,4 +237,4 @@ $(document).ready(function(){
 		}
 		return false;
 	});
-});
+})

@@ -1,10 +1,9 @@
-<%= render "assets/move" %>
+<%= render "/shared/moveDirStructure" %>
 
-<%= form_for @folder do |f| %>
-  <div class="field">
-    <%= f.hidden_field :parent_id %>
-  </div>
-  <div class="field">
-    <%= f.submit 'Move' %>
-  </div>
-<% end %>
+<div id="moveForms">
+  <% for @folder in @folders %>
+    <%= render "moveForm", :object => @folder %>
+  <% end %>
+</div>
+
+<button id="move">Move</button>

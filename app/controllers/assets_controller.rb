@@ -57,7 +57,7 @@ class AssetsController < ApplicationController
   end
   
   def move
-    @asset = Asset.find(params[:asset_id])
+    @assets = Asset.find(params[:asset_id].split(','))
   end
   
   def rename

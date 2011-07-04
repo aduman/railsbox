@@ -105,7 +105,7 @@ class FoldersController < ApplicationController
   end
   
   def move
-    @folder = Folder.find(params[:folder_id])
+    @folders = Folder.find(params[:folder_id].split(','))
   end
   
   def rename
