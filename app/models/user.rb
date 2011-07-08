@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   
   def accessible_folders
     if is_admin
-      return Folder.scoped 
+      return Folder.scoped.order('parent_id')
     else
       #this needs to be improved...
       g_folders = folders
@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
         g_folders += g.folders
       }
       ids = g_folders.inject([]){|a,b| a+=[b.id]}
-      Folder.where('id in (?)', ids)
+      Folder.where('id in (?)', ids).order('parent_id')
     end
   end  
   

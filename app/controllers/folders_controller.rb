@@ -3,8 +3,8 @@ class FoldersController < ApplicationController
   before_filter :find_folder
   
   def index
-    @folders = current_user.accessible_folders.where('folders.parent_id is null or folders.parent_id = 0')
-    @assets  = Asset.where(:folder_id=>nil, :user_id=>current_user)
+    @folders = current_user.accessible_folders.where('folders.parent_id is null or folders.parent_id = 0').order(:name)
+    @assets  = Asset.where(:folder_id=>nil, :user_id=>current_user).order(:uploaded_file_file_name)
   end
 
   def show
@@ -78,13 +78,22 @@ class FoldersController < ApplicationController
     else
       @parentFolder = Folder.find(params[:folder_id])
     end
-    @folders = current_user.accessible_folders.where(:parent_id => @parentFolder)
+    @folders = current_user.accessible_folders.where(:parent_id => @parentFolder).order(:name)
   end
 
   def search
-    @search_query = params[:search]
-    @folders = current_user.accessible_folders
-    @assets = current_user.assets
+    search_query = params[:search]
+    
+    @escaped_query = "%" + search_query[:query].gsub('%', '\%').gsub('_', '\_') + "%"
+    @searchNotes = params[:search][:notes] == '1'
+    
+    if @searchNotes
+      @folders = current_user.accessible_folders.find(:all, :conditions => ["name ILIKE ? OR notes ILIKE ?", @escaped_query, @escaped_query])
+      @assets = current_user.assets.find(:all, :conditions => ["uploaded_file_file_name ILIKE ? OR notes ILIKE ?", @escaped_query, @escaped_query])
+    else
+      @folders = current_user.accessible_folders.find(:all, :conditions => ["name ILIKE ?", @escaped_query])
+      @assets = current_user.assets.find(:all, :conditions => ["uploaded_file_file_name ILIKE ?", @escaped_query])
+    end
     render :action => "index"  
   end
 

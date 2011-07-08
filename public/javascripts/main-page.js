@@ -80,7 +80,7 @@ $(document).ready(function(){
 				$.colorbox({
 				  href: '/assets/'+selected.files.join(',')+'/move',
 				  onComplete: function(){
-						makeFolderStructure('#folderMove', false);
+					makeFolderStructure('#folderMove', false);
 					$('#move','#cboxLoadedContent').click(function(){
 						moveItems();
 					});
@@ -140,10 +140,23 @@ $(document).ready(function(){
 	
 	//When a destination folder is selected
 	function moveFolderSelect(element){
-		$('#selectedFolder').html($(element).html());
-		$('.moveTarget','#moveForms').val($(element).parent().attr('id').split('_').pop());
+		var path = "";
+		var x = $(element);
+		do{
+			if(path != ""){
+				path = x.html() + "/" + path;
+			}
+			else{
+				path = x.html();
+			}
+			x = x.closest('ul').prev('a')
+		}
+		while(x.length > 0);
+		$('#selectedFolder').html(path);
+		$('.moveTarget','#moveForms').val($(element).parent().attr('id').split('_').pop());		//add folder id to each of the input boxes
 		$('li a.selected','#folderMove').removeClass('selected');
 		$(element).addClass('selected');
+		$.colorbox.resize();
 	}
 	
 	//Execute move
@@ -200,12 +213,45 @@ $(document).ready(function(){
 		var selected = getSelected(true);
 		if (selected.folders > 0){
 			$.colorbox({
-			  href: '/folders/details/' + selected.folders[0]
+				href: '/folders/details/' + selected.folders[0],
+				onComplete: function(){
+					$('a.edit:first','#cboxLoadedContent').click(function(){
+						$('#rename-link').trigger('click');
+						return false;
+					});
+					$('a.addPermission:first','#cboxLoadedContent').colorbox({
+						onComplete: function(){
+							$('#new_permission').submit(function(){
+								$.ajax({
+									type: 'POST',
+									url: $('#new_permission').attr('action'),
+									data: $('#new_permission').serialize(),
+									success: function(data, textStatus, jqXHR){
+										if(textStatus == "success"){
+											$('#details-link').trigger('click');
+										}
+									}
+								});
+								return false;
+							});
+						}
+					});					
+				}
 			});
 		}
 		else if (selected.files > 0){
 			$.colorbox({
-			  href: '/assets/'+selected.files[0]
+			  href: '/assets/'+selected.files[0],
+			  onComplete: function(){
+				$('a.edit:first','#cboxLoadedContent').click(function(){
+					$('#rename-link').trigger('click');
+					return false;
+				});
+				$('a.createLink:first','#cboxLoadedContent').click(function(){
+					$('#hotlink-link').trigger('click');
+					return false;
+				});
+			  }
 			});
 		}
 		return false;
@@ -217,7 +263,45 @@ $(document).ready(function(){
 		var selected = getSelected(true,'file');
 		if (selected){
 			$.colorbox({
-				href: '/hotlink/new/'+selected.files[0]
+				href: '/hotlink/new/'+selected.files[0],
+				onComplete: function(){
+					$('#new_hotlink').submit(function(e){
+						var valid = true;
+						if(!/^\d{0,}$/.match($('#hotlink_days').val().trim())){
+							valid = false;
+							$('#hotlink_days').addClass('error');
+						}
+						else{
+							$('#hotlink_days').removeClass('error');
+						}
+						if($('#hotlink_link').val().trim() == ""){
+							valid = false;
+							$('#hotlink_link').addClass('error');
+						}
+						else{
+							$('#hotlink_link').removeClass('error');
+						}
+						if (valid==true){
+							$.ajax({
+								type: 'POST',
+								url: $('#new_hotlink').attr('action'),
+								data: $('#new_hotlink').serialize(),
+								success: function(data, textStatus, jqXHR){
+									$.colorbox({
+										html: $('#content',data).html(),
+										onComplete: function(){
+											$('#link').click(function(){
+												$(this).select();
+											});
+										}
+									});
+									
+								}
+							});
+						}
+						return false;
+					});
+				}
 			});
 		}
 	});
@@ -237,4 +321,4 @@ $(document).ready(function(){
 		}
 		return false;
 	});
-})
+});

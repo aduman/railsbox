@@ -4,8 +4,8 @@
       <% if permission.parent_type == "Group" %>
         Group:
       <% end %>
-      <%= link_to permission.parent.name, permission.parent %>
+      <%= permission.parent.name %>
     </li>
   <% end %>
 </ul>
-<%= link_to 'add permissions', new_folder_permission_path(folderPermissions) %>
+<%= link_to 'add permissions', new_folder_permission_path(folderPermissions), :class => 'button addPermission' %>

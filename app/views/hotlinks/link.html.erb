@@ -1,0 +1,5 @@
+<div id="hotlinkResult">
+  <h2 class="hotlink">Hotlink Created</h2>
+  <input type="text" id="link" readonly="readonly" value="<%= url_for(:action => 'show', :controller => 'hotlinks', :id => @hotlink.id, :only_path=>false) %>" />
+  <p>Expires on: <%= @hotlink.expiry_date %></p>
+</div>

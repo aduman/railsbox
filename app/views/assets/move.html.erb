@@ -1,9 +1,10 @@
 <%= render "/shared/moveDirStructure" %>
 
-<div id="moveForms">
+<div id="moveForms" class="hidden">
   <% for @asset in @assets %>
     <%= render "moveForm", :object => @asset %>
   <% end %>
 </div>
-
-<button id="move">Move</button>
+<div class="actions">
+  <button id="move" class="button move">Move</button>
+</div>

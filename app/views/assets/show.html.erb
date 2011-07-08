@@ -1,4 +1,4 @@
-<h2><%= @asset.uploaded_file_file_name %></h2>
+<h2 class="details">File Details</h2>
 
 <p>Created by: <%= @asset.user.first_name %> <%= @asset.user.last_name %> </p>
 
@@ -9,17 +9,22 @@
 
 <%= form_for @asset do |f| %>
   <div class="field">
+    <strong><%= f.label :uploaded_file_file_name, 'Name' %></strong>
+    <%= f.text_field :uploaded_file_file_name %>
+  </div>
+  <div class="field">
+    <strong><%= f.label :description %></strong>
+    <%= f.text_area :description, :rows => 4 %>
+  </div>
+  <div class="field">
     <strong><%= f.label :notes %></strong>
     <%= f.text_area :notes, :rows => 4 %>
   </div>
-  <div class="field">
-    <%= f.submit 'Save' %>
-  </div>
 
-<p class="field">
-  <%= link_to "Hotlink", new_hotlink_path(@asset) %> | 
-  <%= link_to "Edit", edit_asset_path(@asset) %> |
-  <%= link_to "Destroy", @asset, :confirm => 'Are you sure?', :method => :delete %>
-</p>
+<div class="actions">
+  <%= link_to "Download", download_path(@asset), :class => 'button download' %>
+  <%= link_to "Hotlink", new_hotlink_path(@asset), :class => 'button createLink' %>
+  <%= f.submit 'Save', :class => 'button save' %>
+</div>
 <% end %>
 

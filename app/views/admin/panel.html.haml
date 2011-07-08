@@ -1,25 +1,26 @@
-%h1 Admin panel
-
-%h2 Users
-
-%h3 Awaiting authorisation
-#non-active
-  %ul
-  - for user in @non_users
-    %li
-      = link_to user.name, user 
-
-%h3 Active
-#active
-  %ul
-  - for user in @users
-    %li
-      = link_to user.name, user 
-
-%h2 Groups
-#groups
-  %ul
-  - for group in @groups
-    %li
-      = link_to group.name, group 
+#innerContent
+  %h1 Admin panel
+  
+  %h2 Users
+  
+  %h3 Awaiting authorisation
+  #non-active
+    %ul
+      - for user in @non_users
+        %li
+          = link_to user.name, user 
+  
+  %h3 Active
+  #active
+    %ul
+      - for user in @users
+        %li
+          = link_to user.name, user 
+  
+  %h2 Groups
+  #groups
+    %ul
+      - for group in @groups
+        %li
+          = link_to group.name, group 
 

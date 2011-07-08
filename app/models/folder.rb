@@ -1,6 +1,6 @@
 class Folder < ActiveRecord::Base
   acts_as_tree :order=>'name'  
-  attr_accessible :name, :parent_id
+  attr_accessible :name, :parent_id, :notes, :description
   belongs_to :user  
   
   has_many :permissions
@@ -8,10 +8,6 @@ class Folder < ActiveRecord::Base
   has_many :assets, :dependent => :destroy
   
   validates_presence_of :name
-  
-  def description
-    'a'
-  end
   
   def breadcrumbs
     path = ''

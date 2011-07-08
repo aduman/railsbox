@@ -2,28 +2,35 @@
   <%= javascript_include_tag 'jquery-1.6.1.min', 'jquery.colorbox-min', 'main-page' %>
 <% end %>
 
-<div id="search-bar">
+<div id="topBar">
+  <div id="innerTopBar">
     <%= form_tag '/search' do %>
-    <p>
       <%= label :search, :query, 'Search:' %>
       <%= text_field :search, :query %>
-      <%= check_box :search, :case %>
-      <%= label :search, :case, 'Match case' %>
-       <%= check_box :search, :notes %>
-      <%= label :search, :notes, 'Notes' %>
-    
-  <%= submit_tag 'Search' %></p>
-<% end %>
+      <%= label :search, :notes, 'Search in notes?: ' %>
+      <%= check_box :search, :notes %>
+      <%= submit_tag 'Search', :class => 'button search' %>
+    <% end %>
 
-<%= render :partial => "breadcrumbs" %> 
-<div id="headers">
-  <div class="mark-it"><%= check_box :mark, :it %></div>
-  <div class="name">Name</div>
-  <div class="ext">Ext</div>
-  <div class="size">Size</div>
-  <div class="description">Description</div>
-  <div class="date">Date</div>
-</div>
+    <% if @escaped_query %>
+      <p class="breadcrumbs">
+        Search for: "<%= h @escaped_query %>"
+        <% if @searchNotes %>
+          , include notes
+        <% end %>
+      </p>
+    <% else %>
+      <%= render :partial => "breadcrumbs" %>   
+    <% end %>
+  </div>
+  <div id="headers">
+    <div class="mark-it"><%= check_box :mark, :it %></div>
+    <div class="name">Name</div>
+    <div class="ext">Ext</div>
+    <div class="size">Size</div>
+    <div class="description">Description</div>
+    <div class="date">Date</div>
+  </div>
 </div>
 
 <div id="file-container">
@@ -56,11 +63,11 @@
         <% end %>
       <div class="ext">&nbsp;</div>
       <div class="size">    &lt;DIR&gt;                        </div>
-      <div class="description"><%= h folder.description %>       </div>
+      <div class="description"><%= h folder.description %>&nbsp;</div>
       <div class="date">    <%= h folder.created_at.strftime("%d/%m/%Y %H:%M:%S") %>           </div>
       <div class="clear"><!-- --></div> 
     </div>
-<% end %>    
+<% end %> 
 <!-- files -->
 <% for asset in @assets %>
     <div class="row-container">
@@ -68,64 +75,79 @@
         <%= check_box :file, asset.id, :class=>'fileTick tick' %> 
         <%= form_for asset, :html => { :method => 'delete' } do |f| end %>
       </div>
-      <div class="name">    <%= link_to h(asset.uploaded_file_file_name), download_url(asset) %></div>
-      <div class="ext">    &nbsp; <%= h asset.file_extension%></div>
-      <div class="size">    <%= number_to_human_size(asset.uploaded_file_file_size, :precision => 3)  %></div>
+      <div class="name"><%= link_to h(asset.uploaded_file_file_name), download_url(asset) %></div>
+      <div class="ext"><%= h asset.file_extension%>&nbsp;</div>
+      <div class="size"><%= number_to_human_size(asset.uploaded_file_file_size, :precision => 3)  %></div>
       <div class="description"><%= h asset.description %>&nbsp;       </div>
-      <div class="date">    <%= h asset.created_at.strftime("%d/%m/%Y %H:%M:%S") %>           </div>
+      <div class="date"><%= h asset.created_at.strftime("%d/%m/%Y %H:%M:%S") %>           </div>
       <div class="clear"><!-- --> </div> 
     </div>
 <% end %>
 
- 
 </div>
 
 <div id="bottom-bar">
   <div id="bottom-bar-padder">
           <%= link_to '#', :id=>'download-link' do %>
-              <span class='icon-link'> <%= image_tag('/images/icons/download.png') %><br/> Download </span>
+              <span class='icon-link download'>
+                <p>Download</p>
+              </span>
           <% end %>
     <% if @current_folder%>
           <%= link_to new_sub_file_path(@current_folder), :id=>'upload-link' do %>
-              <span class='icon-link'> <%= image_tag('/images/icons/upload.png') %><br/> Upload </span>
+              <span class='icon-link upload'>
+                <p>Upload</p>
+              </span>
           <% end %>
 
           <%= link_to new_sub_folder_path(@current_folder), :id=>'new-folder-link' do %>
-              <span class='icon-link'> <%= image_tag('/images/icons/newFolder.png') %><br/> New folder </span>
+              <span class='icon-link newFolder'>
+                <p>New folder</p>
+              </span>
           <% end %>
     <% else %>
           <%= link_to new_asset_path, :id=>'upload-link' do %>
-              <span class='icon-link'> <%= image_tag('/images/icons/upload.png') %><br/> Upload </span>
+              <span class='icon-link upload'>
+                <p>Upload</p>
+              </span>
           <% end %>
 
           <%= link_to new_folder_path, :id=>'new-folder-link' do %>
-              <span class='icon-link'> <%= image_tag('/images/icons/newFolder.png') %><br/> New Folder </span>
+              <span class='icon-link newFolder'> 
+                <p>New Folder</p>
+              </span>
           <% end %>
     <% end %>
       
       <% if current_user.can_hotlink %>
           <%= link_to '#', :id=>'hotlink-link' do %>
-              <span class='icon-link'> <%= image_tag('/images/icons/hotlink.png') %><br/> Hotlink </span>
+              <span class='icon-link hotlink'>
+                <p>Hotlink</p>
+              </span>
           <% end %>
       <% end %>
           <%= link_to '#', :id=>'move-link' do %>
-              <span class='icon-link'> <%= image_tag('/images/icons/move.png') %><br/> Move </span>
-          <% end %>
-
-          <%= link_to '#', :id=>'rename-link' do %>
-              <span class='icon-link'> <%= image_tag('/images/icons/rename.png') %><br/> Rename </span>
+              <span class='icon-link move'>
+                <p>Move</p>
+              </span>
           <% end %>
 
           <%= link_to '#', :id=>'details-link' do %>
-              <span class='icon-link'> <%= image_tag('/images/icons/copy.png') %><br/> Details </span>
+              <span class='icon-link details'>
+                <p>Details </p>
+              </span>
           <% end %>
 
           <%= link_to @asset, :confirm => 'Are you sure?', :method => :delete, :id=>'delete-link' do %>
-              <span class='icon-link'> <%= image_tag('/images/icons/delete.png') %><br/> Delete </span>
+              <span class='icon-link delete'>
+                <p>Delete </p>
+              </span>
           <% end %>
 
           <%= link_to log_out_path, :id=>'download-link' do %>
-              <span class='icon-link'> <%= image_tag('/images/icons/exit.png') %><br/> Exit </span>
+              <span class='icon-link exit'>
+                <p>Exit</p>
+              </span>
           <% end %>
 
   </div>        

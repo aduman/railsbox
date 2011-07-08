@@ -19,7 +19,9 @@ Railsbox::Application.routes.draw do
   resources :assets do
     get :move, :rename
   end
-  resources :hotlinks
+  resources :hotlinks do
+    get :link
+  end
   resources :folders do
     get :folderChildren, :move, :rename
     resources :permissions
