@@ -1,0 +1,10 @@
+%h2 Add User to Group
+
+= render "users/search"
+
+= form_for @userGroup, :url => group_userGroup_index_path(@userGroup.group) do |f|
+  = f.error_messages 
+  .field.hidden
+    = f.hidden_field :user_id
+  .actions
+    = f.submit 'Add', :class => 'button new'

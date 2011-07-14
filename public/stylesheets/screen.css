@@ -40,7 +40,7 @@ clear:both;
 margin-bottom:6px;
 }
 
-form .field label,form .field input,form .field textarea{
+form .field label,form .field input,form .field textarea,form .field select{
 float:left;
 clear:left;
 }
@@ -49,7 +49,11 @@ form input.error{
 background-color:#FF6A54;
 }
 
-form .field.border{
+form .actions{
+clear:both;
+}
+
+.border{
 padding: 7px;
 -moz-border-radius: 4px;
 -webkit-border-radius: 4px;
@@ -63,34 +67,69 @@ margin-left:25px;
 }
 
 #innerContent{
-margin:15px;
+margin:0px 15px 15px 15px;
 padding:15px;
 border-radius: 10px 10px 10px 10px;
 background-color:white;
+}
+.listWithDelete{
+margin:0;
+}
+.listWithDelete li{
+margin: 3px 0;
+float:left;
+clear:left;
+list-style:none;
+min-width:400px;
+padding:5px;
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+-khtml-border-radius: 4px;
+border-radius: 4px;
+border:1px solid silver;
+}
+
+.listWithDelete li a{
+float:left;
+margin:6px;
+}
+
+.listWithDelete li form{
+float:right;
 }
 
 /***** Buttons *****/
 
 .button{
-  border: 1px solid silver;
--moz-border-radius: 4px;
--webkit-border-radius: 4px;
--khtml-border-radius: 4px;
-border-radius: 4px;
-  padding:3px 6px 3px 27px;
-  margin:3px;
-  display:block;
-  text-decoration:none;
-  background-repeat: no-repeat;
-  background-position:6px 3px;
-  background-color:white;
-  text-align:left;
-  float:left;
-  cursor:pointer;
+	border: 1px solid silver;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	padding:3px 6px 3px 27px;
+	margin:3px;
+	display:block;
+	text-decoration:none;
+	background-repeat: no-repeat;
+	background-position:6px 3px;
+	background-color:white;
+	text-align:left;
+	float:left;
+	cursor:pointer;
 }
 .button:hover{
-  border-width: 2px;
-  margin:2px;
+	border-width: 2px;
+	margin:2px;
+}
+
+.button.large{
+padding:10px 15px;
+font-size:1.2em;
 }
 
 input.button{
@@ -132,6 +171,12 @@ background-image: url('/images/download.png');
 .button.edit{
 background-image: url('/images/pencil.png');
 }
+.button.new{
+background-image: url('/images/add.png');
+}
+.button.back{
+background-image: url('/images/arrow_left.png');
+}
 
 /****  Colorbox *********/
 
@@ -145,15 +190,19 @@ top:0;
 
 #cboxLoadedContent h2{
 margin-right:30px;
-padding: 15px 0 15px 55px;
-background-repeat:no-repeat;
-background-position: left middle;
+padding: 0 0 10px 0;
 -webkit-user-select: none;
 -khtml-user-select: none;
 -moz-user-select: none;
 -o-user-select: none;
 user-select: none;
 cursor:default;
+}
+
+#cboxLoadedContent h2.icon{
+padding: 15px 0 15px 55px;
+background-repeat:no-repeat;
+background-position: left middle;
 }
 
 #cboxLoadedContent #singleMessage{
@@ -187,11 +236,19 @@ float:right;
 #logon-tabs ul{
   float: right;
   list-style: none;
-  margin: 0 100px;
+  margin: 0 50px;
 }
 
 #logon-tabs ul li{
+  margin-left:10px;
+  float:left;
+}
+
+#logon-tabs ul li a{
+  text-decoration: none;
+  color: #333333;
   padding: 10px 20px;
+  display:block;
   background-color: #eeeeee;
   border: 1px solid #cccccc;
   border-bottom: none;
@@ -201,12 +258,10 @@ float:right;
   border-top-left-radius: .5em;
   -moz-border-radius-topLeft: .5em;
   -webkit-border-radius-topleft: .5em;
-
 }
 
-#logon-tabs ul li a{
-  text-decoration: none;
-  color: #333333;
+#logon-tabs ul li a:hover{
+	background-color: #AAAAAA;
 }
 
 #logon-main{
@@ -221,7 +276,6 @@ float:right;
 #logon-main #logo_holder{
 
   float: left;
-  height: 200px;
 }
 
 #logon-main #form-holder{
@@ -247,31 +301,6 @@ float:right;
 
 
 /***** END LOGON PAGE *********/
-
-/***** SIGN UP PAGE ***********/
-#sign-up-form{
-  width: 600px;
-  margin: 0 auto;
-  background-color: #f3f3f3;
-}
-
-#sign-up-form #logo-holder{
-  background: url('/images/bg.png');
-}
-#sign-up-form #register-form-holder{
-  padding: 10px;
-}
-
-#sign-up-form label{
-  float: left;
-  width: 200px;
-}
-
-#sign-up-form .button{
-  margin-left: 200px;
-  margin-bottom: 20px;
-}
-/****** END SIGN UP PAGE ******/
 
 /****** MAIN PAGES ************/
   
@@ -393,55 +422,89 @@ background-color:#ccc;
   }
   
   
-	.mark-it{
+	#file-container .row-container{
+		padding: 3px 0;
+	}
+	#file-container .row-container:hover{
+		background: transparent url('/images/highlight.png') repeat-x top left;
+	}
+	
+	
+	#file-container .mark-it, #headers .mark-it{
 	float: left;
 	width:2%;
 	margin-left:5px;
 	}
-	.row-container{
-		padding: 2px 0;
-	}
-	.row-container:hover{
-		background: transparent url('/images/highlight.png') repeat-x top left;
-	}
-	
-	.name{
+	#file-container .name, #headers .name{
 	float: left;
 	width: 30%;
 	}
-	.row-container .name a{
-		background: transparent url('/images/file.png') no-repeat left center;
-		padding-left:20px;
-	}
-	.row-container .name a:hover{
-		text-decoration:underline;
-	}
-	.row-container.upFolder .name a{
-		background-image: url('/images/up.png');
-	}
-	.row-container.folder .name a{
-		background-image: url('/images/folder.png');
-	}	
-	
-	.ext{
+	#file-container .ext, #headers .ext{
 	float: left;
 	width: 5%;
 	}
-	.size{
+	#file-container .size, #headers .size{
 	float: left;
 	width: 10%;
 	}
-	.description{
+	#file-container .description, #headers .description{
 	float: left;
 	width: 30%;
 	}
-	.date{
+	#file-container .date, #headers .date{
 	float: left;
 	width: 15%;
 	}
-	.attr{
+	#file-container .attr, #headers .attr{
 	float: left;
 	width: 5%;
+	}
+	
+	
+	
+	
+	#file-container .row-container .name a.details{
+		background: transparent url('/images/file.png') no-repeat left bottom;
+		text-indent: -9999px;
+		width:17px;
+		height:17px;
+		margin-right:5px;
+		float:left;
+	}
+	#file-container .row-container .name a.details:hover{
+	background-position: -1px 0;
+	}
+	
+	#file-container .row-container .name a:hover{
+		text-decoration:underline;
+	}
+	#file-container .row-container.upFolder .name a{
+		background: transparent url('/images/up.png') no-repeat left top;
+		padding-left:20px;
+	}
+	#file-container .row-container.folder .name a.details{
+		background-image: url('/images/folder.png');
+	}
+	#file-container .row-container .name a.details.txtFileType{
+		background-image: url('/images/page_white_text.png');
+	}
+	#file-container .row-container .name a.details.pdfFileType{
+		background-image: url('/images/page_white_acrobat.png');
+	}
+	#file-container .row-container .name a.details.zipFileType{
+		background-image: url('/images/page_white_compressed.png');
+	}
+	#file-container .row-container .name a.details.jpgFileType,#file-container .row-container .name a.details.jpegFileType, #file-container .row-container .name a.details.pngFileType, #file-container .row-container .name a.details.gifFileType{
+		background-image: url('/images/page_white_picture.png');
+	}
+	#file-container .row-container .name a.details.docFileType, #file-container .row-container .name a.details.docxFileType{
+		background-image: url('/images/page_white_word.png');
+	}
+	#file-container .row-container .name a.details.pptFileType, #file-container .row-container .name a.details.pptxFileType{
+		background-image: url('/images/page_white_powerpoint.png');
+	}
+	#file-container .row-container .name a.details.xlsFileType, #file-container .row-container .name a.details.xlsxFileType{
+		background-image: url('/images/page_white_excel.png');
 	}
 
 
@@ -516,7 +579,54 @@ background-color:#ccc;
   }
   
 /****** END MAIN PAGES ********/
+ul#permissions{
+clear:left;
+margin-left:5px;
+}
 
+ul#permissions li{
+float:left;
+clear:left;
+display:block;
+background: transparent url('/images/bullet_black.png') no-repeat top left;
+list-style:none;
+padding-left:20px;
+}
+
+ul#permissions li span.permName{
+float:left;
+margin-right:5px;
+}
+
+ul#permissions li span.permName a:hover{
+text-decoration:underline;
+}
+
+ul#permissions li span.permission{
+background-repeat:no-repeat;
+width:16px;
+height:16px;
+text-indent:-9999px;
+float:right;
+margin: 0 2px;
+}
+ul#permissions li span.permission.read, p#permissions .read_perms label{
+background-image: url('/images/eye.png');
+}
+ul#permissions li span.permission.write, p#permissions .write_perms label{
+background-image: url('/images/pencil.png');
+}
+ul#permissions li span.permission.delete, p#permissions .delete_perms label{
+background-image: url('/images/cross.png');
+}
+
+p#permissions span.permission label{
+background-repeat:no-repeat;
+padding-left:20px;
+}
+p#permissions span.permission{
+margin-right:10px;
+}
 /*************** Move Folder *****************/
 #folderMove{
 width:400px;
@@ -591,6 +701,11 @@ background-image:url('/images/folderUnavailable.png');
 	margin-bottom:5px;
 }
 
+#hotlinkError{
+color:red;
+display:none;
+}
+
 /****** End of Hotlink **********/
 
 
@@ -614,3 +729,73 @@ background-image:url('/images/folderUnavailable.png');
 	-moz-box-shadow:0 0 90px 5px #000;
 	-webkit-box-shadow: 0 0 90px #000;	
 }
+/****** End of OVERLAY **********/
+
+
+/****** User Search **********/
+#userGroupSearch{
+float:left;
+min-width:455px;
+margin-bottom:10px;
+}
+
+#searchResult.loading{
+background: white url('/images/colorbox/loading.gif') no-repeat top center;
+}
+
+#userGroupSearch #query, #userGroupSearch  #inactive, #userGroupSearch label{
+margin-top:3px;
+}
+
+#userGroupSearch input{
+margin-right:10px;
+}
+
+#userGroupSearch .search{
+float:right;
+}
+
+#userGroupSearch #searchResult{
+clear:left;
+float:left;
+width:100%;
+min-height:30px;
+}
+
+#userGroupSearch #searchResult ul{
+margin:0;
+list-style:none;
+}
+#userGroupSearch #searchResult ul li a{
+background: transparent url('/images/bullet_green.png') no-repeat left center;
+padding-left:20px;
+}
+#userGroupSearch #searchResult ul li.inactive a{
+background: transparent url('/images/bullet_red.png') no-repeat left center;
+}
+
+#searchResult ul li a:hover{
+text-decoration:underline;
+}
+
+#userGroupSearch #searchResult.selectable ul li a{
+	background-image:none;
+	background-color: #ddd;
+	padding:3px 5px;
+	margin:2px 0;
+}
+
+#userGroupSearch #searchResult.selectable ul li a:hover{
+	background-color: #ccc;
+	text-decoration:none;
+}
+
+#userGroupSearch #searchResult.selectable ul li a.selected{
+	background-color:#aaa;
+}
+
+#userGroupSearch #searchResult.selectable ul li a{
+display:block;
+}
+
+/****** End of User Search ********/

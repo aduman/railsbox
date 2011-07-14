@@ -179,6 +179,122 @@ $(document).ready(function(){
 	}
 	
 	/**************END OF MOVE*****************/
+	
+	/**************Details*****************/
+	
+	function getDetails(isFolder, href){
+		if (isFolder){
+			$.colorbox({
+				href: href,
+				onComplete: function(){
+					$('a.edit:first','#cboxLoadedContent').click(function(){
+						$('#rename-link').trigger('click');
+						return false;
+					});
+					$('li .permName a','#permissions').colorbox({
+						onComplete: function(){
+							$('a.back:first','#cboxLoadedContent').click(function(){
+								getDetails(isFolder, href);
+								return false;
+							});
+							$('a.delete:first','#cboxLoadedContent').click(function(){
+								var form = $('.edit_permission:first','#cboxLoadedContent');
+								if (confirm('Are you sure you want to delete this permission?')){
+									$.ajax({
+										type: 'DELETE',
+										url: $(form).attr('action'),
+										data: $(form).serialize(),
+										success: function(data, textStatus, jqXHR){
+											if(textStatus == "success"){
+												getDetails(isFolder, href);
+											}
+										}
+									});
+								}								
+								return false;
+							});
+							$('.edit_permission:first','#cboxLoadedContent').submit(function(){
+								$.ajax({
+									type: 'POST',
+									url: $(this).attr('action'),
+									data: $(this).serialize(),
+									success: function(data, textStatus, jqXHR){
+										if(textStatus == "success"){
+											getDetails(isFolder, href);
+										}
+									}
+								});
+								return false;
+							});
+							
+						}
+					});
+					$('a.addPermission:first','#cboxLoadedContent').colorbox({
+						onComplete: function(){
+							colorboxSearchComplete();
+							$('a.back:first','#cboxLoadedContent').click(function(){
+								getDetails(isFolder, href);
+								return false;
+							});
+							$('#new_permission').submit(function(){
+								$.ajax({
+									type: 'POST',
+									url: $('#new_permission').attr('action'),
+									data: $('#new_permission').serialize(),
+									success: function(data, textStatus, jqXHR){
+										if(textStatus == "success"){
+											getDetails(isFolder, href);
+										}
+									}
+								});
+								return false;
+							});
+						}
+					});					
+				}
+			});
+		}
+		else{
+			//is a file
+			$.colorbox({
+			  href: href,
+			  onComplete: function(){
+				$('a.edit:first','#cboxLoadedContent').click(function(){
+					$('#rename-link').trigger('click');
+					return false;
+				});
+				$('a.createLink:first','#cboxLoadedContent').colorbox({
+					onComplete: function(){
+						hotlinkMakeForm();
+					}
+				});
+			  }
+			});
+		}
+	}
+	
+	//Individual details button
+	$('.row-container','#file-container').each(function(index,element){
+		$('div.name:first a.details:first',element).click(function(){			
+			getDetails($(this).closest('.row-container').hasClass('folder'),$(this).attr('href'));
+			return false;
+			//getDetails(true, );
+		});
+	});
+	
+	//Details bottom bar button
+	$('#details-link').click(function(e){
+		var selected = getSelected(true);
+		if (selected.folders > 0){
+			getDetails(true, '/folders/details/' + selected.folders[0]);
+		}
+		else if (selected.files > 0){
+			getDetails(false, '/assets/' + selected.files[0]);
+		}
+		return false;
+	});	
+	
+	/**************End of Details*****************/
 
   $('#upload-link, #new-folder-link').colorbox();
   
@@ -208,54 +324,7 @@ $(document).ready(function(){
 		return false;
 	});
   
-  //details
-	$('#details-link').click(function(e){
-		var selected = getSelected(true);
-		if (selected.folders > 0){
-			$.colorbox({
-				href: '/folders/details/' + selected.folders[0],
-				onComplete: function(){
-					$('a.edit:first','#cboxLoadedContent').click(function(){
-						$('#rename-link').trigger('click');
-						return false;
-					});
-					$('a.addPermission:first','#cboxLoadedContent').colorbox({
-						onComplete: function(){
-							$('#new_permission').submit(function(){
-								$.ajax({
-									type: 'POST',
-									url: $('#new_permission').attr('action'),
-									data: $('#new_permission').serialize(),
-									success: function(data, textStatus, jqXHR){
-										if(textStatus == "success"){
-											$('#details-link').trigger('click');
-										}
-									}
-								});
-								return false;
-							});
-						}
-					});					
-				}
-			});
-		}
-		else if (selected.files > 0){
-			$.colorbox({
-			  href: '/assets/'+selected.files[0],
-			  onComplete: function(){
-				$('a.edit:first','#cboxLoadedContent').click(function(){
-					$('#rename-link').trigger('click');
-					return false;
-				});
-				$('a.createLink:first','#cboxLoadedContent').click(function(){
-					$('#hotlink-link').trigger('click');
-					return false;
-				});
-			  }
-			});
-		}
-		return false;
-	});
+  
   
   //hotlink  
 	$('#hotlink-link').click(function(e){
@@ -265,50 +334,60 @@ $(document).ready(function(){
 			$.colorbox({
 				href: '/hotlink/new/'+selected.files[0],
 				onComplete: function(){
-					$('#new_hotlink').submit(function(e){
-						var valid = true;
-						if(!/^\d{0,}$/.match($('#hotlink_days').val().trim())){
-							valid = false;
-							$('#hotlink_days').addClass('error');
-						}
-						else{
-							$('#hotlink_days').removeClass('error');
-						}
-						if($('#hotlink_link').val().trim() == ""){
-							valid = false;
-							$('#hotlink_link').addClass('error');
-						}
-						else{
-							$('#hotlink_link').removeClass('error');
-						}
-						if (valid==true){
-							$.ajax({
-								type: 'POST',
-								url: $('#new_hotlink').attr('action'),
-								data: $('#new_hotlink').serialize(),
-								success: function(data, textStatus, jqXHR){
-									$.colorbox({
-										html: $('#content',data).html(),
-										onComplete: function(){
-											$('#link').click(function(){
-												$(this).select();
-											});
-										}
-									});
-									
-								}
-							});
-						}
-						return false;
-					});
+					hotlinkMakeForm();
 				}
 			});
 		}
 	});
+	
+	function hotlinkMakeForm(){
+		$('#new_hotlink').submit(function(e){
+			e.preventDefault();
+			var valid = true;
+			if(!/^\d{0,}$/.match($('#hotlink_days').val().trim())){
+				valid = false;
+				$('#hotlink_days').addClass('error');
+			}
+			else{
+				$('#hotlink_days').removeClass('error');
+			}
+			if($('#hotlink_link').val().trim() == ""){
+				valid = false;
+				$('#hotlink_link').addClass('error');
+			}
+			else{
+				$('#hotlink_link').removeClass('error');
+			}
+			if (valid==true){
+				$.ajax({
+					type: 'POST',
+					url: $('#new_hotlink').attr('action'),
+					data: $('#new_hotlink').serialize(),
+					success: function(data, textStatus, jqXHR){
+						$.colorbox({
+							html: $('#content',data).html(),
+							onComplete: function(){
+								$('#link').click(function(){
+									$(this).select();
+								});
+							}
+						});
+						
+					}
+				});
+			}
+			else{
+				$('#hotlinkError').show();
+				$.colorbox.resize();
+			}
+			return false;
+		});
+	}
   
 	$('#delete-link').click(function(){
-		if(confirm('Are you sure?')){
-			$('#file-container > .row-container > .mark-it > .tick:checked').next('form').each(function(index,element){
+		var toDelete = $('#file-container > .row-container > .mark-it > .tick:checked');
+		if(confirm('Are you sure you want to delete '+toDelete.length+' items?')){
+			$(toDelete).next('form').each(function(index,element){
 				$.ajax({
 					type: 'DELETE',
 					url: $(element).attr('action'),

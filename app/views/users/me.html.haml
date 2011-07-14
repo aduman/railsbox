@@ -24,7 +24,7 @@
       %em You don't belong to any groups
   -else
     %ul
-      - for group in current_user.groups 
+      - for group in current_user.groups.order(:name)
         %li
           =link_to group.name, group
         

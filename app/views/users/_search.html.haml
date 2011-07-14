@@ -1,0 +1,15 @@
+#userGroupSearch.border
+  
+  = form_tag user_search_path, :method => 'POST', :id=>'userGroupSearchForm' do
+  
+    = label_tag "query", "Filter: "
+    = text_field_tag "query", nil, :autocomplete => "off"
+    
+    = label_tag "inactive", "Inactive Users Only: "
+    = check_box_tag "inactive"
+    
+    = submit_tag 'Search', :class => 'button search'
+  
+  #searchResult
+  .clear
+.clear

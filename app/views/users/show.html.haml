@@ -13,17 +13,19 @@
   
   %h2 Permissions
   = form_for @user do |f|
-    %p 
-      Access site:
-      = f.check_box :active
-    %p 
-      Admin:
-      = f.check_box :is_admin
-    %p 
-      Can hotlink
-      = f.check_box :can_hotlink
     %p
-      = f.submit 'Save changes' 
+      = f.label :active
+      = f.check_box :active
+      &nbsp; 
+      = f.label :is_admin
+      = f.check_box :is_admin
+      &nbsp;
+      = f.label :can_hotlink
+      = f.check_box :can_hotlink
+    .actions
+      = f.submit 'Save changes', :class => 'button save'
+      
+    .clear
   
   %h2 Groups
   - if @user.groups.empty?

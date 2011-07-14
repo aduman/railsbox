@@ -1,26 +1,8 @@
 #innerContent
   %h1 Admin panel
   
-  %h2 Users
+  = link_to 'Users', users_path, :class => 'button large'
   
-  %h3 Awaiting authorisation
-  #non-active
-    %ul
-      - for user in @non_users
-        %li
-          = link_to user.name, user 
+  = link_to 'Groups', groups_path, :class => 'button large'
   
-  %h3 Active
-  #active
-    %ul
-      - for user in @users
-        %li
-          = link_to user.name, user 
-  
-  %h2 Groups
-  #groups
-    %ul
-      - for group in @groups
-        %li
-          = link_to group.name, group 
-
+  .clear

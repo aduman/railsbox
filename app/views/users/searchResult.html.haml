@@ -1,0 +1,13 @@
+- if @userCount > 0
+  %ul
+    - for user in @users
+      %li{:class => ("inactive" unless user.active?) }
+        = link_to user.name, user
+    - if @userCount > 5
+      %li
+        + 
+        = @userCount - 5 
+        more users
+    
+- else
+  %p No Users Found

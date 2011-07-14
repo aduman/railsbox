@@ -2,8 +2,8 @@
   <div class="logon-box-padder">
     <div id="logon-tabs">
       <ul>
-        <li><%= link_to "Sign up", sign_up_path %> 
-        </li>
+        <li><%= link_to "Sign up", sign_up_path %> </li>
+        <li><%= link_to 'Help', '/documents/help.pdf'  %></li>
       </ul>
     </div>
     <div class="clear"><!-- --></div>
@@ -26,11 +26,7 @@
         </div>
         <% end %>
       </div>
-      <div class="clear"><!-- --></clear>
-      <div id = "actions-holder">
-        <%= link_to image_tag('/images/LoginFM.png'), '#show-logon', :id=>'logon-link'  %>
-        <%= link_to image_tag('/images/LoginHelp.png'), '/documents/help.pdf'  %>
-      </div>
+      <div class="clear"><!-- --></div>
     </div>
   </div>
 

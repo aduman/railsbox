@@ -5,7 +5,7 @@ class Folder < ActiveRecord::Base
   
   has_many :permissions
   has_many :users, :through=>:permissions
-  has_many :assets, :dependent => :destroy
+  has_many :assets
   
   validates_presence_of :name
   

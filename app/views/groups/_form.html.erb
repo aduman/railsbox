@@ -4,5 +4,9 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
-  <p><%= f.submit %></p>
+  <div class="actions">
+    <%= f.submit 'Save', :class => 'button save' %>
+    <%= link_to "Back", groups_path, :class => 'button back' %>
+  </div>
+  <div class="clear"></div>
 <% end %>

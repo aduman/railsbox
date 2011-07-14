@@ -37,8 +37,18 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    @group = Group.find(params[:id])
-    @group.destroy
-    redirect_to admin_panel_url, :notice => "Successfully destroyed group."
+  end
+  
+  def searchResult
+    @groupCount = Group.named(params[:query]).count
+    @groups= Group.named(params[:query]).limit(5)
+  end
+  
+  def userGroupSearchResult
+    @groupCount = Group.named(params[:query]).count
+    @groups = Group.named(params[:query]).limit(5)
+    
+    @userCount = User.named(params[:query]).count
+    @users = User.named(params[:query]).limit(5)
   end
 end

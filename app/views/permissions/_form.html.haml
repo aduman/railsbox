@@ -1,0 +1,18 @@
+- path = @permission.id.nil?? folder_permissions_path(@permission.folder) : folder_permission_path(@permission.folder)
+= form_for @permission, :url=>(path) do |f|
+  .field
+    = f.hidden_field :parent
+  %p#permissions
+    %label Permissions:
+    %span.read_perms.permission
+      = f.label :read_perms, 'Read'
+      = f.check_box :read_perms, :checked => true, :disabled => true
+    %span.write_perms.permission
+      = f.label :write_perms, 'Write'
+      = f.check_box :write_perms
+    %span.delete_perms.permission
+      = f.label :delete_perms, 'Delete'
+      = f.check_box :delete_perms
+  .actions
+    = f.submit 'save', :class => 'button save'
+    = link_to "Back", folder_details_path(@permission.folder), :class => "button back"

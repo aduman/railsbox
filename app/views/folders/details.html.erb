@@ -1,24 +1,25 @@
-<h2 class="details">Folder Details</h2>
-
-<% if @current_folder.parent %>
-  <p>
-    <strong>Parent:</strong>  
-    <%= link_to @current_folder.parent.name, folder_details_path(@current_folder.parent) %>
-  </p>
-<% end %>
-<p>
-	<% if @current_folder.user %>
-  		<strong>Created By:</strong>
-  		<%= @current_folder.user.name %>
-  	<% end %>
-</p>
-
+<h2 class="details icon">Folder Details</h2>
 
 <%= form_for @current_folder do |f| %>
   <div class="field">
     <strong><%= f.label :name %></strong>
     <%= f.text_field :name %>
   </div>
+  
+  
+  <% if @current_folder.parent %>
+    <p class="field">
+      <strong>Parent:</strong>  
+      <%= link_to @current_folder.parent.name, folder_details_path(@current_folder.parent) %>
+    </p>
+  <% end %>
+  <p class="field">
+  	<% if @current_folder.user %>
+  		  <strong>Created By:</strong>
+  	  	<%= @current_folder.user.name %>
+    	<% end %>
+  </p>
+  
   <div class="field">
     <strong><%= f.label :notes %></strong>
     <%= f.text_area :notes, :rows => 4 %>
@@ -27,10 +28,10 @@
     <strong><%= f.label :description %></strong>
     <%= f.text_area :description, :rows => 4 %>
   </div>
-<div class="field">  
-  <strong>Permissions:</strong>
+  <div class="field">
+    <strong>Permissions:</strong>
+  </div>
   <%= render(:partial => "assets/folderPermissions", :object => @current_folder) %>
-</div>
 <div class="actions">
   <%= f.submit 'Save', :class => 'button save' %>
 </div>

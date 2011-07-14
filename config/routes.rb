@@ -1,12 +1,10 @@
 Railsbox::Application.routes.draw do
-
-
-
-  get "user_groups/new"
-
-  get "user_groups/delete"
-
+  match "searchUsersGroups", :to => "groups#userGroupSearchResult", :via => :post, :as => "user_group_search"
   get "admin/panel"
+  
+  get "admin/users"
+  
+  get "admin/groups"
 
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
@@ -14,20 +12,32 @@ Railsbox::Application.routes.draw do
   
   root :to => "folders#index"
   
+  match "users/search", :to => "users#searchResult", :via => :post, :as => "user_search"
   resources :users
+  
   resources :sessions
+  
   resources :assets do
     get :move, :rename
   end
+  
   resources :hotlinks do
     get :link
   end
+  
+  resources :permissions, :only => [:destroy,:edit]
+  
   resources :folders do
     get :folderChildren, :move, :rename
     resources :permissions
   end
-    
-  resources :groups
+  
+
+  
+  match "groups/search", :to => "groups#searchResult", :via => :post, :as => "group_search"
+  resources :groups do
+    resources :userGroup
+  end
 
   match "folders/details/:id" => "folders#details", :as => "folder_details"
   match "my_details" => "users#me", :as=>"my_details"
@@ -37,6 +47,7 @@ Railsbox::Application.routes.draw do
   match "browse/:folder_id/new_folder" => "folders#new", :as => "new_sub_folder"  
   match "browse/:folder_id/new_file" => "assets#new", :as => "new_sub_file"
   match "hotlink/new/:asset_id" => "hotlinks#new", :as => "new_hotlink"
+
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

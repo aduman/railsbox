@@ -15,8 +15,14 @@ class PermissionsController < ApplicationController
   def create
     @permission = Permission.new()
     parent = params[:permission][:parent]
-    @permission.parent_id = parent.split('-')[1]
-    @permission.parent_type = parent.split('-')[0]
+    @permission.parent_id = parent.split('/')[2]
+    
+    if parent.split('/')[1] == 'users'
+      @permission.parent_type = 'User'
+    else
+      @permission.parent_type = 'Group'    
+    end    
+    
     @permission.write_perms = params[:permission][:write_perms]
     @permission.read_perms = params[:permission][:read_perms]
     @permission.delete_perms = params[:permission][:delete_perms]
@@ -33,21 +39,28 @@ class PermissionsController < ApplicationController
 
   def edit
     @permission = Permission.find(params[:id])
+    @users = User.all
+    @groups = Group.all
   end
 
   def update
     @permission = Permission.find(params[:id])
-    if @permission.update_attributes(params[:permission])
-      redirect_to @permission, :notice  => "Successfully updated permission."
+    
+    @permission.read_perms = params[:permission][:read_perms]
+    @permission.write_perms = params[:permission][:write_perms]
+    @permission.delete_perms = params[:permission][:delete_perms]
+    
+    if @permission.save
+      redirect_to folder_details_path(@permission.folder), :notice => "Successfully created permission"
     else
-      render :action => 'edit'
+      redirect_to folder_details_path(@permission.folder), :notice => "Sasdasdasdsas"
     end
   end
 
   def destroy
     @permission = Permission.find(params[:id])
     @permission.destroy
-    redirect_to root_url, :notice => "Successfully destroyed permission."
+    redirect_to @permission.parent, :notice => "Successfully destroyed permission."
   end
 
 end
