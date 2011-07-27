@@ -4,6 +4,11 @@ class UsersController < ApplicationController
   
   before_filter:check_admin, :except =>[:new, :create, :me]
   
+  def index
+    @users = User.where(:active=>true)
+    @non_users = User.where(:active=>false)
+  end
+  
   def new
     @user = User.new
   end
@@ -17,8 +22,6 @@ class UsersController < ApplicationController
     end
   end
   
-  
-  
   def show
     @user = User.find(params[:id])
   end
@@ -30,7 +33,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-def update
+  def update
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       if current_user.is_admin
@@ -56,6 +59,15 @@ def update
     @user = User.find(params[:id])
     @user.destroy
     redirect_to users_url, :notice => "Successfully deleted user."
+  end
+  
+  def searchResult
+    @users= User.named(params[:query])
+    if params[:inactive]
+      @users = @users.inactive
+    end
+      @userCount = @users.count
+      @users = @users.limit(5)
   end
   
   

@@ -1,7 +1,8 @@
-<div id="sign-up-form">
+<div id="innerContent">
   <div id="logo-holder">
    <%= render :partial=>'/shared/logo' %>
   </div>
+  <h2>New User</h2>
   <div id="register-form-holder">
    <%= form_for @user do |f| %>
         <% if @user.errors.any? %>
@@ -14,32 +15,32 @@
             </ul>
           </div>
         <% end %>
-        <p>
+        <div class="field">
           <%= f.label :email %>
           <%= f.text_field :email %>
-        </p>
-        <p>
+        </div>
+        <div class="field">
           <%= f.label :first_name %>
           <%= f.text_field :first_name %>
-        </p>
-        <p>
+        </div>
+        <div class="field">
           <%= f.label :last_name %>
           <%= f.text_field :last_name %>
-        </p>
-        <p>
+        </div>
+        <div class="field">
           <%= f.label :company %>
           <%= f.text_field :last_name %>
-        </p>
-        <p>
+        </div>
+        <div class="field">
           <%= f.label :password %>
           <%= f.password_field :password %>
-        </p>
-        <p>
+        </div>
+        <div class="field">
           <%= f.label :password_confirmation %>
           <%= f.password_field :password_confirmation %>
-        </p>
-        <div class="button">
-          <%= f.submit %>
+        </div>
+        <div class="actions">
+          <%= f.submit :class => 'button save' %>
         </div>
       <% end %>
     </div>

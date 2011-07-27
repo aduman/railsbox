@@ -8,7 +8,13 @@ class User < ActiveRecord::Base
   has_many :groups, :through=>:user_groups 
   attr_accessible :email, :password, :password_confirmation, :first_name, :last_name, :company
   
+  scope :inactive, lambda { where('active = false').order("first_name, last_name") }
   
+  scope :named, lambda {
+    |name| 
+      escaped_query = "%" + name.gsub('%', '\%').gsub('_', '\_') + "%"
+      where('name ILIKE ? OR first_name ILIKE ? OR last_name ILIKE ?',escaped_query,escaped_query,escaped_query).order("first_name, last_name")
+  }
   
   def name
     if first_name and last_name
@@ -28,7 +34,7 @@ class User < ActiveRecord::Base
   
   def accessible_folders
     if is_admin
-      return Folder.scoped 
+      return Folder.scoped.order('parent_id nulls first, name')
     else
       #this needs to be improved...
       g_folders = folders
@@ -36,7 +42,7 @@ class User < ActiveRecord::Base
         g_folders += g.folders
       }
       ids = g_folders.inject([]){|a,b| a+=[b.id]}
-      Folder.where('id in (?)', ids)
+      Folder.where('id in (?)', ids).order('parent_id nulls first, name')
     end
   end  
   

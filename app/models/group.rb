@@ -5,4 +5,10 @@ class Group < ActiveRecord::Base
   has_many :permissions, :as=>:parent
   has_many :folders, :through=>:permissions, :conditions=>['read_perms = ? or write_perms = ?', true, true]
   
+  scope :named, lambda {
+    |name| 
+      escaped_query = "%" + name.gsub('%', '\%').gsub('_', '\_') + "%"
+      where('name ILIKE ?',escaped_query).order("name")
+  }
+  
 end

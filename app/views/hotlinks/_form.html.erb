@@ -1,3 +1,6 @@
+<div id="hotlinkError">
+  <p>Please correct the following errors</p>
+</div>
 <%= form_for @hotlink do |f| %>
   <%= f.error_messages %>
   <p>
@@ -5,7 +8,7 @@
   </p>
   
   <p>
-    <%= f.label :link %><br />
+    <%= f.label :link, 'Name: ' %><br />
     <%= f.text_field :link %>
   </p>
   <p>
@@ -13,8 +16,10 @@
     <%= f.text_field :days %>
   </p>
   <p>
-    <%= f.label :password %><br />
+    <%= f.label :password, 'Password: ' %><br />
     <%= f.text_field :password %>
   </p>
-  <p><%= f.submit %></p>
+  <div class="actions">
+    <%= f.submit :class => 'button createLink' %>
+  </div>
 <% end %>

@@ -1,0 +1,12 @@
+- if @groupCount > 0
+  %ul
+    - for group in @groups
+      %li
+        = link_to group.name, group 
+    - if @groupCount > 5
+      %li
+        + 
+        = @groupCount - 5 
+        more groups
+- else
+  %p No Groups Found

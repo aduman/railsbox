@@ -1,21 +1,32 @@
-%h1
-  = @group.name 
-%p
-  = link_to "Rename this group", edit_group_path(@group)
-  |
-  = link_to "Delete", @group, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "Back to admin", admin_panel_path
+- content_for :page_specific_head do
+  = javascript_include_tag 'jquery-1.6.1.min', 'jquery.colorbox-min','search.js', 'colorboxInit'
+#innerContent
+  %h1
+    = @group.name 
+  
+  %h2 Users
+  = link_to 'Add User', new_group_userGroup_path(@group), :class => 'button new colorbox searchUsersGroups'
+  
+  %ul.listWithDelete
+    - for userGroup in @group.user_groups
+      %li
+        =link_to userGroup.user.name, userGroup.user
+        =button_to 'Remove', group_userGroup_path(userGroup), :confirm => 'Are you sure?', :method => :delete, :class => 'button delete'
+  
+  .clear
+  
+  %h2 Folders
+  %ul.listWithDelete
+    - for permission in @group.permissions
+      %li 
+        =link_to permission.folder.name, permission.folder
+        =button_to 'Remove', permission_path(permission), :confirm => 'Are you sure?', :method => :delete, :class => 'button delete'
+  
+  .clear
+        
+  .actions
+    = link_to "Rename", edit_group_path(@group), :class => 'button edit'
+    = button_to "Delete", @group, :confirm => 'Are you sure?', :method => :delete, :class => 'button delete'
+    = link_to "Back to Groups", groups_path, :class => 'button back'
 
-
-%h2 Folders
-%ul
-  - for folder in @group.folders
-    %li 
-      =link_to folder.name, folder
-
-%h2 Users
-%ul
-- for user in @group.users
-  %li 
-    =link_to user.name, user
+  .clear

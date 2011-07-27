@@ -1,0 +1,9 @@
+%h2 
+  Edit Permission
+  = @permission.folder.name
+%h3 
+  For:
+  = @permission.parent.name
+= render "form"
+%a.button.delete
+  Delete

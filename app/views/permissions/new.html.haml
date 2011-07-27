@@ -1,20 +1,7 @@
-%h1 
-  New Permission for 
+%h2 
+  New Permission
   = @permission.folder.name
-
-= form_for @permission, :url=>folder_permissions_path(@permission.folder) do |f|
-  %p 
-    = f.label :parent, 'Grant to'
-    = f.select :parent, @users.map{|u| [u.name, 'User-'+u.id.to_s]} + @groups.map{|g| ['Group: ' + g.name, 'Group-'+g.id.to_s]}, :include_blank=>true
   
-  %p 
-    = f.label :read_perms, 'Read'
-    = f.check_box :read_perms
-  %p 
-    = f.label :write_perms, 'Write'
-    = f.check_box :write_perms
-  %p 
-    = f.label :delete_perms, 'Delete'
-    = f.check_box :delete_perms
-  %p
-    = f.submit 'save' 
+#newPermissions
+  = render "groups/searchUserGroups"
+= render "form"

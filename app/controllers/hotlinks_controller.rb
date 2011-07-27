@@ -16,10 +16,14 @@ class HotlinksController < ApplicationController
   def create
     @hotlink = Hotlink.new(params[:hotlink])
     if @hotlink.save
-      redirect_to root_url
+      redirect_to hotlink_link_path(@hotlink)
     else
       render :action => 'new'
     end
+  end
+  
+  def link
+    @hotlink = Hotlink.find(params[:hotlink_id])
   end
   
   def update
