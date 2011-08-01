@@ -1,4 +1,3 @@
-<div class="breadcrumbs">
   <p>Location: </p>
 <%= link_to "home", root_path %>
 <% if @current_folder %>
@@ -9,4 +8,3 @@
   <span class="breadcrumbsNext">/</span>
   <%= link_to h(@current_folder.name), browse_path(@current_folder) %>
 <% end %>
-</div>

@@ -5,5 +5,4 @@
   For:
   = @permission.parent.name
 = render "form"
-%a.button.delete
-  Delete
+= button_to "Delete", @permission, :confirm => 'Are you sure?', :method => :delete, :class => 'button delete'

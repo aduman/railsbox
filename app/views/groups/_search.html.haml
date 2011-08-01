@@ -5,7 +5,7 @@
     = label_tag "query", "Filter: "
     = text_field_tag "query", nil, :autocomplete => "off"
     
-    = submit_tag 'Search', :class => 'button search'
+    = submit_tag 'Search', :id=> 'searchButton', :class => 'button search'
   
   #searchResult
   .clear

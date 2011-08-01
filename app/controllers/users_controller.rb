@@ -2,7 +2,11 @@ class UsersController < ApplicationController
    
   skip_before_filter :is_authorised, :only=>[:new, :create]
   
-  before_filter:check_admin, :except =>[:new, :create, :me]
+  before_filter :check_admin, :except =>[:new, :create, :me]
+  
+  skip_after_filter :log, :only => [:searchUsersResult]
+  
+  after_filter :logFilePath, :except => [:index, :new, :edit, :searchUsersResult]
   
   def index
     @users = User.where(:active=>true)
@@ -16,7 +20,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      redirect_to root_url, :notice => "Signed up!"
+      redirect_to users_url, :notice => "Signed up!"
     else
       render "new"
     end
@@ -27,6 +31,8 @@ class UsersController < ApplicationController
   end
   
   def me
+    @user = current_user
+    render :template => 'users/show'
   end
 
   def edit
@@ -61,14 +67,18 @@ class UsersController < ApplicationController
     redirect_to users_url, :notice => "Successfully deleted user."
   end
   
-  def searchResult
+  def searchUsersResult
     @users= User.named(params[:query])
     if params[:inactive]
       @users = @users.inactive
     end
-      @userCount = @users.count
       @users = @users.limit(5)
   end
   
+  private
+  def logFilePath
+    @log_file_path = @user.email
+    @log_target_id = @user.id
+  end
   
 end

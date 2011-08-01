@@ -67,7 +67,7 @@ $(document).ready(function(){
 			}
 			else if(selected.folders.length > 0){
 				$.colorbox({
-				  href: '/folders/'+selected.folders.join(',')+'/move',
+				  href: '/folders/move/'+selected.folders.join(','),
 				  onComplete: function(){
 					makeFolderStructure('#folderMove', '#allFolders_'+selected.folders.join(',#allFolders_'));
 					$('#move','#cboxLoadedContent').click(function(){
@@ -78,7 +78,7 @@ $(document).ready(function(){
 			}
 			else if(selected.files.length > 0){
 				$.colorbox({
-				  href: '/assets/'+selected.files.join(',')+'/move',
+				  href: '/assets/move/'+selected.files.join(','),
 				  onComplete: function(){
 					makeFolderStructure('#folderMove', false);
 					$('#move','#cboxLoadedContent').click(function(){
@@ -197,13 +197,13 @@ $(document).ready(function(){
 								getDetails(isFolder, href);
 								return false;
 							});
-							$('a.delete:first','#cboxLoadedContent').click(function(){
-								var form = $('.edit_permission:first','#cboxLoadedContent');
+							$('form.button_to:first','#cboxLoadedContent').submit(function(e){
+								e.preventDefault(true);
 								if (confirm('Are you sure you want to delete this permission?')){
 									$.ajax({
 										type: 'DELETE',
-										url: $(form).attr('action'),
-										data: $(form).serialize(),
+										url: $(this).attr('action'),
+										data: $(this).serialize(),
 										success: function(data, textStatus, jqXHR){
 											if(textStatus == "success"){
 												getDetails(isFolder, href);
@@ -278,7 +278,6 @@ $(document).ready(function(){
 		$('div.name:first a.details:first',element).click(function(){			
 			getDetails($(this).closest('.row-container').hasClass('folder'),$(this).attr('href'));
 			return false;
-			//getDetails(true, );
 		});
 	});
 	
@@ -289,7 +288,7 @@ $(document).ready(function(){
 			getDetails(true, '/folders/details/' + selected.folders[0]);
 		}
 		else if (selected.files > 0){
-			getDetails(false, '/assets/' + selected.files[0]);
+			getDetails(false, '/assets/details/' + selected.files[0]);
 		}
 		return false;
 	});	
@@ -301,9 +300,15 @@ $(document).ready(function(){
   
 	//download
 	$('#download-link').click(function(e){
-		var selected = getSelected(true,'file');
-		if (selected.files > 0){
-			document.location = 'assets/get/'+selected.files[0];
+		var selected = getSelected(false,'file');
+		if (selected.files.length == 1){
+			document.location = '/assets/get/'+selected.files[0];
+		}
+		else if(selected.files.length > 1){
+			var name = prompt("Selected files will be downloaded as a zip file\nWhat would you like to call this file?","Downloaded Files");
+			if (name){
+				document.location = '/assets/zip/' + name + '/'+selected.files.toString();
+			}
 		}
 		return false;
 	});
@@ -358,6 +363,13 @@ $(document).ready(function(){
 			else{
 				$('#hotlink_link').removeClass('error');
 			}
+			if($('#hotlink_password').val().trim() == ""){
+				valid = false;
+				$('#hotlink_password').addClass('error');
+			}
+			else{
+				$('#hotlink_password').removeClass('error');
+			}
 			if (valid==true){
 				$.ajax({
 					type: 'POST',
@@ -365,15 +377,15 @@ $(document).ready(function(){
 					data: $('#new_hotlink').serialize(),
 					success: function(data, textStatus, jqXHR){
 						$.colorbox({
-							html: $('#content',data).html(),
+							html: $('#content',data),
 							onComplete: function(){
+								$.colorbox.resize();
 								$('#link').click(function(){
 									$(this).select();
 								});
 							}
 						});
-						
-					}
+					}//End success function
 				});
 			}
 			else{
@@ -393,6 +405,7 @@ $(document).ready(function(){
 					url: $(element).attr('action'),
 					data: $(element).serialize(),
 					success: function(){
+						$(element).prev('input:checkbox').attr('checked', false);
 						$(element).closest('.row-container').slideUp();
 					}
 				});

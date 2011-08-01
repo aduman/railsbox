@@ -6,14 +6,16 @@ class User < ActiveRecord::Base
   has_many :assets
   has_many :user_groups
   has_many :groups, :through=>:user_groups 
+  has_many :logs
+  
   attr_accessible :email, :password, :password_confirmation, :first_name, :last_name, :company
   
-  scope :inactive, lambda { where('active = false').order("first_name, last_name") }
+  scope :inactive, lambda { where('active = false').order("name") }
   
   scope :named, lambda {
     |name| 
       escaped_query = "%" + name.gsub('%', '\%').gsub('_', '\_') + "%"
-      where('name ILIKE ? OR first_name ILIKE ? OR last_name ILIKE ?',escaped_query,escaped_query,escaped_query).order("first_name, last_name")
+      where('name ILIKE ? OR first_name ILIKE ? OR last_name ILIKE ?',escaped_query,escaped_query,escaped_query).order("name")
   }
   
   def name

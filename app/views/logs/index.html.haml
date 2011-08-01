@@ -1,0 +1,47 @@
+%h1 Log
+- content_for :page_specific_head do
+  = stylesheet_link_tag 'log'
+  = javascript_include_tag 'jquery-1.6.1.min', 'jquery.colorbox-min', 'log', 'colorboxInit'
+  
+#log
+  #search
+    = form_tag logs_path do
+      .field
+        = label_tag(:cuserid,"User:")
+        = select_tag(:cuserid, options_for_select(@Users.map{|u| [u.name,u.id]}, :selected => params[:cuserid]),{:include_blank => true})
+      .field
+        = label_tag(:ccontroller,"Controller:")
+        = select_tag(:ccontroller, options_for_select(@controllers.map{|c| c.controller}, :selected => params[:ccontroller]),{:include_blank => true})
+      .field
+        = label_tag(:caction,"Action:")
+        = select_tag(:caction, options_for_select(@actions.map{|a| a.action}, :selected => params[:caction]),{:include_blank => true})
+      .actions
+        = submit_tag "Search", :class => 'button search'
+        = link_to 'Clear All', '#', :id=> 'clear'
+  #headers
+    %p.date Date/Time
+    %p.user User
+    %p.controller Controller
+    %p.action Action
+    %p.file_path File Path
+    %p.more_info
+  #result
+    - @logs.each do |log|
+      .row
+        %p.date
+          = log.created_at
+        %p.user 
+          - if log.user
+            = link_to log.user.name, log.user, :title => log.user.email, :class=>"colorbox"
+          - else
+            = "-"
+        %p.controller
+          - if log.controller?
+            = log.controller.capitalize
+        %p.action
+          - if log.action?
+            = log.action.capitalize
+        %p.file_path
+          = log.file_path
+        %p.more_info
+          = link_to "More Info...", log, :class=> "colorbox"

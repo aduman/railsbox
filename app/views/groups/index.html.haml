@@ -1,12 +1,11 @@
 - content_for :page_specific_head do
   = javascript_include_tag 'jquery-1.6.1.min', 'search'
 
-#innerContent
-  %h1 Admin
-  
-  %h2 Groups
-  = link_to 'Add Group', new_group_path, :class => 'button new'
-  
-  .clear
-    
-  = render "search"
+%h1 Admin
+
+%h2 Groups
+= link_to 'Add Group', new_group_path, :class => 'button new'
+
+.clear
+
+= render "search"

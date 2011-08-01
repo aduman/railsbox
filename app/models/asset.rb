@@ -11,8 +11,21 @@ class Asset < ActiveRecord::Base
   has_many :hotlinks
 
   validates_attachment_presence :uploaded_file  
+  
+  validates_uniqueness_of :uploaded_file_file_name, :scope => :folder_id
 
-
+  def is_authorised?(userFind)
+    if folder
+      if userFind.accessible_folders.find_by_id(folder)
+        true
+      else
+        false
+      end
+    else
+      #if asset in root
+      userFind == user
+    end
+  end  
   
   def permissions
     '768'

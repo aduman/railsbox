@@ -1,9 +1,6 @@
 class PermissionsController < ApplicationController
-
-
-  def show
-    @permission = Permission.find(params[:id])
-  end
+  
+  after_filter :logFilePath, :only=>[:create, :update]
 
   def new
     @permission = Permission.new
@@ -20,7 +17,7 @@ class PermissionsController < ApplicationController
     if parent.split('/')[1] == 'users'
       @permission.parent_type = 'User'
     else
-      @permission.parent_type = 'Group'    
+      @permission.parent_type = 'Group'
     end    
     
     @permission.write_perms = params[:permission][:write_perms]
@@ -59,8 +56,28 @@ class PermissionsController < ApplicationController
 
   def destroy
     @permission = Permission.find(params[:id])
+    logFilePath
     @permission.destroy
-    redirect_to @permission.parent, :notice => "Successfully destroyed permission."
+    redirect_to folder_details_path(@permission.folder), :notice => "Successfully destroyed permission."
+  end
+  
+  private
+  def logFilePath
+    @log_target_id = @permission.id
+    
+    @log_file_path = "/" + @permission.folder.breadcrumbs
+    
+    @log_parameters = @permission.parent_type + ": " + @permission.parent.name + " - "
+    
+    if @permission.read_perms
+      @log_parameters += "Read"
+    end
+    if @permission.write_perms
+      @log_parameters += ", Write"
+    end
+    if @permission.delete_perms
+      @log_parameters += ", Delete"
+    end
   end
 
 end
