@@ -29,6 +29,7 @@ function makeSearchForms(form, successFunction){
 		getResults(form, successFunction);
 	});
 	getResults(form, successFunction);
+	$('#searchButton').hide();
 }
 
 function colorboxSearchComplete(){
@@ -42,7 +43,6 @@ function colorboxSearchComplete(){
 			$(this).addClass('selected');
 			return false;
 		});
-		
 	});
 	
 	$('#new_permission, #new_user_group').submit(function(){

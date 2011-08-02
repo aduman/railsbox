@@ -1,4 +1,8 @@
 Railsbox::Application.routes.draw do
+
+  match "logs", :to => "logs#index", :via => :post
+  resources :logs
+
   match "searchUsersGroups", :to => "groups#userGroupSearchResult", :via => :post, :as => "user_group_search"
   get "admin/panel"
   
@@ -12,13 +16,13 @@ Railsbox::Application.routes.draw do
   
   root :to => "folders#index"
   
-  match "users/search", :to => "users#searchResult", :via => :post, :as => "user_search"
+  match "users/search", :to => "users#searchUsersResult", :via => :post, :as => "user_search"
   resources :users
   
   resources :sessions
   
   resources :assets do
-    get :move, :rename
+    get :rename
   end
   
   resources :hotlinks do
@@ -28,20 +32,23 @@ Railsbox::Application.routes.draw do
   resources :permissions, :only => [:destroy,:edit]
   
   resources :folders do
-    get :folderChildren, :move, :rename
+    get :folderChildren, :rename
     resources :permissions
   end
-  
 
   
-  match "groups/search", :to => "groups#searchResult", :via => :post, :as => "group_search"
+  match "groups/search", :to => "groups#searchGroupsResult", :via => :post, :as => "group_search"
   resources :groups do
     resources :userGroup
   end
 
+  match "folders/move/:ids" => "folders#move", :as => "move"
   match "folders/details/:id" => "folders#details", :as => "folder_details"
+  match "assets/details/:id" => "assets#details", :as => "asset_details"
   match "my_details" => "users#me", :as=>"my_details"
   match "assets/get/:id" => "assets#get", :as => "download" 
+  match "assets/move/:ids" => "assets#move", :as => "move"
+  match "assets/zip/:name/:ids" => "assets#zip", :as => "zip"
   match "search" => "folders#search", :as=> "search"
   match "browse/:folder_id" => "folders#browse", :as => "browse"  
   match "browse/:folder_id/new_folder" => "folders#new", :as => "new_sub_folder"  

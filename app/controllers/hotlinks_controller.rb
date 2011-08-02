@@ -2,6 +2,8 @@ class HotlinksController < ApplicationController
   
   skip_before_filter :is_authorised, :only=>[:show,:update] #can view hotlink without login
   before_filter :check_hotlink, :except=>[:show, :update]
+  
+  after_filter :logFilePath, :except=>[:new]
 
   def show
     @hotlink = Hotlink.find(params[:id])
@@ -27,16 +29,27 @@ class HotlinksController < ApplicationController
   end
   
   def update
-    #ie download
+    #Download
     @hotlink = Hotlink.authenticate(params[:id], params[:hotlink][:password])
+    @log_action = "Access"
     if @hotlink
       send_file @hotlink.asset.uploaded_file.path, :type => @hotlink.asset.uploaded_file_content_type  
     else
       @hotlink = Hotlink.find(params[:id])
+      @log_action += " - Invalid Password"
       flash.now.alert = "Invalid password"
       render "show"
     end
   end
-
-
+  
+  private
+  
+  def logFilePath
+    @log_file_path = ""
+    if !@hotlink.asset.folder.nil?  #if asset isnt in the root
+      @log_file_path = @hotlink.asset.folder.breadcrumbs
+    end
+    @log_file_path += "/" + @hotlink.asset.uploaded_file_file_name
+    @log_target_id = @hotlink.id
+  end
 end

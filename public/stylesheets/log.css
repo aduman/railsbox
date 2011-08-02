@@ -1,0 +1,43 @@
+
+#log .file_path, #log .action, #log .controller, #log .user, #log .date, #log .more_info{
+	float:left;
+}
+a:hover, #log .user a:hover{
+	text-decoration:underline;
+}
+#log .row{
+clear:both;
+}
+#log .date{
+	width: 15%;
+}
+#log .user{
+	width: 15%;
+}
+#log .controller{
+	width: 10%;
+}
+#log .action{
+	width: 10%;
+}
+#log .file_path{
+	width: 40%;
+}
+#log .more_info{
+	width: 10%;
+}
+
+#log #search{
+	margin:10px 0;
+}
+
+#log #result{
+width: 100%;
+clear:both;
+margin: 10px 0;
+}
+
+#log #result.loading{
+background: white url('/images/colorbox/loading.gif') no-repeat center center;
+height: 32px;
+}

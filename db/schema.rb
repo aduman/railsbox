@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110529105228) do
+ActiveRecord::Schema.define(:version => 20110729131713) do
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at"
@@ -52,6 +52,19 @@ ActiveRecord::Schema.define(:version => 20110529105228) do
     t.string   "password"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "logs", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "controller"
+    t.string   "action"
+    t.string   "parameters"
+    t.string   "ip_address"
+    t.string   "user_agent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "file_path"
+    t.string   "target_id"
   end
 
   create_table "permissions", :force => true do |t|

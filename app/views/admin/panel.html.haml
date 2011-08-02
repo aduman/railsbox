@@ -1,8 +1,5 @@
-#innerContent
-  %h1 Admin panel
-  
-  = link_to 'Users', users_path, :class => 'button large'
-  
-  = link_to 'Groups', groups_path, :class => 'button large'
-  
-  .clear
+%h1 Admin panel
+= link_to 'Users', users_path, :class => 'button large'
+= link_to 'Groups', groups_path, :class => 'button large'
+= link_to 'Log', logs_path, :class => 'button large'
+.clear

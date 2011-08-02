@@ -3,11 +3,13 @@ class Folder < ActiveRecord::Base
   attr_accessible :name, :parent_id, :notes, :description
   belongs_to :user  
   
-  has_many :permissions
+  has_many :permissions, :dependent => :destroy
   has_many :users, :through=>:permissions
-  has_many :assets
+  has_many :assets, :dependent => :destroy
   
   validates_presence_of :name
+  
+  validates_uniqueness_of :name, :scope => :parent_id
   
   def breadcrumbs
     path = ''

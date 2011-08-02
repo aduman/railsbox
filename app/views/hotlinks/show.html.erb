@@ -1,9 +1,11 @@
-Hotlink
-
-<%= form_for @hotlink do |f| %>
-  <p>
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
-  </p>
-   <p><%= f.submit 'OK' %></p>
-<% end %>
+<%= render :partial=>'/shared/logo' %>
+<div id="cboxLoadedContent">
+  <h2 class="hotlink icon">Access Hotlink</h2>
+  <%= form_for @hotlink do |f| %>
+    <p>
+      <%= f.label :password %><br />
+      <%= f.password_field :password %>
+    </p>
+    <p><%= f.submit 'OK' %></p>
+  <% end %>
+</div>

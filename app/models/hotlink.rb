@@ -5,7 +5,7 @@ class Hotlink < ActiveRecord::Base
   
   before_save :encrypt_password
   
-  validates_presence_of :asset_id, :link
+  validates_presence_of :asset_id, :link, :password
   belongs_to :asset
   
   

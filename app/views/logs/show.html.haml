@@ -1,0 +1,48 @@
+%p#notice= notice
+
+-if @log.user_id?
+  %h3 User:
+  -if @log.user
+    %p
+      = link_to @log.user.name, @log.user
+    %p
+      = mail_to @log.user.email
+  -else
+    %p
+      = @log.user.id
+    
+%h3 Date:
+%p
+  = @log.created_at
+
+%h3 Controller:
+%p
+  = @log.controller.capitalize
+
+%h3 Action:
+%p
+  = @log.action.capitalize
+
+- if @log.file_path
+  %h3 File Path:
+  %p
+    = @log.file_path
+
+- if @log.target_id
+  %h3 
+    = @log.controller.capitalize
+    ID:
+  %p
+    = link_to @log.target_id, {:controller => @log.controller.pluralize, :action => "show", :id => @log.target_id}
+
+%h3 Parameters:
+%p
+  = @log.parameters
+  
+%h3 IP Address:
+%p
+  = @log.ip_address
+
+%h3 User agent:
+%p
+  = @log.user_agent

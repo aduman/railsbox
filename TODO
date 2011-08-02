@@ -1,24 +1,11 @@
 Front end:
-* 'Move' functionality
-* Amend sign up message
 * Test search functionality
-* Details section:
-    - Add who has permission
-    - Allow notes to be added
-    - Maybe move rename to here
-    - Back link
-* Tidy up UI
-* Use overlay/facebox for actions
 * degrade JS actions
+* Better URLs for browse/download
+* Download folder as zip file
+* Make search function work when javascript disabled
 
 Back end:
 * Send emails to admins when user created
-* Delete groups
-* Search functionality for Users/Groups
 * Folder links to details page (rather than browse)
 * User validation rules - additional
-* Logs for everything (date & time, IP address & user for logon attempts, uploads, downloads, permission changes, browse?)
-
-
-
-

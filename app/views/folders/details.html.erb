@@ -1,4 +1,4 @@
-<h2 class="details icon">Folder Details</h2>
+<h2 class="newFolder icon">Folder Details</h2>
 
 <%= form_for @current_folder do |f| %>
   <div class="field">
@@ -9,7 +9,7 @@
   
   <% if @current_folder.parent %>
     <p class="field">
-      <strong>Parent:</strong>  
+      <strong>Parent Folder: </strong>
       <%= link_to @current_folder.parent.name, folder_details_path(@current_folder.parent) %>
     </p>
   <% end %>
@@ -19,7 +19,6 @@
   	  	<%= @current_folder.user.name %>
     	<% end %>
   </p>
-  
   <div class="field">
     <strong><%= f.label :notes %></strong>
     <%= f.text_area :notes, :rows => 4 %>
@@ -28,11 +27,12 @@
     <strong><%= f.label :description %></strong>
     <%= f.text_area :description, :rows => 4 %>
   </div>
-  <div class="field">
-    <strong>Permissions:</strong>
+  <%= render(:partial => "folderPermissions", :object => @current_folder) %>
+  <% if current_user.is_admin %>
+    <%= link_to 'Add Permission', new_folder_permission_path(@current_folder), :class => 'button addPermission clear'%>
+  <% end %>
+  <div class="actions">
+    <%= f.submit 'Save', :class => 'button save' %>
   </div>
-  <%= render(:partial => "assets/folderPermissions", :object => @current_folder) %>
-<div class="actions">
-  <%= f.submit 'Save', :class => 'button save' %>
-</div>
 <% end %>
+  <%= button_to "Delete", folder_path(@asset), :confirm => 'Are you sure?', :method => :delete, :class => 'button delete' %>

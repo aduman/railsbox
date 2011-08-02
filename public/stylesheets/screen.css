@@ -66,12 +66,20 @@ ul{
 margin-left:25px;
 }
 
-#innerContent{
+#content{
 margin:0px 15px 15px 15px;
 padding:15px;
 border-radius: 10px 10px 10px 10px;
 background-color:white;
 }
+
+#content.fileBrowser{
+margin:0px;
+padding:0px;
+border-radius: 0px;
+background-color:transparent;
+}
+
 .listWithDelete{
 margin:0;
 }
@@ -121,6 +129,7 @@ float:right;
 	text-align:left;
 	float:left;
 	cursor:pointer;
+	width:auto;
 }
 .button:hover{
 	border-width: 2px;
@@ -188,6 +197,11 @@ background-image: url('/images/arrow_left.png');
 top:0;
 }
 
+#cboxLoadedContent #content{
+margin:0;
+padding:0;
+}
+
 #cboxLoadedContent h2{
 margin-right:30px;
 padding: 0 0 10px 0;
@@ -216,7 +230,7 @@ display:block;
 }
 
 #cboxLoadedContent .actions .button{
-float:right;
+float:left;
 }
 
 /****  End Colorbox *********/
@@ -364,19 +378,21 @@ float:right;
 	clear:left;
 	float:left;
   }
-#topBar  .breadcrumbs p{
-float:left;
-margin: 2px 5px 2px 0;
-}
-  #topBar  .breadcrumbs a{
+
+  #topBar  .breadcrumbs a,#topBar .breadcrumbs p{
 	float:left;
-	background-color:#ababab;
 	padding: 2px 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     -khtml-border-radius: 4px;
 	border-radius: 4px;
 }  
+#topBar .breadcrumbs p{
+margin:0;
+}
+#topBar  .breadcrumbs a{
+background-color:#A3A3A3;
+}
 #topBar  .breadcrumbs a:hover{
 background-color:#ccc;
 }
@@ -419,17 +435,15 @@ background-color:#ccc;
   
   #file-container{
 	clear:both;
-  }
-  
-  
+	margin:0;
+  }  
 	#file-container .row-container{
 		padding: 3px 0;
+		list-style: none;
 	}
 	#file-container .row-container:hover{
 		background: transparent url('/images/highlight.png') repeat-x top left;
 	}
-	
-	
 	#file-container .mark-it, #headers .mark-it{
 	float: left;
 	width:2%;
@@ -459,10 +473,6 @@ background-color:#ccc;
 	float: left;
 	width: 5%;
 	}
-	
-	
-	
-	
 	#file-container .row-container .name a.details{
 		background: transparent url('/images/file.png') no-repeat left bottom;
 		text-indent: -9999px;
@@ -559,7 +569,7 @@ background-color:#ccc;
   #bottom-bar .icon-link.newFolder, #cboxLoadedContent h2.newFolder{
 	background-image: url('/images/icons/newFolder.png');
   }
-  #bottom-bar .icon-link.hotlink, #cboxLoadedContent h2.hotlink{
+  #bottom-bar .icon-link.hotlink, #cboxLoadedContent h2.hotlink, #hotlinkAccess h2.hotlink{
 	background-image: url('/images/icons/hotlink.png');
   }
   #bottom-bar .icon-link.move, #cboxLoadedContent h2.move{
