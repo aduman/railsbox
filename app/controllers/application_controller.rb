@@ -27,7 +27,7 @@ def log
   
   #For logout
   if !defined? @log_user_id
-    @log_user_id = current_user
+    @log_user_id = current_user.id if current_user
   end
   
   @log = Log.new({

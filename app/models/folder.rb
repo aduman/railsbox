@@ -14,10 +14,10 @@ class Folder < ActiveRecord::Base
   def breadcrumbs
     path = ''
     ancestors.reverse.each do |folder| 
-      path +=  folder.name 
-      path += '/'
+      path <<  folder.name 
+      path << '/'
     end 
-    path +=  name
+    path << name.to_s
   end  
   
   def hasPermissions

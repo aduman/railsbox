@@ -25,19 +25,20 @@ describe HotlinksController do
   end
 
   it "create action should render new template when model is invalid" do
-    hotlink = Hotlink.new
-	Hotlink.stub(:new).and_return(hotlink)
-	hotlink.stub(:valid?).and_return(false)
+    hotlink = Hotlink.new(:asset_id=>1)
+	  Hotlink.stub(:new).and_return(hotlink)
+	  hotlink.stub(:valid?).and_return(false)
+	
     post :create
     response.should render_template(:new)
   end
 
   it "create action should redirect when model is valid" do
-    hotlink = Hotlink.new
-	Hotlink.stub(:new).and_return(hotlink)
-	hotlink.stub(:valid?).and_return(true)
+    hotlink = Hotlink.new(:asset_id=>1)
+	  Hotlink.stub(:new).and_return(hotlink)
+	  hotlink.stub(:valid?).and_return(true)
     post :create
-    response.should redirect_to(root_url)
+    response.should redirect_to("#{root_url}hotlinks/#{hotlink.id}/link")
   end
 
 

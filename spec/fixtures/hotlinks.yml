@@ -4,6 +4,7 @@ one:
   link: MyString
   expiry_date: 2011-05-21 12:37:28
   password: MyString
+  asset_id: 1
 
 two:
   password_hash: MyString
@@ -11,3 +12,4 @@ two:
   link: MyString
   expiry_date: 2011-05-21 12:37:28
   password: MyString
+  asset_id: 2
