@@ -54,7 +54,7 @@ Feature: Main functionality
       #because capybara doesn't have JS enabled need to manually go to this page...
       #need to think of degrading way of doing these links...
       And I visit folders/details/1
-      And I follow "add permissions"
+      And I follow "Add Permission"
       And I select "Robert Kent" from "permission_parent"
       And I check "permission_write_perms"
       And I check "permission_read_perms"

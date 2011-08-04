@@ -50,15 +50,24 @@ end
 
   it "update action should redirect when model is valid" do
     folder = Folder.first
-	folder.stub(:valid?).and_return(true)
+	  folder.stub(:valid?).and_return(true)
     put :update, :id => folder
     response.should redirect_to(folder_url(assigns[:folder]))
   end
 
-  it "destroy action should destroy model and redirect to index action" do
-    folder = Folder.first
+  it "destroy action should destroy model and redirect to index action when route folder" do
+    folder = Folder.where(:parent_id=>0).first
     delete :destroy, :id => folder
     response.should redirect_to(root_url)
     Folder.exists?(folder.id).should be_false
   end
+
+  it "destroy action should destroy model and redirect to parent folder when not root folder" do
+    folder = Folder.where("parent_id is not null").first
+    parent = folder.parent
+    delete :destroy, :id => folder
+    response.should redirect_to(browse_url(parent))
+    Folder.exists?(folder.id).should be_false
+  end
+
 end

@@ -24,6 +24,8 @@ Feature: have admin back end
 
   Scenario: Be able to view users
     When I visit admin/panel
+    And I follow "Users"
+    And I press "Search"
     Then I should see "Jim Wilson"
     And I follow "Jim Wilson"
     And I should see "bank"
@@ -32,6 +34,8 @@ Feature: have admin back end
   
   Scenario: Be able to change users
     Given I visit admin/panel
+    And I follow "Users"
+    And I press "Search"
     And I follow "Jim Wilson"
     And I check "user_can_hotlink"
     And I press "Save changes"
