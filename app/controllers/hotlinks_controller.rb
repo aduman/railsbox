@@ -47,9 +47,7 @@ class HotlinksController < ApplicationController
   def logFilePath
     @log_file_path = ""
     if @hotlink.asset 
-      if !@hotlink.asset.folder.nil?  #if asset isnt in the root
-        @log_file_path = @hotlink.asset.folder.breadcrumbs
-      end
+      @log_file_path = @hotlink.asset.folder.breadcrumbs if !@hotlink.asset.folder.nil?
       @log_file_path << "/" + @hotlink.asset.uploaded_file_file_name
     else
     	@log_file_path << "Not known"

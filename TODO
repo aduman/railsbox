@@ -9,3 +9,8 @@ Back end:
 * Send emails to admins when user created
 * Folder links to details page (rather than browse)
 * User validation rules - additional
+* Consistancy with html pages - either ERB or HAML.
+* Better pagination for search results
+* Better organization of images
+* Test search functionality 
+* Move todo list to github/issues

@@ -5,10 +5,8 @@ class Asset < ActiveRecord::Base
  
   
   attr_accessible :user_id, :uploaded_file, :folder_id, :notes, :uploaded_file_file_name, :description
-
-  has_attached_file :uploaded_file, :url => "/assets/get/:id", :path => "assets/:id/:basename.:extension"  
-
-  has_many :hotlinks
+	has_attached_file :uploaded_file, :url => "/assets/get/:id", :path => "assets/:id/:basename.:extension"  
+	has_many :hotlinks
 
   validates_attachment_presence :uploaded_file  
   
@@ -16,11 +14,7 @@ class Asset < ActiveRecord::Base
 
   def is_authorised?(userFind)
     if folder
-      if userFind.accessible_folders.find_by_id(folder)
-        true
-      else
-        false
-      end
+      !!userFind.accessible_folders.find_by_id(folder)
     else
       #if asset in root
       userFind == user

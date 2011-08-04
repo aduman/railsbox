@@ -23,9 +23,7 @@ class FoldersController < ApplicationController
 
   def new
     @folder = Folder.new
-    if params[:folder_id] #subfolder
-     @folder.parent_id = @current_folder.id
-    end
+    @folder.parent_id = @current_folder.id if params[:folder_id]
   end
 
   def create

@@ -2,6 +2,8 @@ A drop-type file management system.
 
 Many folders, which can be accessed by users and/or groups.
 
+Admin interface for back-end
+
 Authenticatin based on Ryan Bates Screencast http://railscasts.com/episodes/250-authentication-from-scratch
 Basics of system from http://www.prowl.in/sharebox.html
 
