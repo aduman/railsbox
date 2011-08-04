@@ -1,11 +1,8 @@
 class UsersController < ApplicationController
    
   skip_before_filter :is_authorised, :only=>[:new, :create]
-  
   before_filter :check_admin, :except =>[:new, :create, :me]
-  
   skip_after_filter :log, :only => [:searchUsersResult]
-  
   after_filter :logFilePath, :except => [:index, :new, :edit, :searchUsersResult]
   
   def index

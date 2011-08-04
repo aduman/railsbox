@@ -13,39 +13,25 @@ class ApplicationController < ActionController::Base
   
 
 def log
-  if !defined? @log_controller
-    @log_controller = self.controller_name.singularize
-  end
-  
-  if !defined? @log_action
-    @log_action = self.action_name
-  end
-  
-  if !defined? @log_parameters
-    @log_parameters = ActionController::Base.helpers.sanitize(params.except(:controller,:action,:authenticity_token,:password,:utf8).to_param())
-  end
-  
-  #For logout
-  if !defined? @log_user_id
-    @log_user_id = current_user.id if current_user
-  end
-  
-  @log = Log.new({
-    "user_id" =>  @log_user_id, 
-    "controller" =>  @log_controller, 
-    "action" =>  @log_action, 
-    "parameters" =>  @log_parameters, 
-    "ip_address" =>  request.remote_ip,
-    "user_agent" =>  request.env['HTTP_USER_AGENT'], 
-    "file_path" => @log_file_path,
-    "target_id" => @log_target_id
-    })
-  @log.save
+  log_controller = @log_controller || self.controller_name.singularize 
+	log_action = @log_action || self.action_name
+	log_parameters = @log_parameters || ActionController::Base.helpers.sanitize(params.except(:controller,:action,:authenticity_token,:password,:utf8).to_param())
+	log_user_id = current_user.id if current_user && !@log_user_id 
+	log = Log.new({
+  	:user_id =>  @log_user_id, 
+  	:controller =>  log_controller, 
+  	:action =>  log_action, 
+  	:parameters =>  log_parameters, 
+  	:ip_address =>  request.remote_ip,
+  	:user_agent =>  request.env['HTTP_USER_AGENT'], 
+  	:file_path => @log_file_path,
+  	:target_id => @log_target_id
+  })
+	log.save
 end
 
 def is_authorised
-  redirect_to log_in_path and return unless current_user
-  redirect_to log_in_path and return unless current_user.active
+  redirect_to log_in_path and return unless current_user and current_user.active 
 end  
 
 
