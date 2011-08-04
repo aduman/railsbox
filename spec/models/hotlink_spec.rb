@@ -12,6 +12,10 @@ describe Hotlink do
     Hotlink.new.link.should_not be_nil
   end
   
+  it "should not create the same link twice" do
+  	Hotlink.new.link.should_not == Hotlink.new.link
+  end
+  
   it "should be valid" do
     valid_hotlink.should be_valid  
   end

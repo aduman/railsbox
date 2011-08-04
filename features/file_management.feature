@@ -47,22 +47,6 @@ Feature: Main functionality
       And I should see "folder1"
       Then I should see "folder7"
     
-    Scenario: Modify existing folder permissions
-      When I check "folder[1]"
-      And I am an admin user
-      And I follow "details-link"
-      #because capybara doesn't have JS enabled need to manually go to this page...
-      #need to think of degrading way of doing these links...
-      And I visit folders/details/1
-      And I follow "Add Permission"
-      And I select "Robert Kent" from "permission_parent"
-      And I check "permission_write_perms"
-      And I check "permission_read_perms"
-      And I press "save"
-      And I logout
-      And I login with "test3@railsbox.com" and "pass3"
-      And I visit folders
-      Then I should see "folder1"
         
   Scenario: Download a file
       When I follow "test2.txt"    

@@ -5,13 +5,13 @@ class Hotlink < ActiveRecord::Base
   
   before_save :encrypt_password
   
-  validates_presence_of :asset_id, :link, :password
+  validates_presence_of :asset_id, :link
   belongs_to :asset
   
   
   def initialize(params = {})
   	super(params)
-  	self.link = 'fsiubsd3'
+  	self.link = "hotlink#{rand(1000)}"
   end
   
   def self.authenticate(id, password)

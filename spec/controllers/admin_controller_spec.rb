@@ -13,6 +13,14 @@ describe AdminController do
       get 'panel'
       response.should render_template(:panel)
     end
+    
+    it "should fail when admin is false" do
+    	@current_user.is_admin = false
+    	get 'panel'
+    	responde.should_not render_template(:panel)
+    end
+    
+    
   end
 
 end
