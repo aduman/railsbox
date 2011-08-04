@@ -1,0 +1,10 @@
+one:
+  id: 1
+  folder_id: 1
+  description: asset_1
+  uploaded_file_file_name: file_name_55
+one:
+  id: 2
+  folder_id: 1
+  description: asset_1
+  uploaded_file_file_name: file_name_55
