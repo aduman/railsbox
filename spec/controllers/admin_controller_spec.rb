@@ -15,9 +15,11 @@ describe AdminController do
     end
     
     it "should fail when admin is false" do
-    	@current_user.is_admin = false
+    	@current_user = mock_model(User, :id => 1, :email=>'text@test.com', :is_admin=>false, :active=>true)
+    	controller.stub!(:current_user).and_return(@current_user)
+   controller.stub!(:login_required).and_return(:true)
     	get 'panel'
-    	responde.should_not render_template(:panel)
+    	response.should_not render_template(:panel)
     end
     
     
