@@ -142,7 +142,7 @@ class FoldersController < ApplicationController
     if @folders.first.parent.nil?
       @log_file_path = "/"
     else
-      @log_file_path = @folders.breadcrumbs + "/"
+      @log_file_path = @folders.first.breadcrumbs + "/"
     end
     @log_target_id = @folders.collect{|a| a.id}.join(', ')
     
@@ -153,8 +153,30 @@ class FoldersController < ApplicationController
   end 
   
   def download
-    @folder = Folder.find(params[:id])
-    @childFolders = Folder.where(:parent_id => params[:id])
+    require 'zip/zip'
+    require 'zip/zipfilesystem'
+    @downloadFolders = Folder.find(params[:id].split(','))
+    
+    Zip::ZipOutputStream.open(params[:name]) do |zos|
+      @downloadFolders.each do |parentFolder|
+        @folders = parentFolder.descendant_folders_include_self
+        @folders.each do |folder|
+          Asset.where(:folder_id => folder.id).each do |asset|
+            zos.put_next_entry(asset.folder.breadcrumbs(parentFolder.id)+"/"+asset.uploaded_file_file_name)
+            zos.print IO.read(asset.uploaded_file.path)
+          end
+        end
+      end
+
+      if params.has_key?(:assets)
+        @assets = Asset.find(params[:assets].split(','))
+        @assets.each do |asset|
+          zos.put_next_entry(asset.uploaded_file_file_name)
+          zos.print IO.read(asset.uploaded_file.path)
+        end
+      end
+    end
+    send_file params[:name], :type => "application/zip", :filename => params[:name] + ".zip"
   end
   
   

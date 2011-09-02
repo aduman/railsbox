@@ -44,6 +44,8 @@ Railsbox::Application.routes.draw do
 
   match "folders/move/:ids" => "folders#move", :as => "move"
   match "folders/details/:id" => "folders#details", :as => "folder_details"
+  match "folders/download/:name/:id" => "folders#download", :as => "download"
+  match "folders/download/:name/:id/:assets" => "folders#download", :as => "download"
   match "assets/details/:id" => "assets#details", :as => "asset_details"
   match "my_details" => "users#me", :as=>"my_details"
   match "assets/get/:id" => "assets#get", :as => "download" 

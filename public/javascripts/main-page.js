@@ -303,14 +303,23 @@ $(document).ready(function(){
   
 	//download
 	$('#download-link').click(function(e){
-		var selected = getSelected(false,'file');
-		if (selected.files.length == 1){
-			document.location = '/assets/get/'+selected.files[0];
+		var selected = getSelected(false);
+		if (selected.folders.length == 0){
+			//Get only assets
+			if (selected.files.length == 1){
+				document.location = '/assets/get/'+selected.files[0];
+			}
+			else if(selected.files.length > 1){
+				var name = prompt("Selected files will be downloaded as a zip file\nWhat would you like to call this file?","Downloaded Files");
+				if (name){
+					document.location = '/assets/zip/' + name + '/'+selected.files.toString();
+				}
+			}
 		}
-		else if(selected.files.length > 1){
+		else{
 			var name = prompt("Selected files will be downloaded as a zip file\nWhat would you like to call this file?","Downloaded Files");
 			if (name){
-				document.location = '/assets/zip/' + name + '/'+selected.files.toString();
+				document.location = '/folders/download/' + name + '/'+selected.folders.toString() + '/' + selected.files.toString();
 			}
 		}
 		return false;

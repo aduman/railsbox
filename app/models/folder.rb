@@ -22,8 +22,21 @@ class Folder < ActiveRecord::Base
     path << name.to_s
   end
   
+  def folderChildren
+    Folder.where(:parent_id=>id)
+  end
+  
   def hasPermissions
     
   end
   
+
+  def descendants
+     descendant_folders_include_self - self
+  end
+
+  #returns all descendants that are under this folder including current folder
+  def descendant_folders_include_self
+    (folderChildren ? folderChildren.map{|a| a.descendant_folders_include_self} << self : self).flatten
+  end
 end
