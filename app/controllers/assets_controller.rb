@@ -44,13 +44,14 @@ class AssetsController < ApplicationController
     if @assets
       require 'zip/zip'
       require 'zip/zipfilesystem'
-      Zip::ZipOutputStream.open(params[:name]) do |zos|
+      t = Tempfile.new("downloadZip#{request.remote_ip}")
+      Zip::ZipOutputStream.open(t.path) do |zos|
         @assets.each do |file|
           zos.put_next_entry(file.uploaded_file_file_name)
           zos.print IO.read(file.uploaded_file.path)
         end
       end
-      send_file params[:name], :type => "application/zip", :filename => params[:name] + ".zip"
+      send_file t.path, :type => "application/zip", :disposition => "attachment", :filename => params[:name] + ".zip"
     end
   end
 
