@@ -14,7 +14,6 @@ before :each do
   fixtures :all
   render_views
 
-
   it "index should be OK" do
     get :index
   	response.should render_template(:index)

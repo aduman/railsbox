@@ -152,6 +152,12 @@ class FoldersController < ApplicationController
     @log_file_path += @folders.collect{|a| a.name}.join(', ')
   end 
   
+  def download
+    @folder = Folder.find(params[:id])
+    @childFolders = Folder.where(:parent_id => params[:id])
+  end
+  
+  
   private
   
   def log_folder

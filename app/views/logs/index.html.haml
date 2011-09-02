@@ -15,6 +15,9 @@
       .field
         = label_tag(:caction,"Action:")
         = select_tag(:caction, options_for_select(@actions.map{|a| a.action}, :selected => params[:caction]),{:include_blank => true})
+      .field
+        = label_tag(:created_on, "Created On:")
+        = datetime_select("abc",:created_on)
       .actions
         = submit_tag "Search", :class => 'button search'
         = link_to 'Clear All', '#', :id=> 'clear'

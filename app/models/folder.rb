@@ -10,15 +10,17 @@ class Folder < ActiveRecord::Base
   validates_presence_of :name
   
   validates_uniqueness_of :name, :scope => :parent_id
-  
-  def breadcrumbs
+    
+  def breadcrumbs(stop = "")
     path = ''
-    ancestors.reverse.each do |folder| 
-      path <<  folder.name 
-      path << '/'
-    end 
+    ancestors.each do |folder| 
+      path =  folder.name + '/' + path
+      if folder.id == stop
+        break
+      end 
+    end unless id == stop
     path << name.to_s
-  end  
+  end
   
   def hasPermissions
     

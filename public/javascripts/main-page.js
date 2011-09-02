@@ -2,6 +2,7 @@ $(document).ready(function(){
 	function getSelected(single, type){
 		if (type===undefined){
 			var value = $('#file-container > .row-container > .mark-it > .tick:checked');
+			//Nothing is selected
 			if(value.size() < 1){
 				alert('Please select an item');
 				return false;
@@ -9,11 +10,13 @@ $(document).ready(function(){
 		}
 		else{
 			var value = $('#file-container > .row-container > .mark-it > .'+type+'Tick:checked');
+			//Nothing is selected of the specified type
 			if(value.size() < 1){
 				alert('Please select a ' + type);
 				return false;
 			}
 		}
+		
 		if(single && value.size() > 1){
 			//More than 1 item selected if single is true
 			alert('Please select only 1 item');
