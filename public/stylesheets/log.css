@@ -7,6 +7,14 @@ a:hover, #log .user a:hover{
 }
 #log .row{
 clear:both;
+padding: 1px 0;
+float:left;
+width:100%;
+}
+#log .row:hover{
+	border-top: 1px solid silver;
+	border-bottom: 1px solid silver;
+	padding:0;
 }
 #log .date{
 	width: 15%;
@@ -34,10 +42,18 @@ clear:both;
 #log #result{
 width: 100%;
 clear:both;
-margin: 10px 0;
+float:left;
+}
+
+#log #result p{
+	margin: 1px 0;
 }
 
 #log #result.loading{
 background: white url('/images/colorbox/loading.gif') no-repeat center center;
 height: 32px;
+}
+#log form .field label, form .field input, form .field textarea, form .field select{
+	float: none;
+	clear: none;
 }

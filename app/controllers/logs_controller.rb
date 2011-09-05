@@ -20,7 +20,31 @@ class LogsController < ApplicationController
       @logs = @logs.where('user_id = ?',params[:cuserid])
     end
     
-    @logs = @logs.order("created_at desc").limit(25)
+    if !params[:cuserid].blank?
+      @logs = @logs.where('user_id = ?',params[:cuserid])
+    end
+    
+    if !params[:from].blank?
+      @fromDate = DateTime.new(params[:from]["date(1i)"].to_i,
+        params[:from]["date(2i)"].to_i,
+        params[:from]["date(3i)"].to_i,
+        params[:from]["date(4i)"].to_i,
+        params[:from]["date(5i)"].to_i
+      )
+      @logs = @logs.after(@fromDate)
+    end
+    
+    if !params[:to].blank?
+      toDate = DateTime.new(params[:to]["date(1i)"].to_i,
+        params[:to]["date(2i)"].to_i,
+        params[:to]["date(3i)"].to_i,
+        params[:to]["date(4i)"].to_i,
+        params[:to]["date(5i)"].to_i
+      )
+      @logs = @logs.before(toDate)
+    end
+    
+    @logs = @logs.order("created_at desc").paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -40,5 +64,4 @@ class LogsController < ApplicationController
     end
   end
 
-  
 end

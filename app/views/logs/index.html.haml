@@ -5,6 +5,7 @@
   
 #log
   #search
+    = @qwerty
     = form_tag logs_path do
       .field
         = label_tag(:cuserid,"User:")
@@ -16,11 +17,13 @@
         = label_tag(:caction,"Action:")
         = select_tag(:caction, options_for_select(@actions.map{|a| a.action}, :selected => params[:caction]),{:include_blank => true})
       .field
-        = label_tag(:created_on, "Created On:")
-        = datetime_select("abc",:created_on)
+        = label_tag('from','Date From: ')
+        = datetime_select('from','date', :include_blank => true, :order => [:day,:month,:year,:hour,:minute])
+        = label_tag('to','To: ')
+        = datetime_select('to','date', :include_blank => true, :order => [:day,:month,:year,:hour,:minute])
       .actions
         = submit_tag "Search", :class => 'button search'
-        = link_to 'Clear All', '#', :id=> 'clear'
+        = link_to 'Clear All', '#', :id=> 'clear', :class => 'button delete'
   #headers
     %p.date Date/Time
     %p.user User
@@ -45,6 +48,11 @@
           - if log.action?
             = log.action.capitalize
         %p.file_path
-          = log.file_path
+          - if log.file_path
+            = log.file_path
+          - else
+            &nbsp;
         %p.more_info
           = link_to "More Info...", log, :class=> "colorbox"
+  .clear
+  = will_paginate @logs

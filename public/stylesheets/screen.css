@@ -809,3 +809,24 @@ display:block;
 }
 
 /****** End of User Search ********/
+
+/***************** Page Numbers ****************/
+.pagination{
+text-align:center;
+margin-top:20px;
+}
+
+.pagination a, .pagination em.current, .pagination .disabled{
+	padding: 7px;
+	border: 1px solid silver;
+	margin: 2px;
+}
+.pagination a:hover, .pagination em.current{
+	text-decoration: none;
+	background-color:#dcdcdc;
+}
+
+.pagination .disabled{
+	color: gray;
+}
+/****************** End of Page Numbers ******************/

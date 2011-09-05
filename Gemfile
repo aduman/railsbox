@@ -9,6 +9,7 @@ gem 'haml-rails'
 gem 'paperclip'
 gem "bcrypt-ruby", :require => "bcrypt"
 gem 'acts_as_tree'
+gem 'will_paginate'
 
 group :development do
 	gem 'mongrel'	

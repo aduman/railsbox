@@ -1,11 +1,10 @@
 class FoldersController < ApplicationController
 
-  before_filter :find_folder, :only=> [:show, :details, :browse, :new]
+  before_filter :find_folder, :only=> [:show, :details, :browse, :new, :download]
   
   after_filter :log_folder, :only=> [:create, :update]
   
   skip_after_filter :log, :only => :folderChildren
-  
   
   def index
     @folders = current_user.accessible_folders.where('folders.parent_id is null or folders.parent_id = 0').order(:name)
@@ -160,6 +159,9 @@ class FoldersController < ApplicationController
     
     t = Tempfile.new("downloadZip#{request.remote_ip}")
     Zip::ZipOutputStream.open(t.path) do |zos|
+      
+      #Download each folder
+      @log_file_path = @downloadFolders.first.parent.name + ": "
       @downloadFolders.each do |parentFolder|
         @folders = parentFolder.descendant_folders_include_self
         @folders.each do |folder|
@@ -169,13 +171,19 @@ class FoldersController < ApplicationController
           end
         end
       end
-
+      
+      @log_file_path += @downloadFolders.collect{|f| f.name+"/"}.join(', ')
+      
+      
+      #If assets are selected aswell
       if params.has_key?(:assets)
+        @log_file_path += ", "
         @assets = Asset.find(params[:assets].split(','))
         @assets.each do |asset|
           zos.put_next_entry(asset.uploaded_file_file_name)
           zos.print IO.read(asset.uploaded_file.path)
         end
+        @log_file_path += @assets.collect{|a| a.uploaded_file_file_name}.join(', ')
       end
     end
     send_file t.path, :type => "application/zip", :disposition => "attachment", :filename => params[:name] + ".zip"

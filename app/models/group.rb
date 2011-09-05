@@ -10,5 +10,4 @@ class Group < ActiveRecord::Base
       escaped_query = "%" + name.gsub('%', '\%').gsub('_', '\_') + "%"
       where('name ILIKE ?',escaped_query).order("name")
   }
-  
 end

@@ -31,7 +31,7 @@
       %li
         Can Hotlink:
       
-  .clear
+.clear
   
 %h2 Groups
 - if @user.groups.empty?
@@ -49,5 +49,5 @@
     %li 
       =link_to folder.breadcrumbs, folder
 .actions
-  = button_to "Delete", @user, :confirm => 'Are you sure?', :method => :delete, :class => 'button delete'
+  = button_to "Delete User", @user, :confirm => 'Are you sure?', :method => :delete, :class => 'button delete'
 .clear
