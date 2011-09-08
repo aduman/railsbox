@@ -6,45 +6,13 @@ class LogsController < ApplicationController
     @controllers = Log.select('DISTINCT (controller)').order('controller ASC')
     @actions = Log.select('DISTINCT (action)').order('action ASC')
     
-    @logs = Log.order("created_at desc")
+    #@log = Log.new(params[:log]) || Log.new
     
-    if !params[:caction].blank?
-      @logs = @logs.where('action = ?',params[:caction])
-    end
+    @search = Log.search(params[:search])
     
-    if !params[:ccontroller].blank?
-      @logs = @logs.where('controller = ?',params[:ccontroller])
-    end
+    @log_parameters = "CHANGE CHANGE CHANGE"
     
-    if !params[:cuserid].blank?
-      @logs = @logs.where('user_id = ?',params[:cuserid])
-    end
-    
-    if !params[:cuserid].blank?
-      @logs = @logs.where('user_id = ?',params[:cuserid])
-    end
-    
-    if !params[:from].blank?
-      @fromDate = DateTime.new(params[:from]["date(1i)"].to_i,
-        params[:from]["date(2i)"].to_i,
-        params[:from]["date(3i)"].to_i,
-        params[:from]["date(4i)"].to_i,
-        params[:from]["date(5i)"].to_i
-      )
-      @logs = @logs.after(@fromDate)
-    end
-    
-    if !params[:to].blank?
-      toDate = DateTime.new(params[:to]["date(1i)"].to_i,
-        params[:to]["date(2i)"].to_i,
-        params[:to]["date(3i)"].to_i,
-        params[:to]["date(4i)"].to_i,
-        params[:to]["date(5i)"].to_i
-      )
-      @logs = @logs.before(toDate)
-    end
-    
-    @logs = @logs.order("created_at desc").paginate(:page => params[:page])
+    @logs = @search.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -62,6 +30,17 @@ class LogsController < ApplicationController
       format.html # show.html.erb
       format.xml  { render :xml => @log }
     end
+  end
+  
+  private
+  def check_datetime_selects(a)
+    returnDate = DateTime.new(
+      a["date(1i)"].to_i,
+      a["date(2i)"].to_i,
+      a["date(3i)"].to_i,
+      a["date(4i)"].to_i,
+      a["date(5i)"].to_i
+    )
   end
 
 end

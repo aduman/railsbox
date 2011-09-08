@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   
   scope :named, lambda {|name| 
       escaped_query = "%" + name.gsub('%', '\%').gsub('_', '\_') + "%"
-      where('name ILIKE ? OR first_name ILIKE ? OR last_name ILIKE ?',escaped_query,escaped_query,escaped_query).order("name")
+      where("name ILIKE ? OR first_name || ' ' || last_name ILIKE ?",escaped_query,escaped_query).order("name")
   }
   
   def name

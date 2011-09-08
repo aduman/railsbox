@@ -87,7 +87,7 @@
         <%= link_to 'Details', asset_details_path(asset), :class => "details "+ asset.file_extension[1..-1]+"FileType"  %>
         <% if @search_query %>
           <% if asset.folder %>
-            <%= link_to h(asset.folder.breadcrumbs+"/"+asset.uploaded_file_file_name), download_url(asset) %>
+            <%= link_to h(asset.folder.breadcrumbs+asset.uploaded_file_file_name), download_url(asset) %>
           <% else %>
             <%= link_to h(asset.uploaded_file_file_name), download_url(asset) %>
           <% end %>

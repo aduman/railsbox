@@ -5,24 +5,24 @@
   
 #log
   #search
-    = @qwerty
-    = form_tag logs_path do
+    = form_for @search do |f|
       .field
-        = label_tag(:cuserid,"User:")
-        = select_tag(:cuserid, options_for_select(@Users.map{|u| [u.name,u.id]}, :selected => params[:cuserid]),{:include_blank => true})
+        = f.label :usernamed, "User:"
+        = f.text_field :usernamed
       .field
-        = label_tag(:ccontroller,"Controller:")
-        = select_tag(:ccontroller, options_for_select(@controllers.map{|c| c.controller}, :selected => params[:ccontroller]),{:include_blank => true})
+        = f.label :controller_contains, "Controller:"
+        = f.select :controller_contains, options_for_select(@controllers.map{|c| c.controller}), {:include_blank => true }
       .field
-        = label_tag(:caction,"Action:")
-        = select_tag(:caction, options_for_select(@actions.map{|a| a.action}, :selected => params[:caction]),{:include_blank => true})
+        = f.label :action_contains,"Action:"
+        = f.select :action_contains, options_for_select(@actions.map{|a| a.action}), {:include_blank => true}
       .field
-        = label_tag('from','Date From: ')
-        = datetime_select('from','date', :include_blank => true, :order => [:day,:month,:year,:hour,:minute])
-        = label_tag('to','To: ')
-        = datetime_select('to','date', :include_blank => true, :order => [:day,:month,:year,:hour,:minute])
+        = f.label :created_at_greater_than,"Date From:"
+        = f.datetime_select :created_at_greater_than, :include_blank => true, :order => [:day,:month,:year,:hour,:minute]
+      .field
+        = f.label :created_at_less_than,"Date To:"
+        = f.datetime_select :created_at_less_than, :include_blank => true, :order => [:day,:month,:year,:hour,:minute]
       .actions
-        = submit_tag "Search", :class => 'button search'
+        = f.submit "Search", :class => 'button search'
         = link_to 'Clear All', '#', :id=> 'clear', :class => 'button delete'
   #headers
     %p.date Date/Time

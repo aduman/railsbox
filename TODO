@@ -2,12 +2,9 @@ Front end:
 * Test search functionality
 * degrade JS actions
 * Better URLs for browse/download
-* Download folder as zip file
-* Make search function work when javascript disabled
 
 Back end:
 * Send emails to admins when user created
-* Folder links to details page (rather than browse)
 * User validation rules - additional
 * Consistancy with html pages - either ERB or HAML.
 * Better pagination for search results

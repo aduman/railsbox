@@ -10,6 +10,8 @@ gem 'paperclip'
 gem "bcrypt-ruby", :require => "bcrypt"
 gem 'acts_as_tree'
 gem 'will_paginate'
+gem 'meta_where'
+gem 'meta_search'
 
 group :development do
 	gem 'mongrel'	
