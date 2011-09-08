@@ -1,3 +1,4 @@
+
   <div id="logo-holder">
    <%= render :partial=>'/shared/logo' %>
   </div>
@@ -28,11 +29,7 @@
         </div>
         <div class="field">
           <%= f.label :company %>
-          <%= f.text_field :company %>
-        </div>
-        <div class="field">
-          <%= f.label :AHC_contact, "Contact at AHC" %>
-          <%= f.text_field :AHC_contact %>
+          <%= f.text_field :last_name %>
         </div>
         <div class="field">
           <%= f.label :password %>

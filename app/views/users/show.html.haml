@@ -7,6 +7,9 @@
 %p
   Email:
   = @user.email
+%p
+  Contact at AHC:
+  = @user.AHC_contact
 
 %h2 Permissions
 - if current_user.is_admin  

@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :groups, :through=>:user_groups 
   has_many :logs
   
-  attr_accessible :email, :password, :password_confirmation, :first_name, :last_name, :company
+  attr_accessible :email, :password, :password_confirmation, :first_name, :last_name, :company, :AHC_contact
   
   scope :inactive, lambda { where('active = false').order("name") }
   
@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates_presence_of :password, :on => :create
   validates_presence_of :email
+  validates_presence_of :AHC_contact
   validates_uniqueness_of :email
   
   def accessible_folders

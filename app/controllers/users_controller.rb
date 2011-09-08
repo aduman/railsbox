@@ -2,6 +2,7 @@ class UsersController < ApplicationController
    
   skip_before_filter :is_authorised, :only=>[:new, :create]
   before_filter :check_admin, :except =>[:new, :create, :me]
+  before_filter :mailer_set_url_options, :only=>[:create]
   skip_after_filter :log, :only => [:searchUsersResult]
   after_filter :logFilePath, :except => [:index, :new, :edit, :searchUsersResult]
   
@@ -16,19 +17,16 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    
-    config = File.open('config.txt', 'r')
-    to = config.readlines[0].chomp
-    config.close
-    UserMailer.user_registered(@user, to).deliver
-    redirect_to users_url, :notice => "Signed up!"
-    
-    #if @user.save
-    #  UserMailer.user_registered(@user).deliver
-    #  redirect_to users_url, :notice => "Signed up!"
-    #else
-    #  render "new"
-    #end
+           
+    if @user.save
+      config = File.open('config.txt', 'r')
+      to = config.readlines[0].chomp
+      config.close
+      UserMailer.user_registered(@user, to).deliver
+      redirect_to users_url, :notice => "Signed up!"
+    else
+      render "new"
+    end
   end
   
   def show
