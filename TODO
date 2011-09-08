@@ -2,6 +2,10 @@ Front end:
 * Test search functionality
 * degrade JS actions
 * Better URLs for browse/download
+<<<<<<< HEAD
+=======
+* Download folder as zip file
+>>>>>>> 2ea298397738e6466b784feafd497887cf3bb4d8
 
 Back end:
 * Send emails to admins when user created

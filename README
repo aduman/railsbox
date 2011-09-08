@@ -20,4 +20,5 @@ Getting started:
 
 CAVEAT: Some of the functionality is done due to current user expectations - even though its dirty.
 
+You will need to add your administrator's email address in config..example.txt and rename this to config.txt to recieve emails about users being registered
 

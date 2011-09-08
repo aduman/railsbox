@@ -4,3 +4,4 @@ log/*.log
 tmp/
 assets/
 .redcar
+config.txt

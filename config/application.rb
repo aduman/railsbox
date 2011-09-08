@@ -34,6 +34,7 @@ module Railsbox
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
 
     # Configure the default encoding used in templates for Ruby 1.9.
+    ActionMailer::Base.smtp_settings[:enable_starttls_auto] = false
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.

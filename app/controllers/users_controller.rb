@@ -16,11 +16,19 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    if @user.save
-      redirect_to users_url, :notice => "Signed up!"
-    else
-      render "new"
-    end
+    
+    config = File.open('config.txt', 'r')
+    to = config.readlines[0].chomp
+    config.close
+    UserMailer.user_registered(@user, to).deliver
+    redirect_to users_url, :notice => "Signed up!"
+    
+    #if @user.save
+    #  UserMailer.user_registered(@user).deliver
+    #  redirect_to users_url, :notice => "Signed up!"
+    #else
+    #  render "new"
+    #end
   end
   
   def show
