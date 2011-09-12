@@ -18,6 +18,7 @@ Getting started:
 	rake db:setup
 	rails s
 
+
 CAVEAT: Some of the functionality is done due to current user expectations - even though its dirty.
 
 You will need to add your administrator's email address in config..example.txt and rename this to config.txt to receive emails about users being registered
