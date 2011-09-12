@@ -1,0 +1,1 @@
+User.create(:email=> 'admin@test.com', :password=>'admin', :password_confirmation=>'admin', :active=>true, :is_admin=>true, :AHC_contact=>'qwerty')

@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(:version => 20110908161440) do
     t.string   "password_hash"
     t.string   "password_salt"
     t.string   "name"
-    t.boolean  "active",        :default => false
+    t.boolean  "active",          :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "quota"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(:version => 20110908161440) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "company"
-    t.string   "AHC_contact"
+    t.string   "company_contact"
   end
 
 end
