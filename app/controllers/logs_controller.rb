@@ -24,7 +24,6 @@ class LogsController < ApplicationController
   # GET /logs/1.xml
   def show
     @log = Log.find(params[:id])
-    @logy = Log.find(params[:id])
     @log_target_id = @log.id
 
     respond_to do |format|
