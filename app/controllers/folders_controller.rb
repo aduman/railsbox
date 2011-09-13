@@ -161,7 +161,8 @@ class FoldersController < ApplicationController
     Zip::ZipOutputStream.open(t.path) do |zos|
       
       #Download each folder
-      @log_file_path = @downloadFolders.first.parent.name + ": "
+      @log_file_path = @downloadFolders.first.parent ? @downloadFolders.first.parent.name : "/"
+      @log_file_path += ": "
       @downloadFolders.each do |parentFolder|
         @folders = parentFolder.descendant_folders_include_self
         @folders.each do |folder|
