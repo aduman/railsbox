@@ -1,1 +1,11 @@
-User.create(:email=> 'admin@test.com', :password=>'admin', :password_confirmation=>'admin', :active=>true, :is_admin=>true, :AHC_contact=>'qwerty')
+adminUser = User.create(
+  :first_name => 'admin',
+  :last_name => 'admin',
+  :email => 'admin@admin.com', 
+  :password =>'admin', 
+  :password_confirmation =>'admin', 
+  :company_contact => 'qwerty'
+)
+
+adminUser.toggle! :is_admin
+adminUser.toggle! :active

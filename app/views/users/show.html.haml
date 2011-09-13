@@ -6,10 +6,10 @@
   = @user.company
 %p
   Email:
-  = @user.email
+  = mail_to @user.email
 %p
-  Contact at AHC:
-  = @user.AHC_contact
+  Contact in Company:
+  = @user.referrer
 
 %h2 Permissions
 - if current_user.is_admin  

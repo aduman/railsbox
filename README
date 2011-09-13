@@ -17,6 +17,9 @@ Getting started:
 	bundle install
 	rake db:setup
 	rails s
+	
+Admin user details: 
+	Username - 
 
 
 CAVEAT: Some of the functionality is done due to current user expectations - even though its dirty.
