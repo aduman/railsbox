@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
   
   after_filter :log, :except=>[:new, :edit]
   
+   before_filter :mailer_set_url_options
+ 
+  
+ 
 
   layout proc{ |c| c.request.xhr? ? false : "application" }
    
@@ -58,5 +62,10 @@ def build_date_from_params
   params[:range]["date(2i)"].to_i,
   params[:range]["date(3i)"].to_i')
 end
+
+  def mailer_set_url_options
+    ActionMailer::Base.default_url_options[:host] = request.host_with_port
+  end  
+
 
 end
